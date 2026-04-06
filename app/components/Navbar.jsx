@@ -106,11 +106,11 @@ const Navbar = ({ cart }) => {
     <>
       <div
         className={`fixed w-full z-[9999] flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[15dvh]"
-          }  px-[100px] backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+          }  px-4 md:px-[100px] backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
           }`}
       >
-        {/* social media links */}
-        <div className="flex items-center justify-center w-fit gap-1">
+        {/* social media links - hidden on mobile */}
+        <div className="hidden md:flex items-center justify-center w-fit gap-1">
           {socialLinks.map((item, index) => (
             <a
               key={index}
@@ -124,15 +124,15 @@ const Navbar = ({ cart }) => {
           ))}
         </div>
 
-        {/* navigation links */}
-        <ul className="flex gap-1 items-end">
+        {/* navigation links - hidden on mobile, visible on md and up */}
+        <ul className="hidden md:flex gap-1 items-end">
           {navLinks.map((item, index) => (
             <li key={index}>
               <Link
                 to={item.href}
                 className={`flex hover:-translate-y-4 ${item.rotate} transition-all duration-400 cursor-pointer group`}
               >
-                <span className="h-10 w-fit px-4 text-(--white) rounded-full bg-(--color-primary) flex items-center justify-center font-lex-reg group-hover:text-(--color-primary) group-hover:bg-(--white) group-hover:border border-(--color-primary) transition-all duration-400">
+                <span className="h-10 w-fit px-4 text-(--white) rounded-full bg-(--color-primary) flex items-center justify-center font-lex-reg group-hover:text-(--color-primary) group-hover:bg-(--white) group-hover:border border-(--color-primary) transition-all duration-400 text-sm md:text-base">
                   {item.text}
                 </span>
               </Link>
@@ -141,7 +141,7 @@ const Navbar = ({ cart }) => {
         </ul>
 
         {/* Action Buttons: Cart & Buy Now */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           {/* Cart Icon with Badge */}
           {/* <Link to="/cart" className="relative h-12 w-12 rounded-full bg-(--white) text-(--color-primary) flex items-center justify-center border border-(--color-primary) hover:bg-(--color-primary) hover:text-(--white) transition-all"> */}
           <Link to="/cart" className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group relative">

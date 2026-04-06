@@ -50,11 +50,11 @@ export function CartMain({layout, cart: originalCart}) {
       aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}
     >
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className={layout === 'page' ? 'container mx-auto px-[100px] py-8' : 'cart-details'}>
+      <div className={layout === 'page' ? 'container mx-auto px-4 md:px-[100px] py-8' : 'cart-details'}>
         {layout === 'page' && (
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-(--color-primary) mb-2 font-lex-bold">Shopping Cart</h1>
-            <p className="text-(--color-primary) opacity-70">Review and manage your items before checkout</p>
+            <h1 className="text-2xl md:text-4xl font-bold text-(--color-primary) mb-2 font-lex-bold">Shopping Cart</h1>
+            <p className="text-sm md:text-base text-(--color-primary) opacity-70">Review and manage your items before checkout</p>
           </div>
         )}
         
@@ -145,11 +145,11 @@ function CartEmpty({hidden = false}) {
   return (
     <div hidden={hidden}>
       {hidden === false && (
-        <div className="w-full min-h-screen flex items-center justify-center bg-white px-[100px] text-(--color-primary)">
+        <div className="w-full min-h-screen flex items-center justify-center bg-white px-4 md:px-[100px] text-(--color-primary)">
           <div className="text-center">
             <div className="mb-6 flex justify-center">
               <svg
-                className="w-24 h-24 text-(--accent)"
+                className="w-20 md:w-24 h-20 md:h-24 text-(--accent)"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -162,8 +162,8 @@ function CartEmpty({hidden = false}) {
                 />
               </svg>
             </div>
-            <h2 className="text-3xl font-bold text-(--color-primary) mb-2 font-lex-bold">Your cart is empty</h2>
-            <p className="text-xl text-(--color-primary) opacity-70 mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-(--color-primary) mb-2 font-lex-bold">Your cart is empty</h2>
+            <p className="text-base md:text-xl text-(--color-primary) opacity-70 mb-8">
               Looks like you haven&rsquo;t added anything yet. Let&rsquo;s get you started!
             </p>
             <Link

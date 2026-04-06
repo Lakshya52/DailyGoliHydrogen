@@ -59,28 +59,28 @@ const ingredientsData = [
 
 const Ingredients = () => {
   return (
-    <div id="ingredients" className="min-h-dvh py-30  flex flex-col items-center justify-center gap-4 px-[100px]">
+    <div id="ingredients" className="min-h-dvh py-15 md:py-30  flex flex-col items-center justify-center gap-4 px-4 md:px-[100px]">
       <div className="flex flex-col items-center justify-center gap-0  ">
-        <div className="font-lex-reg w-fit rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center">Ingredients</div>
-        <p className="text-(--color-primary) text-[65px] font-lex-reg text-center">
+        <div className="font-lex-reg w-fit rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">Ingredients</div>
+        <p className="text-(--color-primary) text-4xl md:text-[65px] font-lex-reg text-center">
           ✦ In The Pill ✦
         </p>
       </div>
-      <div className="min-h-fit w-full bg-(--white) rounded-2xl grid grid-cols-1 md:grid-cols-3 grid-rows-auto p-20 gap-20">
+      <div className="min-h-fit w-full bg-(--white) rounded-2xl grid grid-cols-1 md:grid-cols-3 grid-rows-auto p-6 md:p-20 gap-8 md:gap-20">
         {ingredientsData.map((item, index) => (
           <div
             key={index}
             className="flex flex-col items-center justify-center gap-2 text-center"
           >
-            <span className="font-lex-reg text-(--color-primary) text-5xl">
+            <span className="font-lex-reg text-(--color-primary) text-3xl md:text-5xl">
               {item.amount}
             </span>
 
-            <span className="font-lex-med text-(--color-primary) text-2xl">
+            <span className="font-lex-med text-(--color-primary) text-lg md:text-2xl">
               {item.name}
             </span>
 
-            <span className="text-xl font-lex-light text-(--color-primary)">
+            <span className="text-base md:text-xl font-lex-light text-(--color-primary)">
               {item.desc}
             </span>
           </div>

@@ -55,28 +55,28 @@ const Faq = () => {
     }
   };
   return (
-    <div id="faqs" className="min-h-dvh flex items-center justify-start flex-col py-20 px-[10px] md:px-[100px]">
+    <div id="faqs" className="min-h-dvh flex items-center justify-start flex-col py-10 md:py-20 px-4 md:px-[100px]">
         <div className='flex flex-col items-center justify-center' > 
-            <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center">Any Last Questions ?</div>
-            <h1 className='text-[35px] md:text-[65px] text-(--color-primary) font-lex-reg text-center' >Frequent Asked Questions</h1>
-            <p className='font-lex-reg text-(--color-primary) text-xl text-center' >Everything you need to know about Daily Goli MB-360, before you buy.</p>
+            <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">Any Last Questions ?</div>
+            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center' >Frequent Asked Questions</h1>
+            <p className='font-lex-reg text-(--color-primary) text-sm md:text-xl text-center' >Everything you need to know about Daily Goli MB-360, before you buy.</p>
         </div>
 
          {/* questions container */}
-        <div className="w-full md:w-[70%] mt-15 flex flex-col gap-4">
+        <div className="w-full md:w-[70%] mt-15 flex flex-col gap-4 px-2 md:px-0">
           {faqData.map((item, index) => {
             const isOpen = openItems.includes(index);
             return (
               <div
                 key={index}
-                className={`rounded-2xl font-lex-reg text-xl w-full text-(--color-primary) transition-all duration-300 ${isOpen ? "bg-(--accent)" : "bg-(--white) hover:bg-(--color-primary) hover:text-(--white) cursor-pointer"}`}
+                className={`rounded-2xl font-lex-reg text-base md:text-xl w-full text-(--color-primary) transition-all duration-300 ${isOpen ? "bg-(--accent)" : "bg-(--white) hover:bg-(--color-primary) hover:text-(--white) cursor-pointer"}`}
               >
                 {/* question */}
                 <div
                   onClick={() => toggleItem(index)}
-                  className="flex items-center justify-between min-h-20 py-4 px-6 cursor-pointer"
+                  className="flex items-center justify-between min-h-16 md:min-h-20 py-4 px-4 md:px-6 cursor-pointer"
                 >
-                  <h3 className={`${isOpen ? "font-lex-med" :""} `}>
+                  <h3 className={`${isOpen ? "font-lex-med" :""} text-sm md:text-base`}>
                     {item.q}
                   </h3>
 

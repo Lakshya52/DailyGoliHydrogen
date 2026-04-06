@@ -59,28 +59,28 @@ const Product = ({ product }) => {
       {/* wrapper */}
       <div
         id="product"
-        className="min-h-dvh flex items-center justify-start flex-col py-20 "
+        className="min-h-dvh flex items-center justify-start flex-col py-10 md:py-20 "
       >
-        <div className="flex flex-col items-center justify-center gap-2 ">
-          <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-2 px-4 md:px-0">
+          <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">
             Hurry Up
           </div>
-          <h1 className="text-[65px] text-(--color-primary) font-lex-reg text-center leading-18 mb-5 px-4 md:px-0">
+          <h1 className="text-5xl lg:text-[3rem] text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
             Limited Time Offer! <br /> Save Up To 22% on Your First Order!
           </h1>
-          <p className="font-lex-reg text-(--color-primary) text-xl px-4 md:px-0 text-center">
+          <p className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
             "Inspired by Science. Powered by Plants."
           </p>
-          <span className="flex text-(--color-primary) font-lex-reg text-xl px-4 md:px-0 text-center" >
+          <span className="flex flex-col md:flex-row text-(--color-primary) font-lex-reg text-sm md:text-xl text-center gap-2 md:gap-0" >
             4.8 stars | 85k Reviews | <b>&nbsp;1K+ Monthly Subscribers</b>
           </span>
-          <span className="font-lex-reg text-(--color-primary) text-xl px-4 md:px-0 text-center">
+          <span className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
             Use code <b>DAILYGOLI22</b> at checkout to claim your discount.
           </span>
         </div>
 
         {/* product purchasing section */}
-        <div className="w-full md:w-[70%] mt-15 flex flex-col md:flex-row gap-12 items-start justify-between relative px-6 md:px-0">
+        <div className="w-full md:w-[70%] mt-8 md:mt-15 flex flex-col md:flex-row gap-8 md:gap-12 items-start justify-between relative px-4 md:px-0">
           
           {/* Image Gallery - Left Side */}
           <div className="w-full md:w-1/2 md:min-w-[50%]">
@@ -124,10 +124,10 @@ const Product = ({ product }) => {
             
             {/* Product Title */}
             <div>
-              <h2 className="text-4xl font-lex-reg text-(--color-primary) mb-2 uppercase">
+              <h2 className="text-2xl md:text-4xl font-lex-reg text-(--color-primary) mb-2 uppercase">
                 {title}
               </h2>
-              <p className="text-lg text-(--color-primary) opacity-70">
+              <p className="text-sm md:text-lg text-(--color-primary) opacity-70">
                 Premium Metabolic Balance Formula
               </p>
             </div>
@@ -136,7 +136,7 @@ const Product = ({ product }) => {
             <div className="flex items-center gap-3">
               <div className="flex gap-1 text-(--color-primary)">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={18} fill="currentColor" />
+                  <Star key={i} size={16} className="md:w-[18px] md:h-[18px]" fill="currentColor" />
                 ))}
               </div>
               <span className="text-(--color-primary) font-lex-reg">
@@ -174,22 +174,22 @@ const Product = ({ product }) => {
             </div>
 
             {/* Pricing */}
-            <div className="bg-(--bg-light) rounded-2xl p-4">
+            <div className="bg-(--bg-light) rounded-2xl p-4 md:p-6">
               <p className="text-(--color-primary) opacity-60 text-sm mb-2">
                 {pricing[selectedPurchase].label}
               </p>
               <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-5xl font-lex-reg text-(--color-primary)">
+                <span className="text-3xl md:text-5xl font-lex-reg text-(--color-primary)">
                   {firstVariant?.price?.currencyCode === 'INR' ? '₹' : firstVariant?.price?.currencyCode || '₹'}
                   {pricing[selectedPurchase].price}
                 </span>
                 {selectedPurchase === 'monthly' && firstVariant?.compareAtPrice && (
-                  <span className="text-(--color-primary) opacity-50 line-through">
+                  <span className="text-sm md:text-base text-(--color-primary) opacity-50 line-through">
                     ₹{firstVariant.compareAtPrice.amount}
                   </span>
                 )}
               </div>
-              <p className="text-sm text-(--color-primary) opacity-50">
+              <p className="text-xs md:text-sm text-(--color-primary) opacity-50">
                 {selectedPurchase === 'monthly' 
                   ? 'Cancel anytime, no hidden charges'
                   : 'One-time payment, free shipping'}
@@ -198,20 +198,20 @@ const Product = ({ product }) => {
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-4">
-                <p className="font-lex-reg text-(--color-primary)">Quantity:</p>
-                <div className="flex items-center border border-(--color-primary) rounded-xl overflow-hidden h-12">
+                <p className="font-lex-reg text-sm md:text-base text-(--color-primary)">Quantity:</p>
+                <div className="flex items-center border border-(--color-primary) rounded-xl overflow-hidden h-10 md:h-12">
                     <button 
                         onClick={decrementQuantity}
-                        className="w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-xl"
+                        className="w-10 md:w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-lg md:text-xl"
                     >
                         -
                     </button>
-                    <span className="w-12 h-full flex items-center justify-center font-lex-reg text-lg border-x border-(--color-primary)">
+                    <span className="w-10 md:w-12 h-full flex items-center justify-center font-lex-reg text-sm md:text-lg border-x border-(--color-primary)">
                         {quantity}
                     </span>
                     <button 
                         onClick={incrementQuantity}
-                        className="w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-xl"
+                        className="w-10 md:w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-lg md:text-xl"
                     >
                         +
                     </button>
@@ -244,9 +244,9 @@ const Product = ({ product }) => {
                     <button
                       type="submit"
                       disabled={fetcher.state === 'submitting'}
-                      className="w-full h-16 px-8 bg-(--white) text-(--color-primary) rounded-xl font-lex-reg text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
+                      className="w-full h-12 md:h-16 px-6 md:px-8 bg-(--white) text-(--color-primary) rounded-xl font-lex-reg text-sm md:text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
                     >
-                      <ShoppingCart size={20} className="group-hover:scale-110 transition-transform" />
+                      <ShoppingCart size={18} className="md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
                       {fetcher.state === 'submitting' ? 'Adding...' : 'Add to Cart'}
                     </button>
                   </>
@@ -277,7 +277,7 @@ const Product = ({ product }) => {
                   type="submit"
                   name="checkout"
                   value="true"
-                  className="w-full h-16 px-8 bg-(--color-primary) text-(--white) rounded-xl font-lex-reg text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
+                  className="w-full h-12 md:h-16 px-6 md:px-8 bg-(--color-primary) text-(--white) rounded-xl font-lex-reg text-sm md:text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
                   >
                     Buy Now
                   </button>

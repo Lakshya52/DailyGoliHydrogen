@@ -54,26 +54,26 @@ const Reviews = () => {
   };
 
   return (
-    <div id='reviews' className='min-h-fit flex flex-col items-center gap-10 justify-center font-lex-reg bg-(--white) py-24 px-6 md:px-[100px] overflow-hidden' >
+    <div id='reviews' className='min-h-fit flex flex-col items-center gap-10 justify-center font-lex-reg bg-(--white) py-12 md:py-24 px-4 md:px-[100px] overflow-hidden' >
         <div className='flex flex-col items-center justify-center' > 
             <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center">Reviews</div>
-            <h1 className='text-4xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4' >Join 1000+ Happy Customers</h1>
+            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4' >Join 1000+ Happy Customers</h1>
         </div>
 
-        <div className="flex flex-col md:flex-row items-start justify-start w-full gap-8 relative" >
+        <div className="flex flex-col md:flex-row items-start justify-start w-full gap-6 md:gap-8 relative px-2 md:px-0" >
           
           {/* STICKY RATING SUMMARY */}
-          <div className="w-full md:w-[380px] md:sticky md:top-24 flex flex-col justify-between bg-(--color-primary) text-(--accent) rounded-3xl p-10 h-fit z-10" >
-            <div className="flex items-end justify-between mb-8" >
-              <h1 className="text-6xl font-lex-reg">4.8</h1>
+          <div className="w-full md:w-[380px] md:sticky md:top-24 flex flex-col justify-between bg-(--color-primary) text-(--accent) rounded-3xl p-6 md:p-10 h-fit z-10" >
+            <div className="flex items-end justify-between mb-6 md:mb-8" >
+              <h1 className="text-4xl md:text-6xl font-lex-reg">4.8</h1>
               <div className="flex gap-1 mb-2">
                 {[...Array(5)].map((_,i)=>(
-                  <Star key={i} fill="currentColor" size={24}/>
+                  <Star key={i} fill="currentColor" size={20} className="md:w-6 md:h-6"/>
                 ))}
               </div>
             </div>
 
-            <p className="text-xl mb-8 opacity-90">Based on 100+ verified customer reviews</p>
+            <p className="text-base md:text-xl mb-6 md:mb-8 opacity-90">Based on 100+ verified customer reviews</p>
 
             <div className="flex flex-col gap-4">
               {[

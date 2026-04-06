@@ -44,7 +44,7 @@ export default function Homepage() {
 
   return (
     <div className="home">
-      <div className="min-h-[100px] max-h-[20dvh] px-[100px]" ></div>
+      <div className="min-h-[100px] max-h-[20dvh] px-4 md:px-[100px]" ></div>
       <Hero />
       <img id="benefits" src="/images/ribbon1.png" className="w-full mt-15" alt="ribbon divider" />
       <Facts />

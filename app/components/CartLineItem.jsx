@@ -23,45 +23,71 @@ export function CartLineItem({layout, line, childrenMap}) {
   const lineItemChildren = childrenMap[id];
   const childrenLabelId = `cart-line-children-${id}`;
 
+  const liClass = layout === 'page' ? 'py-6' : 'cart-line';
+  const containerClass = layout === 'page' 
+    ? 'flex gap-4 md:gap-6' 
+    : 'cart-line-inner';
+
   return (
-    <li key={id} className="cart-line">
-      <div className="cart-line-inner">
+    <li key={id} className={liClass}>
+      <div className={containerClass}>
         {image && (
-          <Image
-            alt={title}
-            aspectRatio="1/1"
-            data={image}
-            height={100}
-            loading="lazy"
-            width={100}
-          />
+          <div className={layout === 'page' ? 'flex-shrink-0 w-20 h-20 md:w-24 md:h-24' : ''}>
+            <Image
+              alt={title}
+              aspectRatio="1/1"
+              data={image}
+              height={layout === 'page' ? 96 : 100}
+              loading="lazy"
+              width={layout === 'page' ? 96 : 100}
+              className={layout === 'page' ? 'w-full h-full object-cover rounded-lg' : ''}
+            />
+          </div>
         )}
 
-        <div>
-          <Link
-            prefetch="intent"
-            to={lineItemUrl}
-            onClick={() => {
-              if (layout === 'aside') {
-                close();
-              }
-            }}
-          >
-            <p>
-              <strong>{product.title}</strong>
-            </p>
-          </Link>
-          <ProductPrice price={line?.cost?.totalAmount} />
-          <ul>
+        <div className={layout === 'page' ? 'flex-1' : ''}>
+          <div className={layout === 'page' ? 'flex justify-between items-start mb-2' : ''}>
+            <Link
+              prefetch="intent"
+              to={lineItemUrl}
+              onClick={() => {
+                if (layout === 'aside') {
+                  close();
+                }
+              }}
+              className={layout === 'page' ? 'hover:text-(--accent) transition' : ''}
+            >
+              <p className={layout === 'page' ? 'font-semibold text-(--color-primary)' : ''}>
+                <strong>{product.title}</strong>
+              </p>
+            </Link>
+            {layout === 'page' && (
+              <div className="text-right">
+                <ProductPrice price={line?.cost?.totalAmount} />
+              </div>
+            )}
+          </div>
+
+          {layout !== 'page' && <ProductPrice price={line?.cost?.totalAmount} />}
+
+          <ul className={layout === 'page' ? 'mb-2 space-y-1' : ''}>
             {selectedOptions.map((option) => (
-              <li key={option.name}>
+              <li key={option.name} className={layout === 'page' ? 'text-sm text-(--color-primary) opacity-70' : ''}>
                 <small>
-                  {option.name}: {option.value}
+                  {option.name}: <span className="font-medium">{option.value}</span>
                 </small>
               </li>
             ))}
           </ul>
-          <CartLineQuantity line={line} />
+
+          {layout === 'page' && (
+            <div className="flex items-center gap-4">
+              <CartLineQuantity line={line} />
+              <CartLineRemoveButton lineIds={[id]} disabled={line.isOptimistic} />
+            </div>
+          )}
+          
+          {layout !== 'page' && <CartLineQuantity line={line} />}
         </div>
       </div>
 
@@ -70,7 +96,7 @@ export function CartLineItem({layout, line, childrenMap}) {
           <p id={childrenLabelId} className="sr-only">
             Line items with {product.title}
           </p>
-          <ul aria-labelledby={childrenLabelId} className="cart-line-children">
+          <ul aria-labelledby={childrenLabelId} className={layout === 'page' ? 'ml-24 mt-4 space-y-4 border-l-2 border-gray-200 pl-4' : 'cart-line-children'}>
             {lineItemChildren.map((childLine) => (
               <CartLineItem
                 childrenMap={childrenMap}
@@ -99,31 +125,32 @@ function CartLineQuantity({line}) {
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
-    <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+    <div className="flex items-center gap-2 border border-(--color-primary) border-opacity-30 rounded-lg p-1">
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
           aria-label="Decrease quantity"
           disabled={quantity <= 1 || !!isOptimistic}
           name="decrease-quantity"
           value={prevQuantity}
+          className="w-8 h-8 flex items-center justify-center text-(--color-primary) hover:bg-(--accent) hover:text-(--color-primary) disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
-          <span>&#8722; </span>
+          <span>−</span>
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+      
+      <span className="w-8 text-center font-medium text-(--color-primary)">{quantity}</span>
+      
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
           disabled={!!isOptimistic}
+          className="w-8 h-8 flex items-center justify-center text-(--color-primary) hover:bg-(--accent) hover:text-(--color-primary) disabled:opacity-50 disabled:cursor-not-allowed transition"
         >
-          <span>&#43;</span>
+          <span>+</span>
         </button>
       </CartLineUpdateButton>
-      &nbsp;
-      <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
     </div>
   );
 }
@@ -145,7 +172,11 @@ function CartLineRemoveButton({lineIds, disabled}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button disabled={disabled} type="submit">
+      <button 
+        disabled={disabled} 
+        type="submit"
+        className="text-(--accent) hover:text-(--color-primary) font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed transition"
+      >
         Remove
       </button>
     </CartForm>

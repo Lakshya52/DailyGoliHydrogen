@@ -244,7 +244,7 @@ const Product = ({ product }) => {
                     <button
                       type="submit"
                       disabled={fetcher.state === 'submitting'}
-                      className="w-full h-16 bg-(--white) text-(--color-primary) rounded-xl font-lex-reg text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
+                      className="w-full h-16 px-8 bg-(--white) text-(--color-primary) rounded-xl font-lex-reg text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
                     >
                       <ShoppingCart size={20} className="group-hover:scale-110 transition-transform" />
                       {fetcher.state === 'submitting' ? 'Adding...' : 'Add to Cart'}
@@ -277,7 +277,7 @@ const Product = ({ product }) => {
                   type="submit"
                   name="checkout"
                   value="true"
-                  className="w-full h-16 bg-(--color-primary) text-(--white) rounded-xl font-lex-reg text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
+                  className="w-full h-16 px-8 bg-(--color-primary) text-(--white) rounded-xl font-lex-reg text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
                   >
                     Buy Now
                   </button>

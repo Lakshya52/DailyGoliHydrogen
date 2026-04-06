@@ -46,36 +46,89 @@ export function CartMain({layout, cart: originalCart}) {
 
   return (
     <section
-      className={className}
+      className={layout === 'page' ? 'w-full' : className}
       aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}
     >
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className="cart-details">
-        <p id="cart-lines" className="sr-only">
-          Line items
-        </p>
-        <div>
-          <ul aria-labelledby="cart-lines">
-            {(cart?.lines?.nodes ?? []).map((line) => {
-              // we do not render non-parent lines at the root of the cart
-              if (
-                'parentRelationship' in line &&
-                line.parentRelationship?.parent
-              ) {
-                return null;
-              }
-              return (
-                <CartLineItem
-                  key={line.id}
-                  line={line}
-                  layout={layout}
-                  childrenMap={childrenMap}
-                />
-              );
-            })}
-          </ul>
-        </div>
-        {cartHasItems && <CartSummary cart={cart} layout={layout} />}
+      <div className={layout === 'page' ? 'container mx-auto px-[100px] py-8' : 'cart-details'}>
+        {layout === 'page' && (
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-(--color-primary) mb-2 font-lex-bold">Shopping Cart</h1>
+            <p className="text-(--color-primary) opacity-70">Review and manage your items before checkout</p>
+          </div>
+        )}
+        
+        {cartHasItems && layout === 'page' && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Items Section */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-lg border border-(--color-primary) border-opacity-20">
+                <div className="border-b border-(--color-primary) border-opacity-20 px-6 py-4">
+                  <h2 className="text-xl font-semibold text-(--color-primary)">
+                    Items ({cart?.totalQuantity || 0})
+                  </h2>
+                </div>
+                <div className="divide-y divide-(--color-primary) divide-opacity-20">
+                  <p id="cart-lines" className="sr-only">
+                    Line items
+                  </p>
+                  <ul aria-labelledby="cart-lines" className="divide-y divide-(--color-primary) divide-opacity-20">
+                    {(cart?.lines?.nodes ?? []).map((line) => {
+                      if (
+                        'parentRelationship' in line &&
+                        line.parentRelationship?.parent
+                      ) {
+                        return null;
+                      }
+                      return (
+                        <CartLineItem
+                          key={line.id}
+                          line={line}
+                          layout={layout}
+                          childrenMap={childrenMap}
+                        />
+                      );
+                    })}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Summary Sidebar */}
+            <div className="lg:col-span-1">
+              <CartSummary cart={cart} layout={layout} />
+            </div>
+          </div>
+        )}
+
+        {layout === 'aside' && (
+          <>
+            <p id="cart-lines" className="sr-only">
+              Line items
+            </p>
+            <div>
+              <ul aria-labelledby="cart-lines">
+                {(cart?.lines?.nodes ?? []).map((line) => {
+                  if (
+                    'parentRelationship' in line &&
+                    line.parentRelationship?.parent
+                  ) {
+                    return null;
+                  }
+                  return (
+                    <CartLineItem
+                      key={line.id}
+                      line={line}
+                      layout={layout}
+                      childrenMap={childrenMap}
+                    />
+                  );
+                })}
+              </ul>
+            </div>
+            {cartHasItems && <CartSummary cart={cart} layout={layout} />}
+          </>
+        )}
       </div>
     </section>
   );
@@ -91,15 +144,39 @@ function CartEmpty({hidden = false}) {
   const {close} = useAside();
   return (
     <div hidden={hidden}>
-      <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
-      </p>
-      <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
+      {hidden === false && (
+        <div className="w-full min-h-screen flex items-center justify-center bg-white px-[100px] text-(--color-primary)">
+          <div className="text-center">
+            <div className="mb-6 flex justify-center">
+              <svg
+                className="w-24 h-24 text-(--accent)"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
+            </div>
+            <h2 className="text-3xl font-bold text-(--color-primary) mb-2 font-lex-bold">Your cart is empty</h2>
+            <p className="text-xl text-(--color-primary) opacity-70 mb-8">
+              Looks like you haven&rsquo;t added anything yet. Let&rsquo;s get you started!
+            </p>
+            <Link
+              to="/collections"
+              onClick={close}
+              prefetch="viewport"
+              className="inline-block bg-(--color-primary) hover:bg-(--color-primary) hover:opacity-80 text-(--accent) font-semibold py-3 px-8 rounded-lg transition duration-200"
+            >
+              Continue shopping →
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

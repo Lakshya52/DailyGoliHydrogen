@@ -16,14 +16,25 @@ export const meta = () => {
 export async function loader(args) {
   const {storefront} = args.context;
   
+  // Try to fetch the specific product
   const {product} = await storefront.query(PRODUCT_QUERY, {
     variables: {
-      handle: 'daily-goli-mb-360',
+      handle: 'daily-goli-mb-360', 
     },
   });
 
+  // FALLBACK: If not found, fetch the first available product in the catalog
+  let finalProduct = product;
+  if (!finalProduct) {
+    const {products} = await storefront.query(FALLBACK_PRODUCTS_QUERY);
+    if (products?.nodes?.length > 0) {
+      finalProduct = products.nodes[0];
+      console.log('DEBUG: Specific handle not found. Available products:', products.nodes.map(p => p.handle));
+    }
+  }
+
   return {
-    product,
+    product: finalProduct,
     isShopLinked: Boolean(args.context.env.PUBLIC_STORE_DOMAIN),
   };
 }
@@ -47,7 +58,7 @@ export default function Homepage() {
 }
 
 const PRODUCT_QUERY = `#graphql
-  query Product($handle: String!, $country: CountryCode, $language: LanguageCode)
+  query HomepageProducts($handle: String!, $country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       id
@@ -160,3 +171,62 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
 /** @typedef {import('storefrontapi.generated').FeaturedCollectionFragment} FeaturedCollectionFragment */
 /** @typedef {import('storefrontapi.generated').RecommendedProductsQuery} RecommendedProductsQuery */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+
+const FALLBACK_PRODUCTS_QUERY = `#graphql
+  query FallbackProducts($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    products(first: 5) {
+      nodes {
+        id
+        title
+        handle
+        vendor
+        descriptionHtml
+        description
+        options {
+          name
+          values
+        }
+        variants(first: 10) {
+          nodes {
+            id
+            title
+            availableForSale
+            price {
+              amount
+              currencyCode
+            }
+            compareAtPrice {
+              amount
+              currencyCode
+            }
+            selectedOptions {
+              name
+              value
+            }
+            image {
+              id
+              url
+              altText
+              width
+              height
+            }
+             product {
+              handle
+              title
+              id
+            }
+          }
+        }
+        images(first: 10) {
+          nodes {
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+`;

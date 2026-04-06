@@ -185,7 +185,7 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
 `;
 
 const PRODUCT_FRAGMENT = `#graphql
-  fragment Product on Product {
+  fragment ProductDetail on Product {
     id
     title
     vendor
@@ -226,14 +226,14 @@ const PRODUCT_FRAGMENT = `#graphql
 `;
 
 const PRODUCT_QUERY = `#graphql
-  query Product(
+  query ProductDetails(
     $country: CountryCode
     $handle: String!
     $language: LanguageCode
     $selectedOptions: [SelectedOptionInput!]!
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
-      ...Product
+      ...ProductDetail
     }
   }
   ${PRODUCT_FRAGMENT}

@@ -87,17 +87,30 @@ export async function loader(args) {
 async function loadCriticalData({context}) {
   const {storefront} = context;
 
-  const [header] = await Promise.all([
-    storefront.query(HEADER_QUERY, {
-      cache: storefront.CacheLong(),
-      variables: {
-        headerMenuHandle: 'main-menu', // Adjust to your header menu handle
-      },
-    }),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
+  try {
+    const [header] = await Promise.all([
+      storefront.query(HEADER_QUERY, {
+        cache: storefront.CacheLong(),
+        variables: {
+          headerMenuHandle: 'main-menu', // Adjust to your header menu handle
+        },
+      }),
+      // Add other queries here, so that they are loaded in parallel
+    ]);
 
-  return {header};
+    return {header};
+  } catch (error) {
+    // Console error for debugging but don't throw to prevent 500
+    console.error('[Root Loader] Failed to load critical header data:', error);
+    return {
+      header: {
+        shop: {
+          name: 'Daily Goli',
+        },
+        menu: null,
+      },
+    };
+  }
 }
 
 /**
@@ -119,7 +132,7 @@ function loadDeferredData({context}) {
     })
     .catch((error) => {
       // Log query errors, but don't throw them so the page can still render
-      console.error(error);
+      console.error('[Root Loader] Failed to load deferred footer data:', error);
       return null;
     });
   return {

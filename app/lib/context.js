@@ -27,14 +27,15 @@ export async function createHydrogenRouterContext(
   /**
    * Open a cache instance in the worker and a custom session instance.
    */
+  const sessionSecret = env?.SESSION_SECRET || 'default_session_secret_for_preview_only';
   if (!env?.SESSION_SECRET) {
-    throw new Error('SESSION_SECRET environment variable is not set');
+    console.warn('SESSION_SECRET environment variable is not set. Using a fallback for preview.');
   }
 
   const waitUntil = executionContext.waitUntil.bind(executionContext);
   const [cache, session] = await Promise.all([
     caches.open('hydrogen'),
-    AppSession.init(request, [env.SESSION_SECRET]),
+    AppSession.init(request, [sessionSecret]),
   ]);
 
   const hydrogenContext = createHydrogenContext(

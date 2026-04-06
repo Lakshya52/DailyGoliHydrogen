@@ -1,130 +1,66 @@
-import {Suspense} from 'react';
-import {Await, NavLink} from 'react-router';
+import React from 'react'
 
-/**
- * @param {FooterProps}
- */
-export function Footer({footer: footerPromise, header, publicStoreDomain}) {
-  return (
-    <Suspense>
-      <Await resolve={footerPromise}>
-        {(footer) => (
-          <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
-              />
-            )}
-          </footer>
-        )}
-      </Await>
-    </Suspense>
-  );
+
+const Footer = () => {
+    return (
+        <>
+            <div className='min-h-[50dvh] flex flex-col gap-10 bg-(--color-primary) text-(--accent) text-lg font-lex-light px-[100px] py-20' >
+                {/* top */}
+                <div className='flex items-end justify-between' >
+                    {/* logo */}
+                    <img src="/images/LogoGold.webp" alt="Daily goli yellow logo" className='h-50' />
+                    {/* details */}
+                    <div className='leading-[188%]' >
+                        K Dee Ventures, Shop No-106, MC Complex, <br /> 
+                        Sector-15, Noida, UP–201301 <br /> 
+                        kdeeventures9@gmail.com +91-7007436859 <br />
+                        FSSAI License No.: 12724999000202  <br />
+                        Mfg. FSSAI: 10019051003293 
+                    </div>
+                    {/* links 1 */}
+                    <ul className=' leading-[188%] ' >
+                        <a href="#blogs">
+                            <li className='cursor-pointer hover:underline' >Blogs</li>
+                        </a>
+                        <a href="">
+                            <li className='cursor-pointer hover:underline' >On Binkit</li>
+                        </a>
+                        <a href="">
+                            <li className='cursor-pointer hover:underline' >On Flipkart</li>
+                        </a>
+                        <a href="">
+                            <li className='cursor-pointer hover:underline' >On Amazon</li>
+                        </a>
+                        <a href="/contact">
+                            <li className='cursor-pointer hover:underline' >Contact</li>
+                        </a>
+                    </ul>
+                    {/* links 2 */}
+                    <ul className=' leading-[188%]' >
+                        <a href="#ingredients">
+                            <li className='cursor-pointer hover:underline' >Ingredients</li>
+                        </a>
+                        <a href="#benefits">
+                            <li className='cursor-pointer hover:underline' >Benefits</li>
+                        </a>
+                        <a href="#reviews">
+                            <li className='cursor-pointer hover:underline' >Reviews</li>
+                        </a>
+                        <a href="#faqs">
+                            <li className='cursor-pointer hover:underline' >FAQs</li>
+                        </a>
+                        <a href="#product">
+                            <li className='cursor-pointer hover:underline' >Buy Now</li>
+                        </a>
+                    </ul>
+                </div>
+                {/* bottom line */}
+                <div>
+                    © 2026 Daily Goli All rights reserved | Science-backed, plant-based health supplements Inspired by GLP-1 pathway science. Made in India, for the world. This is a food supplement, not for medicinal use. Keep out of reach of children.
+                </div>
+            </div>
+        </>
+    )
 }
 
-/**
- * @param {{
- *   menu: FooterQuery['menu'];
- *   primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
- *   publicStoreDomain: string;
- * }}
- */
-function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
-  return (
-    <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
-        if (!item.url) return null;
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        const isExternal = !url.startsWith('/');
-        return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
-            {item.title}
-          </a>
-        ) : (
-          <NavLink
-            end
-            key={item.id}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
-          </NavLink>
-        );
-      })}
-    </nav>
-  );
-}
-
-const FALLBACK_FOOTER_MENU = {
-  id: 'gid://shopify/Menu/199655620664',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/461633060920',
-      resourceId: 'gid://shopify/ShopPolicy/23358046264',
-      tags: [],
-      title: 'Privacy Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/privacy-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633093688',
-      resourceId: 'gid://shopify/ShopPolicy/23358013496',
-      tags: [],
-      title: 'Refund Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/refund-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633126456',
-      resourceId: 'gid://shopify/ShopPolicy/23358111800',
-      tags: [],
-      title: 'Shipping Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/shipping-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633159224',
-      resourceId: 'gid://shopify/ShopPolicy/23358079032',
-      tags: [],
-      title: 'Terms of Service',
-      type: 'SHOP_POLICY',
-      url: '/policies/terms-of-service',
-      items: [],
-    },
-  ],
-};
-
-/**
- * @param {{
- *   isActive: boolean;
- *   isPending: boolean;
- * }}
- */
-function activeLinkStyle({isActive, isPending}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
-  };
-}
-
-/**
- * @typedef {Object} FooterProps
- * @property {Promise<FooterQuery|null>} footer
- * @property {HeaderQuery} header
- * @property {string} publicStoreDomain
- */
-
-/** @typedef {import('storefrontapi.generated').FooterQuery} FooterQuery */
-/** @typedef {import('storefrontapi.generated').HeaderQuery} HeaderQuery */
+export default Footer

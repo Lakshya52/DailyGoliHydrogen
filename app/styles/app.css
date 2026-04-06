@@ -1,3 +1,8 @@
+/* Lexend fonts from frontend */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap');
+
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
@@ -6,6 +11,10 @@
   --header-height: 64px;
   --color-dark: #000;
   --color-light: #fff;
+  --white: #f8f8f8;
+}
+::-webkit-scrollbar{
+  width: 0;
 }
 
 img {
@@ -195,6 +204,7 @@ aside li {
   pointer-events: auto;
   visibility: visible;
 }
+
 /* reveal aside */
 .overlay.expanded aside {
   transform: translateX(calc(var(--aside-width) * -1));
@@ -206,7 +216,7 @@ button.reset {
   font-size: inherit;
 }
 
-button.reset > * {
+button.reset>* {
   margin: 0;
 }
 
@@ -251,6 +261,7 @@ button.reset:hover:not(:has(> *)) {
 .header-menu-desktop {
   display: none;
   grid-gap: 1rem;
+
   @media (min-width: 45em) {
     display: flex;
     grid-gap: 1rem;
@@ -269,7 +280,7 @@ button.reset:hover:not(:has(> *)) {
   margin-left: auto;
 }
 
-.header-ctas > * {
+.header-ctas>* {
   min-width: fit-content;
 }
 
@@ -358,6 +369,7 @@ button.reset:hover:not(:has(> *)) {
   align-items: center;
   display: flex;
 }
+
 /*
 * --------------------------------------------------
 * components/Search
@@ -424,6 +436,7 @@ button.reset:hover:not(:has(> *)) {
 
 .featured-collection-image {
   aspect-ratio: 1 / 1;
+
   @media (min-width: 45em) {
     aspect-ratio: 16 / 9;
   }
@@ -439,6 +452,7 @@ button.reset:hover:not(:has(> *)) {
   display: grid;
   grid-gap: 1.5rem;
   grid-template-columns: repeat(2, 1fr);
+
   @media (min-width: 45em) {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -472,6 +486,7 @@ button.reset:hover:not(:has(> *)) {
 .collection-description {
   margin-bottom: 1rem;
   max-width: 95%;
+
   @media (min-width: 45em) {
     max-width: 600px;
   }
@@ -496,6 +511,7 @@ button.reset:hover:not(:has(> *)) {
 */
 .product {
   display: grid;
+
   @media (min-width: 45em) {
     grid-template-columns: 1fr 1fr;
     grid-gap: 4rem;
@@ -638,8 +654,54 @@ button.reset:hover:not(:has(> *)) {
   font-size: 1rem;
 }
 
+
 .order-search-buttons {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+}
+
+/* 
+* --------------------------------------------------
+* Frontend Migrated Styles
+* --------------------------------------------------
+*/
+:root {
+  --color-primary: #0b602b;
+  --bg-light: #e0f3d1;
+  --text: var(--color-primary);
+  --accent: #fed054;
+  --white: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-optical-sizing: auto;
+  background: var(--bg-light);
+}
+
+::-webkit-scrollbar {
+  height: 0px;
+}
+
+#ingredients, #benefits, #reviews, #faqs, #product {
+  scroll-margin-top: 16dvh;
+}
+
+.font-lex-light {
+  font-family: "Lexend", sans-serif;
+  font-weight: 200;
+}
+
+.font-lex-reg {
+  font-family: "Lexend", sans-serif;
+  font-weight: 400;
+}
+
+.font-lex-med {
+  font-family: "Lexend", sans-serif;
+  font-weight: 700;
 }

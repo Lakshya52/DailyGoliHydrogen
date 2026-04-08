@@ -338,22 +338,66 @@ const Product = ({ product }) => {
           </div>
           <div className="overflow-x-auto rounded-2xl border border-(--bg-light)">
             <table className="w-full border-collapse min-w-150">
-              <thead>
-                <tr className="bg-(--bg-light)">
-                  <th className="p-6 text-left"></th>
-                  <th className="bg-(--color-primary) text-(--accent) p-6 text-left font-lex-reg rounded-t-2xl">Daily Goli MB-360</th>
-                  <th className="p-6 text-left font-lex-reg">Others</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr className="border-b border-(--bg-light)">
-                    <td className="p-6 font-lex-reg">Price</td>
-                    <td className="p-6 bg-(--color-primary) text-(--accent) font-lex-reg">₹1,499</td>
-                    <td className="p-6 font-lex-reg">₹1,499+</td>
-                  </tr>
-                  {/* ... can maintain the rest of the comparison table static for design ... */}
-              </tbody>
-            </table>
+  <thead>
+    <tr className="bg-(--bg-light)">
+      <th className="p-6 text-left"></th>
+      <th className="bg-(--color-primary) text-(--accent) p-6 text-left font-lex-reg rounded-t-2xl">
+        Daily Goli MB-360
+      </th>
+      <th className="p-6 text-left font-lex-reg">Others</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr className="border-b border-(--bg-light)">
+      <td className="p-6 font-lex-reg">Price</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">₹1,499</td>
+      <td className="p-6">₹1,799+</td>
+    </tr>
+
+    <tr className="border-b border-(--bg-light)">
+      <td className="p-6">Capsules</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">60 Capsules</td>
+      <td className="p-6">30–60 Capsules</td>
+    </tr>
+
+    <tr className="border-b border-(--bg-light)">
+      <td className="p-6">Value/Day</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">₹50/day</td>
+      <td className="p-6">₹33–₹100</td>
+    </tr>
+
+    <tr className="border-b border-(--bg-light)">
+      <td className="p-6">Berberine HCl</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ 296mg</td>
+      <td className="p-6">✕ Usually Not</td>
+    </tr>
+
+    <tr className="border-b border-(--bg-light)">
+      <td className="p-6">CQR-300</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ 296mg</td>
+      <td className="p-6">✕ Rarely</td>
+    </tr>
+
+    <tr className="border-b border-(--bg-light)">
+      <td className="p-6">Inulin Prebiotic</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ 112mg</td>
+      <td className="p-6">✕ Rarely</td>
+    </tr>
+
+    <tr className="border-b border-(--bg-light)">
+      <td className="p-6">Total Ingredients</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">6 Active</td>
+      <td className="p-6">2–3 Ingredients</td>
+    </tr>
+
+    <tr>
+      <td className="p-6">WHO-GMP Certified</td>
+      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ Yes</td>
+      <td className="p-6">Varies</td>
+    </tr>
+  </tbody>
+</table>
           </div>
         </div>
       </div>

@@ -58,7 +58,7 @@ export function CartMain({layout, cart: originalCart}) {
         {layout === 'page' && (
           <div className="mb-8">
             <h1 className="text-2xl md:text-4xl font-bold text-(--color-primary) font-lex-bold section-heading ">Shopping Cart</h1>
-            <p className="text-sm md:text-base text-(--color-primary) opacity-70">Review and manage your items before checkout</p>
+            {/* <p className="text-sm md:text-base text-(--color-primary) opacity-70">Review and manage your items before checkout</p> */}
           </div>
         )}
         
@@ -167,16 +167,16 @@ function CartEmpty({hidden = false}) {
               </svg>
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-(--color-primary) mb-2 font-lex-bold">Your cart is empty</h2>
-            <p className="text-base md:text-xl text-(--color-primary) opacity-70 mb-8">
+            <p className="text-base md:text-xl text-(--color-primary) opacity-70 " style={{ marginBottom: "20px", marginTop: "20px" }} >
               Looks like you haven&rsquo;t added anything yet. Let&rsquo;s get you started!
             </p>
             <Link
-              to="/collections"
+              to="/#product"
               onClick={close}
               prefetch="viewport"
               className="inline-block bg-(--color-primary) hover:bg-(--color-primary) hover:opacity-80 text-(--accent) font-semibold py-3 px-8 rounded-lg transition duration-200"
             >
-              Continue shopping →
+              Buy Now →
             </Link>
           </div>
         </div>

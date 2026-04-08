@@ -28,7 +28,7 @@ export function PageLayout({
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       <Navbar cart={cart} />
-      <main className="flex-1">{children}</main>
+      <main className="">{children}</main>
       <Footer />
     </Aside.Provider>
   );

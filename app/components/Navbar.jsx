@@ -105,8 +105,8 @@ const Navbar = ({ cart }) => {
   return (
     <>
       <div
-        className={`fixed w-full z-[9999] flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[15dvh]"
-          }  px-4 md:px-[100px] backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+        className={`fixed w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[15dvh]"
+          }  px-4 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
           }`}
       >
         {/* social media links - hidden on mobile */}
@@ -162,10 +162,10 @@ const Navbar = ({ cart }) => {
 
           {/* Buy Now CTA */}
           <Link to="/#product" className="flex items-center justify-center w-fit group cursor-pointer no-underline">
-            <div className="h-10 w-10 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) flex items-center justify-center transition-transform duration-[400ms] group-hover:translate-x-[90px]">
+            <div className="h-10 w-10 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) flex items-center justify-center transition-transform duration-400 group-hover:translate-x-22.5">
               <ArrowUpRight />
             </div>
-            <span className="h-10 w-fit flex items-center justify-center px-4 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) font-lex-reg transition-all duration-[400ms] group-hover:-translate-x-[50px] group-hover:-rotate-6">
+            <span className="h-10 w-fit flex items-center justify-center px-4 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) font-lex-reg transition-all duration-400 group-hover:-translate-x-12.5 group-hover:-rotate-6">
               Buy Now
             </span>
           </Link>

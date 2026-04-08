@@ -59,10 +59,10 @@ const ingredientsData = [
 
 const Ingredients = () => {
   return (
-    <div id="ingredients" className="min-h-dvh py-15 md:py-30  flex flex-col items-center justify-center gap-4 px-4 md:px-[100px]">
-      <div className="flex flex-col items-center justify-center gap-0  ">
+    <div id="ingredients" className="min-h-dvh py-15 md:py-30  flex flex-col items-center justify-center gap-4 px-4 md:px-25">
+      <div className="flex flex-col items-center justify-center my-5 gap-5 ">
         <div className="font-lex-reg w-fit rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">Ingredients</div>
-        <p className="text-(--color-primary) text-4xl md:text-[65px] font-lex-reg text-center">
+        <p className="text-(--color-primary) text-4xl md:text-[65px] font-lex-reg text-center section-heading" >
           ✦ In The Pill ✦
         </p>
       </div>

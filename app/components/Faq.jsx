@@ -55,10 +55,10 @@ const Faq = () => {
     }
   };
   return (
-    <div id="faqs" className="min-h-dvh flex items-center justify-start flex-col py-10 md:py-20 px-4 md:px-[100px]">
+    <div id="faqs" className="min-h-dvh flex items-center justify-start flex-col py-10 md:py-20 px-4 md:px-25 ">
         <div className='flex flex-col items-center justify-center' > 
             <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">Any Last Questions ?</div>
-            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center' >Frequent Asked Questions</h1>
+            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center font-lex-med leading-[108%] section-heading' >Frequently Asked Questions</h1>
             <p className='font-lex-reg text-(--color-primary) text-sm md:text-xl text-center' >Everything you need to know about Daily Goli MB-360, before you buy.</p>
         </div>
 

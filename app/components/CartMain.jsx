@@ -46,14 +46,18 @@ export function CartMain({layout, cart: originalCart}) {
 
   return (
     <section
-      className={layout === 'page' ? 'w-full' : className}
+      className={`${layout === 'page' ? 'w-full flex items-center justify-center ' : className} bg-(--bg-light)  `} 
+      style={{
+        paddingBottom:0,
+        paddingTop:0,
+      }}
       aria-label={layout === 'page' ? 'Cart page' : 'Cart drawer'}
     >
       <CartEmpty hidden={linesCount} layout={layout} />
-      <div className={layout === 'page' ? 'container mx-auto px-4 md:px-[100px] py-8' : 'cart-details'}>
+      <div className={`mt-20 ${layout === 'page' ? 'container bg-(--bg-light) w-full px-4 px-[55px] py-8' : 'cart-details'}`}>
         {layout === 'page' && (
           <div className="mb-8">
-            <h1 className="text-2xl md:text-4xl font-bold text-(--color-primary) mb-2 font-lex-bold">Shopping Cart</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-(--color-primary) font-lex-bold section-heading ">Shopping Cart</h1>
             <p className="text-sm md:text-base text-(--color-primary) opacity-70">Review and manage your items before checkout</p>
           </div>
         )}
@@ -62,7 +66,7 @@ export function CartMain({layout, cart: originalCart}) {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Items Section */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg border border-(--color-primary) border-opacity-20">
+              <div className="bg-(--accent) rounded-lg border border-(--color-primary) border-opacity-20">
                 <div className="border-b border-(--color-primary) border-opacity-20 px-6 py-4">
                   <h2 className="text-xl font-semibold text-(--color-primary)">
                     Items ({cart?.totalQuantity || 0})
@@ -143,9 +147,9 @@ export function CartMain({layout, cart: originalCart}) {
 function CartEmpty({hidden = false}) {
   const {close} = useAside();
   return (
-    <div hidden={hidden}>
+    <div hidden={hidden} className='bg-(--accent)' >
       {hidden === false && (
-        <div className="w-full min-h-screen flex items-center justify-center bg-white px-4 md:px-[100px] text-(--color-primary)">
+        <div className="w-full min-h-screen flex items-center justify-center  px-4 md:px-25 text-(--color-primary) bg-(--accent)">
           <div className="text-center">
             <div className="mb-6 flex justify-center">
               <svg

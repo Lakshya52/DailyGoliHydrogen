@@ -23,7 +23,7 @@ export function CartLineItem({layout, line, childrenMap}) {
   const lineItemChildren = childrenMap[id];
   const childrenLabelId = `cart-line-children-${id}`;
 
-  const liClass = layout === 'page' ? 'py-6' : 'cart-line';
+  const liClass = layout === 'page' ? 'p-6' : 'cart-line';
   const containerClass = layout === 'page' 
     ? 'flex gap-4 md:gap-6' 
     : 'cart-line-inner';
@@ -32,7 +32,7 @@ export function CartLineItem({layout, line, childrenMap}) {
     <li key={id} className={liClass}>
       <div className={containerClass}>
         {image && (
-          <div className={layout === 'page' ? 'flex-shrink-0 w-20 h-20 md:w-24 md:h-24' : ''}>
+          <div className={layout === 'page' ? 'shrink-0 w-20 h-20 md:w-24 md:h-24' : ''}>
             <Image
               alt={title}
               aspectRatio="1/1"

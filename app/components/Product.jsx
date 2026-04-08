@@ -65,7 +65,7 @@ const Product = ({ product }) => {
           <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">
             Hurry Up
           </div>
-          <h1 className="text-5xl lg:text-[3rem] text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
+          <h1 className=" section-heading  text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
             Limited Time Offer! <br /> Save Up To 22% on Your First Order!
           </h1>
           <p className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
@@ -124,7 +124,7 @@ const Product = ({ product }) => {
             
             {/* Product Title */}
             <div>
-              <h2 className="text-2xl md:text-4xl font-lex-reg text-(--color-primary) mb-2 uppercase">
+              <h2 className="text-5xl md:text-4xl font-lex-reg text-(--color-primary) mb-2 uppercase">
                 {title}
               </h2>
               <p className="text-sm md:text-lg text-(--color-primary) opacity-70">
@@ -136,7 +136,7 @@ const Product = ({ product }) => {
             <div className="flex items-center gap-3">
               <div className="flex gap-1 text-(--color-primary)">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={16} className="md:w-[18px] md:h-[18px]" fill="currentColor" />
+                  <Star key={i} size={16} className="md:w-4.5 md:h-4.5" fill="currentColor" />
                 ))}
               </div>
               <span className="text-(--color-primary) font-lex-reg">
@@ -299,10 +299,25 @@ const Product = ({ product }) => {
             {/* Product Features */}
             <div className="bg-(--bg-light) rounded-2xl space-y-3">
               <div className="flex gap-3 items-start justify-start">
-                <CheckCheck  size={20}  className="min-h-10 max-h-10 text-(--color-primary) " />
-                <p className="text-(--color-primary) text-xl font-lex-reg">GLP-1 Pathway Science Inspired — 6 <br /> clinically studied botanical ingredients</p>
+                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <p className="text-(--color-primary) text-xl font-lex-reg">GLP-1 Pathway Science Inspired — 6 clinically studied botanical ingredients</p>
               </div>
-              {/* ... keeping rest of the static original design ... */}
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <p className="text-(--color-primary) text-xl font-lex-reg">Supports and control your appetite & reduces sugar cravings naturally in your body</p>
+              </div>
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <p className="text-(--color-primary) text-xl font-lex-reg">Berberine + Chromium for healthy blood sugar and metabolism support</p>
+              </div>
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <p className="text-(--color-primary) text-xl font-lex-reg">Inulin prebiotic for gut health and sustained energy</p>
+              </div>
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <p className="text-(--color-primary) text-xl font-lex-reg">100% Veg Capsules | No artificial additives | FSSAI approved</p>
+              </div>
             </div>
 
             {/* Trust Badges */}
@@ -317,12 +332,12 @@ const Product = ({ product }) => {
         {/* Us vs Them section - keeping full copy for style consistency */}
         <div className="w-full md:w-[70%] mt-20 flex flex-col gap-8 px-6 md:px-0">
           <div className="flex flex-col items-center justify-center gap-3">
-            <h2 className="text-3xl md:text-5xl font-lex-reg text-(--color-primary) text-center leading-relaxed">
-              Same price. Double the capsules. <br /> More ingredients. The choice is clear.
+            <h2 className="text-3xl md:text-5xl font-lex-med text-(--color-primary) text-center leading-relaxed section-heading">
+              Same price. Double the capsules. More ingredients. The choice is clear.
             </h2>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-(--bg-light)">
-            <table className="w-full border-collapse min-w-[600px]">
+            <table className="w-full border-collapse min-w-150">
               <thead>
                 <tr className="bg-(--bg-light)">
                   <th className="p-6 text-left"></th>

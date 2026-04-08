@@ -58,7 +58,7 @@ export function CartSummary({cart, layout}) {
       <div className="border-t border-(--color-primary) border-opacity-20 pt-4">
         <div className="flex justify-between items-center mb-4">
           <dt className="text-lg font-semibold text-(--color-primary)">Total</dt>
-          <dd className="text-2xl font-bold text-(--accent)">
+          <dd className="text-2xl font-bold text-(--color-primary)">
             {cart?.cost?.totalAmount?.amount ? (
               <Money data={cart?.cost?.totalAmount} />
             ) : (
@@ -90,7 +90,7 @@ function CartCheckoutActions({checkoutUrl}) {
       <a 
         href={checkoutUrl} 
         target="_self"
-        className="block w-full bg-(--color-primary) hover:bg-(--color-primary) hover:opacity-80 text-(--accent) font-semibold py-3 px-4 rounded-lg text-center transition duration-200"
+        className="block w-full bg-(--color-primary) hover:bg-(--color-primary) hover:opacity-80 text-(--white) font-semibold py-3 px-4 rounded-lg text-center transition duration-200 "
       >
         Proceed to Checkout
       </a>

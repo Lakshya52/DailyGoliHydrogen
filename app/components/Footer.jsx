@@ -4,14 +4,14 @@ import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone } from 'lucide-reac
 const Footer = () => {
     return (
         <>
-            <div className='min-h-auto md:min-h-[50dvh] flex flex-col gap-6 md:gap-10 bg-(--color-primary) text-(--accent) text-sm md:text-lg font-lex-light px-4 md:px-[100px] py-10 md:py-20' >
+            <div className='min-h-auto md:min-h-[50dvh] flex flex-col gap-6 md:gap-10 bg-(--color-primary) text-(--accent) text-sm md:text-lg font-lex-light px-4 md:px-25 py-10 md:py-20' >
                 {/* top */}
                 <div className='flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-0' >
                     {/* logo and social icons */}
                     <div className='flex flex-col gap-6 w-full md:w-auto'>
                         <img src="/images/LogoGold.webp" alt="Daily goli yellow logo" className='h-40 md:h-50 w-auto' />
                         {/* Social Media Icons */}
-                        <div className='flex gap-4'>
+                        {/* <div className='flex gap-4'>
                             <a href="https://facebook.com" target="_blank" rel="noreferrer" className='p-2 rounded-full hover:bg-(--accent) transition group' title='Facebook'>
                                 <Facebook size={24} className='text-(--accent) group-hover:text-(--color-primary)' />
                             </a>
@@ -24,10 +24,10 @@ const Footer = () => {
                             <a href="https://linkedin.com" target="_blank" rel="noreferrer" className='p-2 rounded-full hover:bg-(--accent) transition group' title='LinkedIn'>
                                 <Linkedin size={24} className='text-(--accent) group-hover:text-(--color-primary)' />
                             </a>
-                        </div>
+                        </div> */}
                     </div>
                     {/* details */}
-                    <ul className='leading-relaxed md:leading-[188%] text-xs md:text-base w-full md:w-auto' >
+                    <ul className='leading-relaxed md:leading-[200%] text-xs md:text-base w-full md:w-auto' >
                         K Dee Ventures, Shop No-106, MC Complex, <br /> 
                         Sector-15, Noida, UP–201301 <br /> 
                         <a href="mailto:kdeeventures9@gmail.com" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent)'>

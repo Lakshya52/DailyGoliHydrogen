@@ -54,16 +54,16 @@ const Reviews = () => {
   };
 
   return (
-    <div id='reviews' className='min-h-fit flex flex-col items-center gap-10 justify-center font-lex-reg bg-(--white) py-12 md:py-24 px-4 md:px-[100px] overflow-hidden' >
+    <div id='reviews' className='min-h-fit flex flex-col items-center gap-10 justify-center font-lex-reg bg-(--white) py-12 md:py-24 px-4 md:px-25 overflow-hidden' >
         <div className='flex flex-col items-center justify-center' > 
             <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center">Reviews</div>
-            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4' >Join 1000+ Happy Customers</h1>
+            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4 font-lex-med leading-[108%] section-heading' >Join 1000+ Happy Customers</h1>
         </div>
 
         <div className="flex flex-col md:flex-row items-start justify-start w-full gap-6 md:gap-8 relative px-2 md:px-0" >
           
           {/* STICKY RATING SUMMARY */}
-          <div className="w-full md:w-[380px] md:sticky md:top-24 flex flex-col justify-between bg-(--color-primary) text-(--accent) rounded-3xl p-6 md:p-10 h-fit z-10" >
+          <div className="w-full md:w-95 md:sticky md:top-24 flex flex-col justify-between bg-(--color-primary) text-(--accent) rounded-3xl p-6 md:p-10 h-fit z-10" >
             <div className="flex items-end justify-between mb-6 md:mb-8" >
               <h1 className="text-4xl md:text-6xl font-lex-reg">4.8</h1>
               <div className="flex gap-1 mb-2">
@@ -111,7 +111,7 @@ const Reviews = () => {
               {reviews.map((review,i)=>(
                 <div 
                   key={i} 
-                  className="min-w-[300px] md:min-w-[400px] bg-(--bg-light) rounded-3xl p-8 flex flex-col justify-between snap-start border border-(--color-primary)/10 hover:border-(--color-primary)/30 transition-all duration-300"
+                  className="min-w-75 md:min-w-100 bg-(--bg-light) rounded-3xl p-8 flex flex-col justify-between snap-start border border-(--color-primary)/10 hover:border-(--color-primary)/30 transition-all duration-300"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-6">

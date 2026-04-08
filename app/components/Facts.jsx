@@ -58,11 +58,11 @@ const Facts = () => {
   };
 
   return (
-    <div id="benefits" className="px-6 md:px-[100px] relative min-h-[70dvh] bg-(--white) flex flex-col md:flex-row items-center justify-between pb-20 pt-20 overflow-hidden">
+    <div id="benefits" className="px-6 md:px-25 relative min-h-[70dvh] bg-(--white) flex flex-col md:flex-row items-center justify-between pb-20 pt-20 overflow-hidden">
       <img
         src="/images/bottleWithPills.png"
         alt="MB-360 bottle with pills"
-        className="hidden md:block absolute w-[35%] h-auto -left-0 hover:scale-80 transition-transform duration-700 pointer-events-none z-10"
+        className="hidden md:block absolute w-[35%] h-auto left-0 hover:scale-80 transition-transform duration-700 pointer-events-none z-10"
       />
       
       <div className="md:ml-[35%] w-full md:w-[65%] flex flex-col items-start justify-center gap-6">
@@ -70,7 +70,7 @@ const Facts = () => {
             <div className="font-lex-reg rounded-full w-fit h-10 px-6 bg-(--color-primary) text-(--white) flex items-center justify-center">
               Facts & Benefits
             </div>
-            <h2 className="text-4xl md:text-5xl text-(--color-primary) font-lex-reg mt-2">Built for Performance</h2>
+            <h2 className="text-4xl md:text-5xl text-(--color-primary) font-lex-reg mt-2 font-lex-med leading-[108%] section-heading">Built for Performance</h2>
         </div>
 
         <div 
@@ -85,7 +85,7 @@ const Facts = () => {
           {factsData.map((fact, index) => (
             <div 
               key={index} 
-              className="h-80 min-w-[280px] md:min-w-[320px] bg-(--bg-light) rounded-3xl flex flex-col items-center justify-center gap-4 text-center p-8 snap-start border border-(--color-primary)/5 hover:border-(--color-primary)/20 transition-all duration-300 pointer-events-none"
+              className="h-80 min-w-70 md:min-w-[320px] bg-(--bg-light) rounded-3xl flex flex-col items-center justify-center gap-4 text-center p-8 snap-start border border-(--color-primary)/5 hover:border-(--color-primary)/20 transition-all duration-300 pointer-events-none"
             >
               <div className="p-4 bg-white rounded-2xl shadow-sm">
                 {fact.icon}

@@ -1,4 +1,5 @@
 import { useState, useEffect, Suspense } from "react";
+import { useNavigate } from "react-router";
 import { Link, Await } from "react-router";
 import { ArrowUpRight, ShoppingCart } from "lucide-react";
 
@@ -73,6 +74,20 @@ const Navbar = ({ cart }) => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate("/");
+
+    // ensure scroll happens after navigation
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }, 0);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= window.innerHeight * 0.5) {
@@ -112,9 +127,8 @@ const Navbar = ({ cart }) => {
       >
         {/* social media links - hidden on mobile */}
         <div className="hidden md:flex items-center justify-center w-fit gap-1">
-          <a href="https:www.dailygoli.in" className="flex items-center justify-center cursor-pointer no-underline h-10 w-10 mr-2">
-            <img src="/Logo.svg" alt="Daily Goli Logo" className=" h-full " />
-          </a>
+          <img onClick={handleLogoClick} src="/Logo.svg" alt="Daily Goli Logo" className="cursor-pointer h-10 w-10 mr-2 " />
+
           {socialLinks.map((item, index) => (
             <a
               key={index}

@@ -2,6 +2,7 @@ import { useState, useEffect, Suspense } from "react";
 import { Link, Await } from "react-router";
 import { ArrowUpRight, ShoppingCart } from "lucide-react";
 
+
 const InstagramIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -105,12 +106,15 @@ const Navbar = ({ cart }) => {
   return (
     <>
       <div
-        className={`fixed w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[15dvh]"
+        className={`fixed w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[15dvh] bg-(--color-primary)/20" : "h-[15dvh]"
           }  px-4 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
           }`}
       >
         {/* social media links - hidden on mobile */}
         <div className="hidden md:flex items-center justify-center w-fit gap-1">
+          <a href="https:www.dailygoli.in" className="flex items-center justify-center cursor-pointer no-underline h-10 w-10 mr-2">
+            <img src="/Logo.svg" alt="Daily Goli Logo" className=" h-full " />
+          </a>
           {socialLinks.map((item, index) => (
             <a
               key={index}

@@ -65,7 +65,7 @@ const Reviews = () => {
           {/* STICKY RATING SUMMARY */}
           <div className="w-full md:w-95 md:sticky md:top-24 flex flex-col justify-between bg-(--color-primary) text-(--accent) rounded-3xl p-6 md:p-10 h-fit z-10" >
             <div className="flex items-end justify-between mb-6 md:mb-8" >
-              <h1 className="text-4xl md:text-6xl font-lex-reg">4.8</h1>
+              <h1 className="text-4xl md:text-6xl font-lex-reg leading-0" style={{margin:0, fontSize: '4rem'}}>4.8</h1>
               <div className="flex gap-1 mb-2">
                 {[...Array(5)].map((_,i)=>(
                   <Star key={i} fill="currentColor" size={20} className="md:w-6 md:h-6"/>

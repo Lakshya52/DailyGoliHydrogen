@@ -11,7 +11,7 @@ const Footer = () => {
                     <div className='flex flex-col gap-6 w-full lg:w-auto items-start'>
                         <img src="/images/LogoGold.webp" alt="Daily goli yellow logo" className='h-24 sm:h-32 lg:h-50 w-auto object-contain' />
                     </div>
-                    
+
                     {/* details & links container */}
                     <div className="flex flex-col md:flex-row gap-10 md:gap-16 lg:gap-20 w-full lg:w-auto justify-between lg:justify-end items-start lg:items-end mt-4 lg:mt-0">
                         {/* details */}
@@ -29,12 +29,12 @@ const Footer = () => {
                             FSSAI License No.: 12724999000202  <br />
                             Mfg. FSSAI: 10019051003293
                         </ul>
-                        
+
                         {/* links wrapper to put them side by side on mobile */}
                         <div className="flex gap-16 sm:gap-24 md:gap-16 lg:gap-20">
                             {/* links 1 */}
                             <ul className='leading-relaxed md:leading-[188%] text-sm md:text-base flex flex-col gap-1' >
-                                <a href="#blogs" className="block">
+                                <a href="/blogs" className="block">
                                     <li className='cursor-pointer hover:underline text-(--accent)' >Blogs</li>
                                 </a>
                                 <a href="" className="block">

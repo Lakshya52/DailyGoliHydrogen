@@ -72,29 +72,28 @@ export default function Blog() {
   const {articles} = blog;
 
   return (
-    <div className="blog">
-      <h1>{blog.title}</h1>
-      <div className="blog-grid">
-        <PaginatedResourceSection connection={articles}>
-          {({node: article, index}) => (
-            <ArticleItem
-              article={article}
-              key={article.id}
-              loading={index < 2 ? 'eager' : 'lazy'}
-            />
-          )}
-        </PaginatedResourceSection>
+    <div className="min-h-screen pt-32 pb-20 px-6 md:px-25 bg-(--bg-light) text-(--color-primary) font-lex-reg">
+      <div className="max-w-7xl mx-auto">
+        <Link to="/blogs" className="text-(--color-primary) opacity-60 hover:opacity-100 flex items-center gap-2 mb-8 font-lex-med w-fit hover:-translate-x-1 transition-transform">
+          ← Back to Blogs
+        </Link>
+        <h1 className="text-4xl md:text-6xl text-center section-heading mb-16 capitalize">{blog.title}</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <PaginatedResourceSection connection={articles}>
+            {({node: article, index}) => (
+              <ArticleItem
+                article={article}
+                key={article.id}
+                loading={index < 2 ? 'eager' : 'lazy'}
+              />
+            )}
+          </PaginatedResourceSection>
+        </div>
       </div>
     </div>
   );
 }
 
-/**
- * @param {{
- *   article: ArticleItemFragment;
- *   loading?: HTMLImageElement['loading'];
- * }}
- */
 function ArticleItem({article, loading}) {
   const publishedAt = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -102,21 +101,28 @@ function ArticleItem({article, loading}) {
     day: 'numeric',
   }).format(new Date(article.publishedAt));
   return (
-    <div className="blog-article" key={article.id}>
-      <Link to={`/blogs/${article.blog.handle}/${article.handle}`}>
+    <div className="bg-(--white) rounded-3xl border border-(--color-primary)/10 hover:border-(--color-primary)/40 transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col group cursor-pointer shadow-sm hover:shadow-md h-full" key={article.id}>
+      <Link to={`/blogs/${article.blog.handle}/${article.handle}`} className="flex flex-col h-full">
         {article.image && (
-          <div className="blog-article-image">
+          <div className="w-full aspect-[3/2] bg-(--bg-light) overflow-hidden border-b border-(--color-primary)/10">
             <Image
               alt={article.image.altText || article.title}
               aspectRatio="3/2"
               data={article.image}
               loading={loading}
               sizes="(min-width: 768px) 50vw, 100vw"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
           </div>
         )}
-        <h3>{article.title}</h3>
-        <small>{publishedAt}</small>
+        <div className="p-8 flex flex-col flex-1">
+          <small className="text-sm font-lex-med opacity-60 mb-3">{publishedAt}</small>
+          <h3 className="text-2xl font-lex-med text-(--color-primary) leading-[130%] mb-4 line-clamp-3">{article.title}</h3>
+          
+          <div className="mt-auto pt-4 flex items-center gap-2 font-lex-med opacity-80 group-hover:opacity-100 transition-opacity">
+            Read Article <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
       </Link>
     </div>
   );

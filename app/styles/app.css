@@ -4,10 +4,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap');
 
 
-*{
+* {
   font-family: "Lexend", sans-serif;
   font-weight: 400;
 }
+
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
@@ -18,21 +19,23 @@
   --color-light: #fff;
   --white: #f8f8f8;
 }
-::-webkit-scrollbar{
+
+::-webkit-scrollbar {
   width: 0;
 }
 
-.section-heading{
+.section-heading {
   font-size: 2rem;
   line-height: 1.2;
   font-weight: 700;
 }
+
 /* if screen is grater than 768px then  */
 @media screen and (min-width: 768px) {
-  .section-heading{
+  .section-heading {
     font-size: 3rem;
   }
-  
+
 }
 
 img {
@@ -697,6 +700,7 @@ html {
 }
 
 body {
+  margin: 0px;
   font-optical-sizing: auto;
   background: var(--bg-light);
 }
@@ -705,7 +709,11 @@ body {
   height: 0px;
 }
 
-#ingredients, #benefits, #reviews, #faqs, #product {
+#ingredients,
+#benefits,
+#reviews,
+#faqs,
+#product {
   scroll-margin-top: 16dvh;
 }
 

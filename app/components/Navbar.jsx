@@ -65,6 +65,7 @@ const socialLinks = [
 const navLinks = [
   { text: "Ingredients", href: "/#ingredients", rotate: "hover:-rotate-3" },
   { text: "Benefits", href: "/#benefits", rotate: "hover:-rotate-3" },
+  { text: "Blogs", href: "/blogs", rotate: "hover:-rotate-3" },
   { text: "Reviews", href: "/#reviews", rotate: "hover:rotate-3" },
   { text: "FAQs", href: "/#faqs", rotate: "hover:rotate-3" },
 ];

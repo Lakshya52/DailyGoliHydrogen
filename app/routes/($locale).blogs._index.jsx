@@ -1,12 +1,12 @@
-import {Link, useLoaderData} from 'react-router';
-import {getPaginationVariables} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import { Link, useLoaderData } from 'react-router';
+import { Image, getPaginationVariables } from '@shopify/hydrogen';
+import { PaginatedResourceSection } from '~/components/PaginatedResourceSection';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Blogs`}];
+  return [{ title: `Hydrogen | Blogs` }];
 };
 
 /**
@@ -19,7 +19,7 @@ export async function loader(args) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
@@ -27,13 +27,13 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {Route.LoaderArgs}
  */
-async function loadCriticalData({context, request}) {
+async function loadCriticalData({ context, request }) {
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 10,
+    pageBy: 12,
   });
 
-  const [{blogs}] = await Promise.all([
-    context.storefront.query(BLOGS_QUERY, {
+  const [{ articles }] = await Promise.all([
+    context.storefront.query(ARTICLES_QUERY, {
       variables: {
         ...paginationVariables,
       },
@@ -41,7 +41,7 @@ async function loadCriticalData({context, request}) {
     // Add other queries here, so that they are loaded in parallel
   ]);
 
-  return {blogs};
+  return { articles };
 }
 
 /**
@@ -50,38 +50,83 @@ async function loadCriticalData({context, request}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {Route.LoaderArgs}
  */
-function loadDeferredData({context}) {
+function loadDeferredData({ context }) {
   return {};
 }
 
 export default function Blogs() {
   /** @type {LoaderReturnData} */
-  const {blogs} = useLoaderData();
+  const { articles } = useLoaderData();
 
   return (
-    <div className="blogs">
-      <h1>Blogs</h1>
-      <div className="blogs-grid">
-        <PaginatedResourceSection connection={blogs}>
-          {({node: blog}) => (
-            <Link
-              className="blog"
-              key={blog.handle}
-              prefetch="intent"
-              to={`/blogs/${blog.handle}`}
-            >
-              <h2>{blog.title}</h2>
-            </Link>
-          )}
-        </PaginatedResourceSection>
+    <div className="min-h-screen  pt-[15dvh] pb-20 px-6 md:px-25 text-(--color-primary) font-lex-reg bg-(--bg-light)">
+      <div className=" mx-auto">
+        {/* <div className="font-lex-reg rounded-full text-sm w-fit h-10 px-6 bg-(--color-primary) text-(--white) flex items-center justify-center mb-4 mx-auto">
+          Read & Discover
+        </div> */}
+        <h1 className="text-4xl md:text-6xl text-left font-lex-med mb-16 leading-[110%] section-heading">Our Blogs</h1>
+        <p className="text-lg md:text-xl text-left font-lex-reg mb-16 leading-[150%] opacity-80">
+          Stay updated with the latest news, tips, and insights on health, wellness, and everything related to Daily Goli. Explore our collection of articles and discover something new today.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+          <PaginatedResourceSection connection={articles}>
+            {({ node: article, index }) => (
+              <ArticleItem
+                article={article}
+                key={article.id}
+                loading={index < 2 ? 'eager' : 'lazy'}
+              />
+            )}
+          </PaginatedResourceSection>
+        </div>
       </div>
     </div>
   );
 }
 
-// NOTE: https://shopify.dev/docs/api/storefront/latest/objects/blog
-const BLOGS_QUERY = `#graphql
-  query Blogs(
+function ArticleItem({ article, loading }) {
+  const publishedAt = new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(article.publishedAt));
+  return (
+    <div className="bg-(--white) rounded-3xl border border-(--color-primary)/10 hover:border-(--color-primary)/40 transition-all duration-300 hover:-translate-y-2 overflow-hidden flex flex-col group cursor-pointer shadow-sm hover:shadow-md h-full" key={article.id}>
+      <Link to={`/blogs/${article.blog.handle}/${article.handle}`} className="flex flex-col h-full">
+        <div className="w-full aspect-[1/1] bg-(--bg-light) overflow-hidden border-b border-(--color-primary)/10">
+          {article.image ? (
+            <Image
+              alt={article.image.altText || article.title}
+              aspectRatio="1/1"
+              data={article.image}
+              loading={loading}
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-(--color-primary)/5 group-hover:bg-(--color-primary)/10 transition-colors">
+              <img src="/images/LogoGold.webp" alt="Daily Goli" className="h-16 w-auto opacity-40" />
+              <span className="text-xs font-lex-med text-(--color-primary) opacity-40 uppercase tracking-widest">Daily Goli Blog</span>
+            </div>
+          )}
+        </div>
+        <div className="p-8 flex flex-col flex-1">
+          <small className="text-sm font-lex-med opacity-60 mb-3">{publishedAt}</small>
+          <h3 className="text-2xl font-lex-med text-(--color-primary) leading-[130%] mb-4 line-clamp-3">{article.title}</h3>
+
+          <div className="mt-auto pt-4 flex items-center gap-2 font-lex-med opacity-80 group-hover:opacity-100 transition-opacity">
+            Read Article <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </div>
+        </div>
+      </Link>
+    </div>
+  );
+}
+
+// NOTE: queries all articles across the Shopify store
+const ARTICLES_QUERY = `#graphql
+  query Articles(
     $country: CountryCode
     $endCursor: String
     $first: Int
@@ -89,7 +134,7 @@ const BLOGS_QUERY = `#graphql
     $last: Int
     $startCursor: String
   ) @inContext(country: $country, language: $language) {
-    blogs(
+    articles(
       first: $first,
       last: $last,
       before: $startCursor,
@@ -102,19 +147,32 @@ const BLOGS_QUERY = `#graphql
         endCursor
       }
       nodes {
-        title
-        handle
-        seo {
-          title
-          description
-        }
+        ...ArticleItem
       }
+    }
+  }
+  fragment ArticleItem on Article {
+    author: authorV2 {
+      name
+    }
+    contentHtml
+    handle
+    id
+    image {
+      id
+      altText
+      url
+      width
+      height
+    }
+    publishedAt
+    title
+    blog {
+      handle
     }
   }
 `;
 
-/** @typedef {BlogsQuery['blogs']['nodes'][0]} BlogNode */
-
 /** @typedef {import('./+types/blogs._index').Route} Route */
-/** @typedef {import('storefrontapi.generated').BlogsQuery} BlogsQuery */
+/** @typedef {import('storefrontapi.generated').ArticlesQuery} ArticlesQuery */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

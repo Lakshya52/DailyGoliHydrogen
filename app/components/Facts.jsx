@@ -67,10 +67,10 @@ const Facts = () => {
       
       <div className="md:ml-[35%] w-full md:w-[65%] flex flex-col items-start justify-center gap-6">
         <div className="flex flex-col gap-2">
-            <div className="font-lex-reg rounded-full w-fit h-10 px-6 bg-(--color-primary) text-(--white) flex items-center justify-center">
+            <div className="font-lex-reg rounded-full text-sm w-fit h-10 px-6 bg-(--color-primary)  text-(--white) flex items-center justify-center">
               Facts & Benefits
             </div>
-            <h2 className="text-4xl md:text-5xl text-(--color-primary) font-lex-reg mt-2 font-lex-med leading-[108%] section-heading">Built for Performance</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-(--color-primary) mt-2 font-lex-med leading-[108%] section-heading">Built for Performance</h2>
         </div>
 
         <div 

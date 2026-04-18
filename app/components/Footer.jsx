@@ -4,82 +4,75 @@ import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone } from 'lucide-reac
 const Footer = () => {
     return (
         <>
-            <div className='min-h-auto md:min-h-[50dvh] flex flex-col gap-6 md:gap-10 bg-(--color-primary) text-(--accent) text-sm md:text-lg font-lex-light px-4 md:px-25 py-10 md:py-20' >
+            <div className='min-h-auto md:min-h-[50dvh] flex flex-col gap-8 md:gap-10 bg-(--color-primary) text-(--accent) font-lex-light px-6 md:px-25 py-12 md:py-20' >
                 {/* top */}
-                <div className='flex flex-col md:flex-row items-start md:items-end justify-between gap-8 md:gap-0' >
+                <div className='flex flex-col lg:flex-row items-start lg:items-end justify-between gap-12 lg:gap-0' >
                     {/* logo and social icons */}
-                    <div className='flex flex-col gap-6 w-full md:w-auto'>
-                        <img src="/images/LogoGold.webp" alt="Daily goli yellow logo" className='h-40 md:h-50 w-auto' />
-                        {/* Social Media Icons */}
-                        {/* <div className='flex gap-4'>
-                            <a href="https://facebook.com" target="_blank" rel="noreferrer" className='p-2 rounded-full hover:bg-(--accent) transition group' title='Facebook'>
-                                <Facebook size={24} className='text-(--accent) group-hover:text-(--color-primary)' />
-                            </a>
-                            <a href="https://instagram.com" target="_blank" rel="noreferrer" className='p-2 rounded-full hover:bg-(--accent) transition group' title='Instagram'>
-                                <Instagram size={24} className='text-(--accent) group-hover:text-(--color-primary)' />
-                            </a>
-                            <a href="https://twitter.com" target="_blank" rel="noreferrer" className='p-2 rounded-full hover:bg-(--accent) transition group' title='Twitter'>
-                                <Twitter size={24} className='text-(--accent) group-hover:text-(--color-primary)' />
-                            </a>
-                            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className='p-2 rounded-full hover:bg-(--accent) transition group' title='LinkedIn'>
-                                <Linkedin size={24} className='text-(--accent) group-hover:text-(--color-primary)' />
-                            </a>
-                        </div> */}
+                    <div className='flex flex-col gap-6 w-full lg:w-auto items-start'>
+                        <img src="/images/LogoGold.webp" alt="Daily goli yellow logo" className='h-24 sm:h-32 lg:h-50 w-auto object-contain' />
                     </div>
-                    {/* details */}
-                    <ul className='leading-relaxed md:leading-[200%] text-xs md:text-base w-full md:w-auto' >
-                        K Dee Ventures, Shop No-106, MC Complex, <br />
-                        Sector-15, Noida, UP–201301 <br />
-                        <a href="mailto:kdeeventures9@gmail.com" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent)'>
-                            <Mail size={16} className='text-(--accent)' />
-                            <span className='text-(--accent)'>kdeeventures9@gmail.com</span>
-                        </a>
-                        <a href="tel:+919818974293" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent)'>
-                            <Phone size={16} className='text-(--accent)' />
-                            <span className='text-(--accent)'>+91 - 98189 74293</span>
-                        </a>
-                        FSSAI License No.: 12724999000202  <br />
-                        Mfg. FSSAI: 10019051003293
-                    </ul>
-                    {/* links 1 */}
-                    <ul className='leading-relaxed md:leading-[188%] text-xs md:text-base w-full md:w-auto' >
-                        <a href="#blogs">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >Blogs</li>
-                        </a>
-                        <a href="">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >On Binkit</li>
-                        </a>
-                        <a href="">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >On Flipkart</li>
-                        </a>
-                        <a href="">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >On Amazon</li>
-                        </a>
-                        <a href="/contact">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >Contact</li>
-                        </a>
-                    </ul>
-                    {/* links 2 */}
-                    <ul className='leading-relaxed md:leading-[188%] text-xs md:text-base w-full md:w-auto' >
-                        <a href="#ingredients">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >Ingredients</li>
-                        </a>
-                        <a href="#benefits">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >Benefits</li>
-                        </a>
-                        <a href="#reviews">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >Reviews</li>
-                        </a>
-                        <a href="#faqs">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >FAQs</li>
-                        </a>
-                        <a href="#product">
-                            <li className='cursor-pointer hover:underline text-(--accent)' >Buy Now</li>
-                        </a>
-                    </ul>
+                    
+                    {/* details & links container */}
+                    <div className="flex flex-col md:flex-row gap-10 md:gap-16 lg:gap-20 w-full lg:w-auto justify-between lg:justify-end items-start lg:items-end mt-4 lg:mt-0">
+                        {/* details */}
+                        <ul className='leading-relaxed md:leading-[200%] text-sm md:text-base' >
+                            K Dee Ventures, Shop No-106, MC Complex, <br />
+                            Sector-15, Noida, UP–201301 <br />
+                            <a href="mailto:kdeeventures9@gmail.com" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent) mt-2'>
+                                <Mail size={16} className='text-(--accent) shrink-0' />
+                                <span className='text-(--accent) break-all'>kdeeventures9@gmail.com</span>
+                            </a>
+                            <a href="tel:+919818974293" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent) mb-2'>
+                                <Phone size={16} className='text-(--accent) shrink-0' />
+                                <span className='text-(--accent)'>+91 - 98189 74293</span>
+                            </a>
+                            FSSAI License No.: 12724999000202  <br />
+                            Mfg. FSSAI: 10019051003293
+                        </ul>
+                        
+                        {/* links wrapper to put them side by side on mobile */}
+                        <div className="flex gap-16 sm:gap-24 md:gap-16 lg:gap-20">
+                            {/* links 1 */}
+                            <ul className='leading-relaxed md:leading-[188%] text-sm md:text-base flex flex-col gap-1' >
+                                <a href="#blogs" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >Blogs</li>
+                                </a>
+                                <a href="" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >On Blinkit</li>
+                                </a>
+                                <a href="" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >On Flipkart</li>
+                                </a>
+                                <a href="" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >On Amazon</li>
+                                </a>
+                                <a href="/contact" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >Contact</li>
+                                </a>
+                            </ul>
+                            {/* links 2 */}
+                            <ul className='leading-relaxed md:leading-[188%] text-sm md:text-base flex flex-col gap-1' >
+                                <a href="#ingredients" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >Ingredients</li>
+                                </a>
+                                <a href="#benefits" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >Benefits</li>
+                                </a>
+                                <a href="#reviews" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >Reviews</li>
+                                </a>
+                                <a href="#faqs" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >FAQs</li>
+                                </a>
+                                <a href="#product" className="block">
+                                    <li className='cursor-pointer hover:underline text-(--accent)' >Buy Now</li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 {/* bottom line */}
-                <div className='text-xs md:text-sm leading-relaxed border-t border-(--accent) border-opacity-30 pt-6 md:pt-10'>
+                <div className='text-xs md:text-sm leading-relaxed border-t border-(--accent) border-opacity-30 pt-6 mt-4 opacity-80'>
                     © 2026 Daily Goli All rights reserved | Science-backed, plant-based health supplements Inspired by GLP-1 pathway science. Made in India, for the world. This is a food supplement, not for medicinal use. Keep out of reach of children.
                 </div>
             </div>

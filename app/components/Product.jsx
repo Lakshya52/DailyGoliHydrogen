@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import {Star, ShoppingCart, Check, CheckCheck } from "lucide-react"
-import {CartForm} from '@shopify/hydrogen';
+import { Star, ShoppingCart, Check, CheckCheck } from "lucide-react"
+import { CartForm } from '@shopify/hydrogen';
 
 const Product = ({ product }) => {
   const [selectedPurchase, setSelectedPurchase] = useState('monthly');
@@ -19,26 +19,26 @@ const Product = ({ product }) => {
   const firstVariant = variants.nodes[0];
   const variantId = firstVariant?.id;
 
-  const productImages = images.nodes.length > 0 
+  const productImages = images.nodes.length > 0
     ? images.nodes.map(img => img.url)
     : [
-    '/productImages/product-1.png',
-    '/productImages/product-2.png',
-    '/productImages/product-3.png',
-    '/productImages/product-4.png',
-    '/productImages/product-5.png',
-  ];
+      '/productImages/product-1.png',
+      '/productImages/product-2.png',
+      '/productImages/product-3.png',
+      '/productImages/product-4.png',
+      '/productImages/product-5.png',
+    ];
 
   const pricing = {
-    oneTime: { 
-      price: firstVariant?.price?.amount || 1499, 
-      label: 'One Time Purchase', 
-      savings: null 
+    oneTime: {
+      price: firstVariant?.price?.amount || 1499,
+      label: 'One Time Purchase',
+      savings: null
     },
-    monthly: { 
-      price: firstVariant?.price?.amount ? (parseFloat(firstVariant.price.amount) * 0.87).toFixed(0) : 1299, 
-      label: 'Monthly Subscription', 
-      savings: '13% off' 
+    monthly: {
+      price: firstVariant?.price?.amount ? (parseFloat(firstVariant.price.amount) * 0.87).toFixed(0) : 1299,
+      label: 'Monthly Subscription',
+      savings: '13% off'
     }
   };
 
@@ -81,14 +81,14 @@ const Product = ({ product }) => {
 
         {/* product purchasing section */}
         <div className="w-full md:w-[70%] mt-8 md:mt-15 flex flex-col md:flex-row gap-8 md:gap-12 items-start justify-between relative px-4 md:px-0">
-          
+
           {/* Image Gallery - Left Side */}
           <div className="w-full md:w-1/2 md:min-w-[50%]">
             <div className="sticky top-[10vh] flex flex-col gap-4 will-change-transform">
               {/* Main Image */}
               <div className="w-full aspect-square bg-(--bg-light) rounded-2xl overflow-hidden flex items-center justify-center border-2 border-(--color-primary)">
-                <img 
-                  src={productImages[selectedImage]} 
+                <img
+                  src={productImages[selectedImage]}
                   alt={images.nodes[selectedImage]?.altText || "Product Image"}
                   loading="eager"
                   decoding="async"
@@ -102,14 +102,13 @@ const Product = ({ product }) => {
                   <div
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`w-20 h-20 min-w-20 rounded-lg cursor-pointer overflow-hidden border-2 transition-all duration-300 ${
-                      selectedImage === index
+                    className={`w-20 h-20 min-w-20 rounded-lg cursor-pointer overflow-hidden border-2 transition-all duration-300 ${selectedImage === index
                         ? 'border-(--color-primary) scale-110'
                         : 'border-(--bg-light) hover:border-(--color-primary)'
-                    }`}
+                      }`}
                   >
-                    <img 
-                      src={image} 
+                    <img
+                      src={image}
                       alt={`Product ${index + 1}`}
                       className="w-full h-full object-cover"
                     />
@@ -121,10 +120,10 @@ const Product = ({ product }) => {
 
           {/* Product Details - Right Side */}
           <div className="w-full md:w-1/2 flex flex-col gap-4">
-            
+
             {/* Product Title */}
             <div>
-              <h2 className="text-5xl md:text-4xl font-lex-reg text-(--color-primary) mb-2 uppercase">
+              <h2 className="text-5xl md:text-4xl font-lex-reg text-(--color-primary) mb-2 uppercase section-heading">
                 {title}
               </h2>
               <p className="text-sm md:text-lg text-(--color-primary) opacity-70">
@@ -148,11 +147,10 @@ const Product = ({ product }) => {
             <div className="flex gap-3 bg-(--bg-light) p-1 rounded-full w-fit">
               <button
                 onClick={() => setSelectedPurchase('monthly')}
-                className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 relative cursor-pointer border border-(--color-primary) ${
-                  selectedPurchase === 'monthly'
+                className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 relative cursor-pointer border border-(--color-primary) ${selectedPurchase === 'monthly'
                     ? 'bg-(--color-primary) text-(--white)'
                     : 'text-(--color-primary) hover:bg-(--white)'
-                }`}
+                  }`}
               >
                 Monthly Subscription
                 {selectedPurchase === 'monthly' && (
@@ -163,11 +161,10 @@ const Product = ({ product }) => {
               </button>
               <button
                 onClick={() => setSelectedPurchase('oneTime')}
-                className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 border border-(--color-primary) cursor-pointer ${
-                  selectedPurchase === 'oneTime'
+                className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 border border-(--color-primary) cursor-pointer ${selectedPurchase === 'oneTime'
                     ? 'bg-(--color-primary) text-(--white)'
                     : 'text-(--color-primary) hover:bg-(--white)'
-                }`}
+                  }`}
               >
                 One Time
               </button>
@@ -190,7 +187,7 @@ const Product = ({ product }) => {
                 )}
               </div>
               <p className="text-xs md:text-sm text-(--color-primary) opacity-50">
-                {selectedPurchase === 'monthly' 
+                {selectedPurchase === 'monthly'
                   ? 'Cancel anytime, no hidden charges'
                   : 'One-time payment, free shipping'}
               </p>
@@ -198,24 +195,24 @@ const Product = ({ product }) => {
 
             {/* Quantity Selector */}
             <div className="flex items-center gap-4">
-                <p className="font-lex-reg text-sm md:text-base text-(--color-primary)">Quantity:</p>
-                <div className="flex items-center border border-(--color-primary) rounded-xl overflow-hidden h-10 md:h-12">
-                    <button 
-                        onClick={decrementQuantity}
-                        className="w-10 md:w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-lg md:text-xl"
-                    >
-                        -
-                    </button>
-                    <span className="w-10 md:w-12 h-full flex items-center justify-center font-lex-reg text-sm md:text-lg border-x border-(--color-primary)">
-                        {quantity}
-                    </span>
-                    <button 
-                        onClick={incrementQuantity}
-                        className="w-10 md:w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-lg md:text-xl"
-                    >
-                        +
-                    </button>
-                </div>
+              <p className="font-lex-reg text-sm md:text-base text-(--color-primary)">Quantity:</p>
+              <div className="flex items-center border border-(--color-primary) rounded-xl overflow-hidden h-10 md:h-12">
+                <button
+                  onClick={decrementQuantity}
+                  className="w-10 md:w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-lg md:text-xl"
+                >
+                  -
+                </button>
+                <span className="w-10 md:w-12 h-full flex items-center justify-center font-lex-reg text-sm md:text-lg border-x border-(--color-primary)">
+                  {quantity}
+                </span>
+                <button
+                  onClick={incrementQuantity}
+                  className="w-10 md:w-12 h-full flex items-center justify-center hover:bg-(--color-primary) hover:text-(--white) transition-all cursor-pointer text-lg md:text-xl"
+                >
+                  +
+                </button>
+              </div>
             </div>
 
             <div className="flex gap-4">
@@ -236,7 +233,7 @@ const Product = ({ product }) => {
                     <input type="hidden" name="action" value={CartForm.ACTIONS.LinesAdd} />
                     <input type="hidden" name="inputs" value={JSON.stringify({
                       lines: [{
-                        merchandiseId: variantId, 
+                        merchandiseId: variantId,
                         quantity: quantity,
                         selectedVariant: firstVariant
                       }]
@@ -252,7 +249,7 @@ const Product = ({ product }) => {
                   </>
                 )}
               </CartForm>
-    
+
               {/* Buy Now Button - Direct to checkout redirected handled by cart action */}
               <CartForm
                 route="/cart"
@@ -265,22 +262,22 @@ const Product = ({ product }) => {
                   }],
                 }}
               >
-                  <input type="hidden" name="action" value={CartForm.ACTIONS.LinesAdd} />
-                  <input type="hidden" name="inputs" value={JSON.stringify({
-                      lines: [{
-                        merchandiseId: variantId, 
-                        quantity: quantity,
-                        selectedVariant: firstVariant
-                      }]
-                  })} />
-                  <button 
+                <input type="hidden" name="action" value={CartForm.ACTIONS.LinesAdd} />
+                <input type="hidden" name="inputs" value={JSON.stringify({
+                  lines: [{
+                    merchandiseId: variantId,
+                    quantity: quantity,
+                    selectedVariant: firstVariant
+                  }]
+                })} />
+                <button
                   type="submit"
                   name="checkout"
                   value="true"
                   className="w-full h-12 md:h-16 px-6 md:px-8 bg-(--color-primary) text-(--white) rounded-xl font-lex-reg text-sm md:text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
-                  >
-                    Buy Now
-                  </button>
+                >
+                  Buy Now
+                </button>
               </CartForm>
             </div>
 
@@ -299,23 +296,23 @@ const Product = ({ product }) => {
             {/* Product Features */}
             <div className="bg-(--bg-light) rounded-2xl space-y-3">
               <div className="flex gap-3 items-start justify-start">
-                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <CheckCheck size={20} className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
                 <p className="text-(--color-primary) text-xl font-lex-reg">GLP-1 Pathway Science Inspired — 6 clinically studied botanical ingredients</p>
               </div>
               <div className="flex gap-3 items-start justify-start">
-                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <CheckCheck size={20} className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
                 <p className="text-(--color-primary) text-xl font-lex-reg">Supports and control your appetite & reduces sugar cravings naturally in your body</p>
               </div>
               <div className="flex gap-3 items-start justify-start">
-                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <CheckCheck size={20} className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
                 <p className="text-(--color-primary) text-xl font-lex-reg">Berberine + Chromium for healthy blood sugar and metabolism support</p>
               </div>
               <div className="flex gap-3 items-start justify-start">
-                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <CheckCheck size={20} className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
                 <p className="text-(--color-primary) text-xl font-lex-reg">Inulin prebiotic for gut health and sustained energy</p>
               </div>
               <div className="flex gap-3 items-start justify-start">
-                <CheckCheck  size={20}  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
+                <CheckCheck size={20} className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) " />
                 <p className="text-(--color-primary) text-xl font-lex-reg">100% Veg Capsules | No artificial additives | FSSAI approved</p>
               </div>
             </div>
@@ -328,7 +325,7 @@ const Product = ({ product }) => {
             </div>
           </div>
         </div>
-        
+
         {/* Us vs Them section - keeping full copy for style consistency */}
         <div className="w-full md:w-[70%] mt-20 flex flex-col gap-8 px-6 md:px-0">
           <div className="flex flex-col items-center justify-center gap-3">
@@ -336,68 +333,68 @@ const Product = ({ product }) => {
               Same price. Double the capsules. More ingredients. The choice is clear.
             </h2>
           </div>
-          <div className="overflow-x-auto rounded-2xl border border-(--bg-light)">
-            <table className="w-full border-collapse min-w-150">
-  <thead>
-    <tr className="bg-(--bg-light)">
-      <th className="p-6 text-left"></th>
-      <th className="bg-(--color-primary) text-(--accent) p-6 text-left font-lex-reg rounded-t-2xl">
-        Daily Goli MB-360
-      </th>
-      <th className="p-6 text-left font-lex-reg">Others</th>
-    </tr>
-  </thead>
+          <div className="overflow-x-auto rounded-2xl border border-(--bg-light) custom-scrollbar">
+            <table className="w-full border-collapse min-w-[550px] md:min-w-full text-sm md:text-base">
+              <thead>
+                <tr className="bg-(--bg-light)">
+                  <th className="p-4 md:p-6 text-left"></th>
+                  <th className="bg-(--color-primary) text-(--accent) p-4 md:p-6 text-left font-lex-reg rounded-t-2xl">
+                    Daily Goli MB-360
+                  </th>
+                  <th className="p-4 md:p-6 text-left font-lex-reg min-w-[120px]">Others</th>
+                </tr>
+              </thead>
 
-  <tbody>
-    <tr className="border-b border-(--bg-light)">
-      <td className="p-6 font-lex-reg">Price</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">₹1,499</td>
-      <td className="p-6">₹1,799+</td>
-    </tr>
+              <tbody>
+                <tr className="border-b border-(--bg-light)">
+                  <td className="p-4 md:p-6 font-lex-reg">Price</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">₹1,499</td>
+                  <td className="p-4 md:p-6">₹1,799+</td>
+                </tr>
 
-    <tr className="border-b border-(--bg-light)">
-      <td className="p-6">Capsules</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">60 Capsules</td>
-      <td className="p-6">30–60 Capsules</td>
-    </tr>
+                <tr className="border-b border-(--bg-light)">
+                  <td className="p-4 md:p-6">Capsules</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">60 Capsules</td>
+                  <td className="p-4 md:p-6">30–60 Capsules</td>
+                </tr>
 
-    <tr className="border-b border-(--bg-light)">
-      <td className="p-6">Value/Day</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">₹50/day</td>
-      <td className="p-6">₹33–₹100</td>
-    </tr>
+                <tr className="border-b border-(--bg-light)">
+                  <td className="p-4 md:p-6">Value/Day</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">₹50/day</td>
+                  <td className="p-4 md:p-6">₹33–₹100</td>
+                </tr>
 
-    <tr className="border-b border-(--bg-light)">
-      <td className="p-6">Berberine HCl</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ 296mg</td>
-      <td className="p-6">✕ Usually Not</td>
-    </tr>
+                <tr className="border-b border-(--bg-light)">
+                  <td className="p-4 md:p-6">Berberine HCl</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">✓ 296mg</td>
+                  <td className="p-4 md:p-6">✕ Usually Not</td>
+                </tr>
 
-    <tr className="border-b border-(--bg-light)">
-      <td className="p-6">CQR-300</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ 296mg</td>
-      <td className="p-6">✕ Rarely</td>
-    </tr>
+                <tr className="border-b border-(--bg-light)">
+                  <td className="p-4 md:p-6">CQR-300</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">✓ 296mg</td>
+                  <td className="p-4 md:p-6">✕ Rarely</td>
+                </tr>
 
-    <tr className="border-b border-(--bg-light)">
-      <td className="p-6">Inulin Prebiotic</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ 112mg</td>
-      <td className="p-6">✕ Rarely</td>
-    </tr>
+                <tr className="border-b border-(--bg-light)">
+                  <td className="p-4 md:p-6">Inulin Prebiotic</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">✓ 112mg</td>
+                  <td className="p-4 md:p-6">✕ Rarely</td>
+                </tr>
 
-    <tr className="border-b border-(--bg-light)">
-      <td className="p-6">Total Ingredients</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">6 Active</td>
-      <td className="p-6">2–3 Ingredients</td>
-    </tr>
+                <tr className="border-b border-(--bg-light)">
+                  <td className="p-4 md:p-6">Total Ingredients</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">6 Active</td>
+                  <td className="p-4 md:p-6">2–3 Ingredients</td>
+                </tr>
 
-    <tr>
-      <td className="p-6">WHO-GMP Certified</td>
-      <td className="p-6 bg-(--color-primary) text-(--accent)">✓ Yes</td>
-      <td className="p-6">Varies</td>
-    </tr>
-  </tbody>
-</table>
+                <tr>
+                  <td className="p-4 md:p-6 rounded-bl-2xl">WHO-GMP Certified</td>
+                  <td className="p-4 md:p-6 bg-(--color-primary) text-(--accent) font-lex-reg">✓ Yes</td>
+                  <td className="p-4 md:p-6 rounded-br-2xl">Varies</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

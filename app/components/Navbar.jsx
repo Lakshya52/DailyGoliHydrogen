@@ -1,7 +1,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useNavigate } from "react-router";
 import { Link, Await } from "react-router";
-import { ArrowUpRight, ShoppingCart } from "lucide-react";
+import { ArrowUpRight, ShoppingCart, Menu, X } from "lucide-react";
 
 
 const InstagramIcon = () => (
@@ -73,6 +73,7 @@ const Navbar = ({ cart }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -122,28 +123,30 @@ const Navbar = ({ cart }) => {
     <>
       <div
         className={`fixed w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[15dvh] bg-(--color-primary)/20" : "h-[15dvh]"
-          }  px-4 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+          }  px-7 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
           }`}
       >
-        {/* social media links - hidden on mobile */}
-        <div className="hidden md:flex items-center justify-center w-fit gap-1">
-          <img onClick={handleLogoClick} src="/Logo.svg" alt="Daily Goli Logo" className="cursor-pointer h-10 w-10 mr-2 " />
+        <div className="flex items-center gap-2 md:gap-4 lg:gap-1">
+          <img onClick={handleLogoClick} src="/Logo.svg" alt="Daily Goli Logo" className="cursor-pointer h-10  lg:mr-2 " />
 
-          {socialLinks.map((item, index) => (
-            <a
-              key={index}
-              href={item.href}
-              className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group"
-            >
-              <div className="text-(--color-primary) transition-colors group-hover:text-(--white)">
-                {item.icon}
-              </div>
-            </a>
-          ))}
+          {/* Social Media Links - hidden before lg */}
+          <div className="hidden lg:flex items-center justify-center w-fit gap-1">
+            {socialLinks.map((item, index) => (
+              <a
+                key={index}
+                href={item.href}
+                className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group"
+              >
+                <div className="text-(--color-primary) transition-colors group-hover:text-(--white)">
+                  {item.icon}
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* navigation links - hidden on mobile, visible on md and up */}
-        <ul className="hidden md:flex gap-1 items-end">
+        {/* Navigation Links - hidden before lg */}
+        <ul className="hidden lg:flex gap-1 items-end">
           {navLinks.map((item, index) => (
             <li key={index}>
               <Link
@@ -160,8 +163,6 @@ const Navbar = ({ cart }) => {
 
         {/* Action Buttons: Cart & Buy Now */}
         <div className="flex items-center gap-2 md:gap-4">
-          {/* Cart Icon with Badge */}
-          {/* <Link to="/cart" className="relative h-12 w-12 rounded-full bg-(--white) text-(--color-primary) flex items-center justify-center border border-(--color-primary) hover:bg-(--color-primary) hover:text-(--white) transition-all"> */}
           <Link to="/cart" className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group relative">
             <ShoppingCart size={20} className="text-(--color-primary) transition-colors group-hover:text-(--white)" />
             <Suspense fallback={null}>
@@ -178,7 +179,6 @@ const Navbar = ({ cart }) => {
             </Suspense>
           </Link>
 
-          {/* Buy Now CTA */}
           <Link to="/#product" className="flex items-center justify-center w-fit group cursor-pointer no-underline">
             <div className="h-10 w-10 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) flex items-center justify-center transition-transform duration-400 group-hover:translate-x-22.5">
               <ArrowUpRight />
@@ -187,6 +187,50 @@ const Navbar = ({ cart }) => {
               Buy Now
             </span>
           </Link>
+
+          {/* Mobile Menu Button - visible only before lg */}
+          <button
+            className="lg:hidden h-10 w-10 min-w-10 flex items-center justify-center bg-(--color-primary) text-(--white) rounded-full"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 bg-(--white) z-[10000] flex flex-col items-center justify-center transition-all duration-500 origin-top transform ${isMobileMenuOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"}`}>
+        <button
+          className="absolute top-6 right-6 h-12 w-12 flex items-center justify-center bg-(--color-primary) text-(--white) rounded-full"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <X size={24} />
+        </button>
+
+        <ul className="flex flex-col items-center gap-8 mt-10">
+          {navLinks.map((item, index) => (
+            <li key={index}>
+              <Link
+                to={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-(--color-primary) text-3xl font-lex-reg hover:opacity-80 transition-opacity"
+              >
+                {item.text}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex gap-4 mt-16">
+          {socialLinks.map((item, index) => (
+            <a
+              key={index}
+              href={item.href}
+              className="h-14 w-14 rounded-full bg-(--color-primary) text-(--white) flex items-center justify-center hover:opacity-80 transition-opacity"
+            >
+              {item.icon}
+            </a>
+          ))}
         </div>
       </div>
     </>

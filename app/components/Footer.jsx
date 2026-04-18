@@ -28,18 +28,18 @@ const Footer = () => {
                     </div>
                     {/* details */}
                     <ul className='leading-relaxed md:leading-[200%] text-xs md:text-base w-full md:w-auto' >
-                        K Dee Ventures, Shop No-106, MC Complex, <br /> 
-                        Sector-15, Noida, UP–201301 <br /> 
+                        K Dee Ventures, Shop No-106, MC Complex, <br />
+                        Sector-15, Noida, UP–201301 <br />
                         <a href="mailto:kdeeventures9@gmail.com" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent)'>
                             <Mail size={16} className='text-(--accent)' />
                             <span className='text-(--accent)'>kdeeventures9@gmail.com</span>
                         </a>
-                        <a href="tel:+917007436859" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent)'>
+                        <a href="tel:+919818974293" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent)'>
                             <Phone size={16} className='text-(--accent)' />
-                            <span className='text-(--accent)'>+91-7007436859</span>
+                            <span className='text-(--accent)'>+91 - 98189 74293</span>
                         </a>
                         FSSAI License No.: 12724999000202  <br />
-                        Mfg. FSSAI: 10019051003293 
+                        Mfg. FSSAI: 10019051003293
                     </ul>
                     {/* links 1 */}
                     <ul className='leading-relaxed md:leading-[188%] text-xs md:text-base w-full md:w-auto' >

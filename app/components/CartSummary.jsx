@@ -1,19 +1,19 @@
-import {CartForm, Money} from '@shopify/hydrogen';
-import {useEffect, useId, useRef, useState} from 'react';
-import {useFetcher} from 'react-router';
+import { CartForm, Money } from '@shopify/hydrogen';
+import { useEffect, useId, useRef, useState } from 'react';
+import { useFetcher } from 'react-router';
 
 /**
  * @param {CartSummaryProps}
  */
-export function CartSummary({cart, layout}) {
+export function CartSummary({ cart, layout }) {
   const summaryId = useId();
   const discountsHeadingId = useId();
   const discountCodeInputId = useId();
   const giftCardHeadingId = useId();
   const giftCardInputId = useId();
 
-  const containerClass = layout === 'page' 
-    ? 'bg-white rounded-lg border border-(--color-primary) border-opacity-20 p-6 sticky top-8 space-y-6'
+  const containerClass = layout === 'page'
+    ? 'bg-(--white) rounded-2xl border border-(--color-primary)/20 p-6 md:p-8 lg:sticky lg:top-[18dvh]'
     : 'cart-summary-aside';
 
   return (
@@ -27,7 +27,7 @@ export function CartSummary({cart, layout}) {
       {/* Subtotal */}
       <div>
         <dl role="group" className="space-y-3">
-          <div className="flex justify-between items-center pb-3 border-b border-(--color-primary) border-opacity-20">
+          <div className="flex justify-between items-center pb-3">
             <dt className="text-(--color-primary) opacity-70">Subtotal</dt>
             <dd className="font-semibold text-(--color-primary)">
               {cart?.cost?.subtotalAmount?.amount ? (
@@ -48,14 +48,16 @@ export function CartSummary({cart, layout}) {
       />
 
       {/* Gift Cards Section */}
-      <CartGiftCard
-        giftCardCodes={cart?.appliedGiftCards}
-        giftCardHeadingId={giftCardHeadingId}
-        giftCardInputId={giftCardInputId}
-      />
+      <div className="mt-5">
+        <CartGiftCard
+          giftCardCodes={cart?.appliedGiftCards}
+          giftCardHeadingId={giftCardHeadingId}
+          giftCardInputId={giftCardInputId}
+        />
+      </div>
 
       {/* Totals */}
-      <div className="border-t border-(--color-primary) border-opacity-20 pt-4">
+      <div className="pt-4">
         <div className="flex justify-between items-center mb-4">
           <dt className="text-lg font-semibold text-(--color-primary)">Total</dt>
           <dd className="text-2xl font-bold text-(--color-primary)">
@@ -82,24 +84,24 @@ export function CartSummary({cart, layout}) {
 /**
  * @param {{checkoutUrl?: string}}
  */
-function CartCheckoutActions({checkoutUrl}) {
+function CartCheckoutActions({ checkoutUrl }) {
   if (!checkoutUrl) return null;
 
   return (
     <div className="space-y-3">
-      <a 
-        href={checkoutUrl} 
+      <a
+        href={checkoutUrl}
         target="_self"
-        className="block w-full bg-(--color-primary) hover:bg-(--color-primary) hover:opacity-80 text-(--white) font-semibold py-3 px-4 rounded-lg text-center transition duration-200 "
+        className="block w-full bg-(--color-primary) hover:opacity-80 text-(--white) font-lex-med py-3 px-4 rounded-xl text-center transition duration-200"
       >
         Proceed to Checkout
       </a>
-      <button 
-        type="button"
-        className="block w-full border border-(--color-primary) hover:border-(--accent) text-(--color-primary) font-semibold py-3 px-4 rounded-lg transition duration-200"
+      <a
+        href="/#product"
+        className="block w-full border border-(--color-primary) hover:bg-(--color-primary)/5 text-(--color-primary) font-lex-med py-3 px-4 rounded-xl text-center transition duration-200"
       >
         Continue Shopping
-      </button>
+      </a>
     </div>
   );
 }
@@ -119,10 +121,10 @@ function CartDiscounts({
   const codes =
     discountCodes
       ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
+      ?.map(({ code }) => code) || [];
 
   return (
-    <section aria-label="Discounts" className="space-y-3">
+    <section aria-label="Discounts" className="">
       {/* Show applied discount codes */}
       <div hidden={!codes.length}>
         <h3 id={discountsHeadingId} className="text-sm font-semibold text-(--color-primary) mb-2">
@@ -137,8 +139,8 @@ function CartDiscounts({
             <code className="text-sm font-medium text-(--color-primary)">
               ✓ {codes?.join(', ')}
             </code>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               aria-label="Remove discount"
               className="text-(--accent) hover:text-(--color-primary) text-sm font-medium"
             >
@@ -150,7 +152,7 @@ function CartDiscounts({
 
       {/* Input to apply discount code */}
       <UpdateDiscountForm discountCodes={codes}>
-        <div className="flex gap-2">
+        <div className="flex gap-2 overflow-hidden">
           <label htmlFor={discountCodeInputId} className="sr-only">
             Discount code
           </label>
@@ -159,12 +161,12 @@ function CartDiscounts({
             type="text"
             name="discountCode"
             placeholder="Discount code"
-            className="flex-1 px-3 py-2 border border-(--color-primary) border-opacity-30 rounded-lg text-sm text-(--color-primary) focus:outline-none focus:ring-2 focus:ring-(--accent) placeholder:text-(--color-primary) placeholder:opacity-50"
+            className="flex-1 min-w-0 px-3 py-2 border border-(--color-primary) border-opacity-30 rounded-lg text-sm text-(--color-primary) focus:outline-none focus:ring-2 focus:ring-(--accent) placeholder:text-(--color-primary) placeholder:opacity-50"
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             aria-label="Apply discount code"
-            className="bg-(--color-primary) hover:bg-(--color-primary) hover:opacity-80 text-(--accent) font-semibold py-2 px-4 rounded-lg text-sm transition"
+            className="h-11 min-w-[80px] bg-(--color-primary) hover:opacity-80 text-(--accent) font-lex-med px-5 rounded-xl text-sm transition shrink-0"
           >
             Apply
           </button>
@@ -180,7 +182,7 @@ function CartDiscounts({
  *   children: React.ReactNode;
  * }}
  */
-function UpdateDiscountForm({discountCodes, children}) {
+function UpdateDiscountForm({ discountCodes, children }) {
   return (
     <CartForm
       route="/cart"
@@ -201,11 +203,11 @@ function UpdateDiscountForm({discountCodes, children}) {
  *   giftCardInputId: string;
  * }}
  */
-function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
+function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
   const giftCardCodeInput = useRef(null);
   const removeButtonRefs = useRef(new Map());
   const previousCardIdsRef = useRef([]);
-  const giftCardAddFetcher = useFetcher({key: 'gift-card-add'});
+  const giftCardAddFetcher = useFetcher({ key: 'gift-card-add' });
   const [removedCardIndex, setRemovedCardIndex] = useState(null);
 
   useEffect(() => {
@@ -249,7 +251,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
   };
 
   return (
-    <section aria-label="Gift cards" className="space-y-3">
+    <section aria-label="Gift cards" className="">
       {giftCardCodes && giftCardCodes.length > 0 && (
         <div>
           <h3 id={giftCardHeadingId} className="text-sm font-semibold text-(--color-primary) mb-2">
@@ -284,7 +286,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
       )}
 
       <AddGiftCardForm fetcherKey="gift-card-add">
-        <div className="flex gap-2">
+        <div className="flex gap-2 overflow-hidden">
           <label htmlFor={giftCardInputId} className="sr-only">
             Gift card code
           </label>
@@ -294,13 +296,13 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
             name="giftCardCode"
             placeholder="Gift card code"
             ref={giftCardCodeInput}
-            className="flex-1 px-3 py-2 border border-(--color-primary) border-opacity-30 rounded-lg text-sm text-(--color-primary) focus:outline-none focus:ring-2 focus:ring-(--accent) placeholder:text-(--color-primary) placeholder:opacity-50"
+            className="flex-1 min-w-0 px-3 py-2 border border-(--color-primary) border-opacity-30 rounded-lg text-sm text-(--color-primary) focus:outline-none focus:ring-2 focus:ring-(--accent) placeholder:text-(--color-primary) placeholder:opacity-50"
           />
           <button
             type="submit"
             disabled={giftCardAddFetcher.state !== 'idle'}
             aria-label="Apply gift card code"
-            className="bg-(--color-primary) hover:bg-(--color-primary) hover:opacity-80 text-(--accent) font-semibold py-2 px-4 rounded-lg text-sm transition disabled:opacity-50 disabled:cursor-not-allowed"
+            className="h-11 min-w-[80px] bg-(--color-primary) hover:opacity-80 text-(--accent) font-lex-med px-5 rounded-xl text-sm transition disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
           >
             Add
           </button>
@@ -316,7 +318,7 @@ function CartGiftCard({giftCardCodes, giftCardHeadingId, giftCardInputId}) {
  *   children: React.ReactNode;
  * }}
  */
-function AddGiftCardForm({fetcherKey, children}) {
+function AddGiftCardForm({ fetcherKey, children }) {
   return (
     <CartForm
       fetcherKey={fetcherKey}

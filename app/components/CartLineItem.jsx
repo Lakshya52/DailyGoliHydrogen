@@ -29,24 +29,25 @@ export function CartLineItem({layout, line, childrenMap}) {
     : 'cart-line-inner';
 
   return (
-    <li key={id} className={liClass}>
-      <div className={containerClass}>
+    <li key={id} className={layout === 'page' ? 'p-4 md:p-6' : 'cart-line'}>
+      <div className={layout === 'page' ? 'flex gap-4 md:gap-6' : 'cart-line-inner'}>
         {image && (
-          <div className={layout === 'page' ? 'shrink-0 w-20 h-20 md:w-24 md:h-24' : ''}>
+          <div className={layout === 'page' ? 'shrink-0 w-20 h-20 md:w-28 md:h-28 rounded-xl overflow-hidden border border-(--color-primary)/10' : ''}>
             <Image
               alt={title}
               aspectRatio="1/1"
               data={image}
-              height={layout === 'page' ? 96 : 100}
+              height={layout === 'page' ? 112 : 100}
               loading="lazy"
-              width={layout === 'page' ? 96 : 100}
-              className={layout === 'page' ? 'w-full h-full object-cover rounded-lg' : ''}
+              width={layout === 'page' ? 112 : 100}
+              className={layout === 'page' ? 'w-full h-full object-cover' : ''}
             />
           </div>
         )}
 
-        <div className={layout === 'page' ? 'flex-1' : ''}>
-          <div className={layout === 'page' ? 'flex justify-between items-start mb-2' : ''}>
+        <div className={layout === 'page' ? 'flex-1 min-w-0' : ''}>
+          {/* Title row: name on left, price on right (desktop) */}
+          <div className={layout === 'page' ? 'flex flex-wrap justify-between items-start gap-2 mb-2' : ''}>
             <Link
               prefetch="intent"
               to={lineItemUrl}
@@ -55,14 +56,14 @@ export function CartLineItem({layout, line, childrenMap}) {
                   close();
                 }
               }}
-              className={layout === 'page' ? 'hover:text-(--accent) transition' : ''}
+              className={layout === 'page' ? 'hover:opacity-70 transition' : ''}
             >
-              <p className={layout === 'page' ? 'font-semibold text-(--color-primary)' : ''}>
+              <p className={layout === 'page' ? 'font-lex-med text-(--color-primary) text-base md:text-lg' : ''}>
                 <strong>{product.title}</strong>
               </p>
             </Link>
             {layout === 'page' && (
-              <div className="text-right">
+              <div className="shrink-0 font-lex-med text-(--color-primary) text-base md:text-lg">
                 <ProductPrice price={line?.cost?.totalAmount} />
               </div>
             )}
@@ -70,9 +71,9 @@ export function CartLineItem({layout, line, childrenMap}) {
 
           {layout !== 'page' && <ProductPrice price={line?.cost?.totalAmount} />}
 
-          <ul className={layout === 'page' ? 'mb-2 space-y-1' : ''}>
+          <ul className={layout === 'page' ? 'mb-3 space-y-1' : ''}>
             {selectedOptions.map((option) => (
-              <li key={option.name} className={layout === 'page' ? 'text-sm text-(--color-primary) opacity-70' : ''}>
+              <li key={option.name} className={layout === 'page' ? 'text-sm text-(--color-primary) opacity-60' : ''}>
                 <small>
                   {option.name}: <span className="font-medium">{option.value}</span>
                 </small>
@@ -81,7 +82,7 @@ export function CartLineItem({layout, line, childrenMap}) {
           </ul>
 
           {layout === 'page' && (
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 md:gap-4 mt-3">
               <CartLineQuantity line={line} />
               <CartLineRemoveButton lineIds={[id]} disabled={line.isOptimistic} />
             </div>

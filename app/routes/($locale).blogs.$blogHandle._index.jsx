@@ -78,17 +78,18 @@ export default function Blog() {
           ← Back to Blogs
         </Link>
         <h1 className="text-4xl md:text-6xl text-center section-heading mb-16 capitalize">{blog.title}</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <PaginatedResourceSection connection={articles}>
-            {({node: article, index}) => (
-              <ArticleItem
-                article={article}
-                key={article.id}
-                loading={index < 2 ? 'eager' : 'lazy'}
-              />
-            )}
-          </PaginatedResourceSection>
-        </div>
+        <PaginatedResourceSection 
+          connection={articles}
+          resourcesClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
+        >
+          {({node: article, index}) => (
+            <ArticleItem
+              article={article}
+              key={article.id}
+              loading={index < 2 ? 'eager' : 'lazy'}
+            />
+          )}
+        </PaginatedResourceSection>
       </div>
     </div>
   );

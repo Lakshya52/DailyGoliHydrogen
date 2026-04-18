@@ -69,17 +69,18 @@ export default function Blogs() {
           Stay updated with the latest news, tips, and insights on health, wellness, and everything related to Daily Goli. Explore our collection of articles and discover something new today.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-          <PaginatedResourceSection connection={articles}>
-            {({ node: article, index }) => (
-              <ArticleItem
-                article={article}
-                key={article.id}
-                loading={index < 2 ? 'eager' : 'lazy'}
-              />
-            )}
-          </PaginatedResourceSection>
-        </div>
+        <PaginatedResourceSection 
+          connection={articles} 
+          resourcesClassName="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10"
+        >
+          {({ node: article, index }) => (
+            <ArticleItem
+              article={article}
+              key={article.id}
+              loading={index < 2 ? 'eager' : 'lazy'}
+            />
+          )}
+        </PaginatedResourceSection>
       </div>
     </div>
   );

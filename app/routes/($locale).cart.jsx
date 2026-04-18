@@ -118,7 +118,7 @@ export default function Cart() {
   const cart = useLoaderData();
 
   return (
-    <main className="min-h-screen bg-white text-(--color-primary)">
+    <main className=" bg-white text-(--color-primary)">
       <CartMain layout="page" cart={cart} />
     </main>
   );

@@ -62,9 +62,9 @@ const Product = ({ product }) => {
         className="min-h-dvh flex items-center justify-start flex-col py-10 md:py-20 "
       >
         <div className="flex flex-col items-center justify-center gap-2 px-4 md:px-0">
-          <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">
+          {/* <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">
             Hurry Up
-          </div>
+          </div> */}
           <h1 className=" section-heading  text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
             Limited Time Offer! <br /> Save Up To 22% on Your First Order!
           </h1>

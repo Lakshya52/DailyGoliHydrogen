@@ -1,12 +1,12 @@
-import {Link, useLoaderData} from 'react-router';
-import {Image} from '@shopify/hydrogen';
-import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import { Link, useLoaderData } from 'react-router';
+import { Image } from '@shopify/hydrogen';
+import { redirectIfHandleIsLocalized } from '~/lib/redirect';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.article.title ?? ''} article`}];
+export const meta = ({ data }) => {
+  return [{ title: `DailyGoli | ${data?.article.title ?? ''} article` }];
 };
 
 /**
@@ -19,7 +19,7 @@ export async function loader(args) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
@@ -27,22 +27,22 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {Route.LoaderArgs}
  */
-async function loadCriticalData({context, request, params}) {
-  const {blogHandle, articleHandle} = params;
+async function loadCriticalData({ context, request, params }) {
+  const { blogHandle, articleHandle } = params;
 
   if (!articleHandle || !blogHandle) {
-    throw new Response('Not found', {status: 404});
+    throw new Response('Not found', { status: 404 });
   }
 
-  const [{blog}] = await Promise.all([
+  const [{ blog }] = await Promise.all([
     context.storefront.query(ARTICLE_QUERY, {
-      variables: {blogHandle, articleHandle},
+      variables: { blogHandle, articleHandle },
     }),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
   if (!blog?.articleByHandle) {
-    throw new Response(null, {status: 404});
+    throw new Response(null, { status: 404 });
   }
 
   redirectIfHandleIsLocalized(
@@ -59,7 +59,7 @@ async function loadCriticalData({context, request, params}) {
 
   const article = blog.articleByHandle;
 
-  return {article, blogHandle};
+  return { article, blogHandle };
 }
 
 /**
@@ -68,14 +68,14 @@ async function loadCriticalData({context, request, params}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {Route.LoaderArgs}
  */
-function loadDeferredData({context}) {
+function loadDeferredData({ context }) {
   return {};
 }
 
 export default function Article() {
   /** @type {LoaderReturnData} */
-  const {article, blogHandle} = useLoaderData();
-  const {title, image, contentHtml, author} = article;
+  const { article, blogHandle } = useLoaderData();
+  const { title, image, contentHtml, author } = article;
 
   const publishedDate = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -87,7 +87,7 @@ export default function Article() {
     <div className="min-h-screen bg-(--bg-light) text-(--color-primary) font-lex-reg">
 
       {/* Hero Section */}
-      <div className="relative w-full" style={{minHeight: '60dvh'}}>
+      <div className="relative w-full" style={{ minHeight: '60dvh' }}>
         {/* Background image or gradient */}
         {image ? (
           <div className="absolute inset-0 overflow-hidden">
@@ -105,7 +105,7 @@ export default function Article() {
         )}
 
         {/* Hero Content */}
-        <div className="relative z-10 flex flex-col justify-end px-6 md:px-25 pb-16 pt-[15dvh]" style={{minHeight: '60dvh'}}>
+        <div className="relative z-10 flex flex-col justify-end px-6 md:px-25 pb-16 pt-[15dvh]" style={{ minHeight: '60dvh' }}>
           {/* Back link */}
           <Link
             to="/blogs"
@@ -114,7 +114,7 @@ export default function Article() {
             ← Back to Blogs
           </Link>
 
-          
+
         </div>
       </div>
 
@@ -123,25 +123,25 @@ export default function Article() {
 
 
         {/* Meta */}
-          <div className="flex items-center gap-3 mb-5">
-            <span className="h-8 px-4 rounded-full bg-(--accent) text-(--color-primary) text-xs font-lex-med flex items-center justify-center uppercase tracking-wider">
-              Blog
-            </span>
-            <span className=" opacity-70 text-sm font-lex-med">
-              <time dateTime={article.publishedAt}>{publishedDate}</time>
-            </span>
-            {author?.name && (
-              <>
-                <span className=" opacity-40">·</span>
-                <address className="not-italic opacity-70 text-sm font-lex-med">{author.name}</address>
-              </>
-            )}
-          </div>
+        <div className="flex items-center gap-3 mb-5">
+          <span className="h-8 px-4 rounded-full bg-(--accent) text-(--color-primary) text-xs font-lex-med flex items-center justify-center uppercase tracking-wider">
+            Blog
+          </span>
+          <span className=" opacity-70 text-sm font-lex-med">
+            <time dateTime={article.publishedAt}>{publishedDate}</time>
+          </span>
+          {author?.name && (
+            <>
+              <span className=" opacity-40">·</span>
+              <address className="not-italic opacity-70 text-sm font-lex-med">{author.name}</address>
+            </>
+          )}
+        </div>
 
-          {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-lex-med text-(--white) leading-[115%] ">
-            {title}
-          </h1>
+        {/* Title */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-lex-med text-(--white) leading-[115%] ">
+          {title}
+        </h1>
         {/* Decorative divider */}
         <div className="flex items-center gap-4 my-12">
           <div className="flex-1 h-px bg-(--color-primary)/15" />
@@ -151,7 +151,7 @@ export default function Article() {
 
         {/* Article content */}
         <div
-          dangerouslySetInnerHTML={{__html: contentHtml}}
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
           className="
             text-(--color-primary) font-lex-reg text-lg leading-[185%]
             [&_h1]:text-4xl [&_h1]:font-lex-med [&_h1]:mt-12 [&_h1]:mb-6 [&_h1]:leading-[120%]

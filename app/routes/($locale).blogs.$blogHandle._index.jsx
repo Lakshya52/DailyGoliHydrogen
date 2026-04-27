@@ -1,13 +1,13 @@
-import {Link, useLoaderData} from 'react-router';
-import {Image, getPaginationVariables} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
-import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import { Link, useLoaderData } from 'react-router';
+import { Image, getPaginationVariables } from '@shopify/hydrogen';
+import { PaginatedResourceSection } from '~/components/PaginatedResourceSection';
+import { redirectIfHandleIsLocalized } from '~/lib/redirect';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
-  return [{title: `Hydrogen | ${data?.blog.title ?? ''} blog`}];
+export const meta = ({ data }) => {
+  return [{ title: `DailyGoli | ${data?.blog.title ?? ''} blog` }];
 };
 
 /**
@@ -20,7 +20,7 @@ export async function loader(args) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
@@ -28,16 +28,16 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {Route.LoaderArgs}
  */
-async function loadCriticalData({context, request, params}) {
+async function loadCriticalData({ context, request, params }) {
   const paginationVariables = getPaginationVariables(request, {
     pageBy: 4,
   });
 
   if (!params.blogHandle) {
-    throw new Response(`blog not found`, {status: 404});
+    throw new Response(`blog not found`, { status: 404 });
   }
 
-  const [{blog}] = await Promise.all([
+  const [{ blog }] = await Promise.all([
     context.storefront.query(BLOGS_QUERY, {
       variables: {
         blogHandle: params.blogHandle,
@@ -48,12 +48,12 @@ async function loadCriticalData({context, request, params}) {
   ]);
 
   if (!blog?.articles) {
-    throw new Response('Not found', {status: 404});
+    throw new Response('Not found', { status: 404 });
   }
 
-  redirectIfHandleIsLocalized(request, {handle: params.blogHandle, data: blog});
+  redirectIfHandleIsLocalized(request, { handle: params.blogHandle, data: blog });
 
-  return {blog};
+  return { blog };
 }
 
 /**
@@ -62,14 +62,14 @@ async function loadCriticalData({context, request, params}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {Route.LoaderArgs}
  */
-function loadDeferredData({context}) {
+function loadDeferredData({ context }) {
   return {};
 }
 
 export default function Blog() {
   /** @type {LoaderReturnData} */
-  const {blog} = useLoaderData();
-  const {articles} = blog;
+  const { blog } = useLoaderData();
+  const { articles } = blog;
 
   return (
     <div className="min-h-screen pt-32 pb-20 px-6 md:px-25 bg-(--bg-light) text-(--color-primary) font-lex-reg">
@@ -78,11 +78,11 @@ export default function Blog() {
           ← Back to Blogs
         </Link>
         <h1 className="text-4xl md:text-6xl text-center section-heading mb-16 capitalize">{blog.title}</h1>
-        <PaginatedResourceSection 
+        <PaginatedResourceSection
           connection={articles}
           resourcesClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8"
         >
-          {({node: article, index}) => (
+          {({ node: article, index }) => (
             <ArticleItem
               article={article}
               key={article.id}
@@ -95,7 +95,7 @@ export default function Blog() {
   );
 }
 
-function ArticleItem({article, loading}) {
+function ArticleItem({ article, loading }) {
   const publishedAt = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
@@ -119,7 +119,7 @@ function ArticleItem({article, loading}) {
         <div className="p-8 flex flex-col flex-1">
           <small className="text-sm font-lex-med opacity-60 mb-3">{publishedAt}</small>
           <h3 className="text-2xl font-lex-med text-(--color-primary) leading-[130%] mb-4 line-clamp-3">{article.title}</h3>
-          
+
           <div className="mt-auto pt-4 flex items-center gap-2 font-lex-med opacity-80 group-hover:opacity-100 transition-opacity">
             Read Article <span className="group-hover:translate-x-1 transition-transform">→</span>
           </div>

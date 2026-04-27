@@ -180,7 +180,7 @@ const Navbar = ({ cart }) => {
             </Suspense>
           </Link>
 
-          <Link to="/#product" className="flex items-center justify-center w-fit group cursor-pointer no-underline">
+          <Link to="/buy-now" className="flex items-center justify-center w-fit group cursor-pointer no-underline">
             <div className="h-10 w-10 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) flex items-center justify-center transition-transform duration-400 group-hover:translate-x-22.5">
               <ArrowUpRight />
             </div>

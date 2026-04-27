@@ -1,28 +1,28 @@
-import {useLoaderData, data} from 'react-router';
-import {CartForm} from '@shopify/hydrogen';
-import {CartMain} from '~/components/CartMain';
+import { useLoaderData, data } from 'react-router';
+import { CartForm } from '@shopify/hydrogen';
+import { CartMain } from '~/components/CartMain';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Cart`}];
+  return [{ title: `DailyGoli | Cart` }];
 };
 
 /**
  * @type {HeadersFunction}
  */
-export const headers = ({actionHeaders}) => actionHeaders;
+export const headers = ({ actionHeaders }) => actionHeaders;
 
 /**
  * @param {Route.ActionArgs}
  */
-export async function action({request, context}) {
-  const {cart} = context;
+export async function action({ request, context }) {
+  const { cart } = context;
 
   const formData = await request.formData();
 
-  const {action, inputs} = CartForm.getFormInput(formData);
+  const { action, inputs } = CartForm.getFormInput(formData);
 
   if (!action) {
     throw new Error('No action provided');
@@ -78,7 +78,7 @@ export async function action({request, context}) {
 
   const cartId = result?.cart?.id;
   const headers = cartId ? cart.setCartId(result.cart.id) : new Headers();
-  const {cart: cartResult, errors, warnings} = result;
+  const { cart: cartResult, errors, warnings } = result;
 
   const redirectTo = formData.get('redirectTo') ?? null;
   if (typeof redirectTo === 'string') {
@@ -101,15 +101,15 @@ export async function action({request, context}) {
         cartId,
       },
     },
-    {status, headers},
+    { status, headers },
   );
 }
 
 /**
  * @param {Route.LoaderArgs}
  */
-export async function loader({context}) {
-  const {cart} = context;
+export async function loader({ context }) {
+  const { cart } = context;
   return await cart.get();
 }
 

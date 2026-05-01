@@ -88,17 +88,29 @@ async function loadCriticalData({context}) {
   const {storefront} = context;
 
   try {
-    const [header] = await Promise.all([
+    const [header, featuredProduct] = await Promise.all([
       storefront.query(HEADER_QUERY, {
         cache: storefront.CacheLong(),
         variables: {
           headerMenuHandle: 'main-menu', // Adjust to your header menu handle
         },
       }),
-      // Add other queries here, so that they are loaded in parallel
+      storefront.query(FEATURED_PRODUCT_QUERY, {
+        variables: {
+          handle: 'daily-goli-mb-360',
+        },
+      }),
     ]);
 
-    return {header};
+    let product = featuredProduct?.product;
+    
+    // Fallback if the specific handle is not found
+    if (!product) {
+        const {products} = await storefront.query(FALLBACK_PRODUCTS_QUERY);
+        product = products?.nodes?.[0];
+    }
+
+    return {header, featuredProduct: product};
   } catch (error) {
     // Console error for debugging but don't throw to prevent 500
     console.error('[Root Loader] Failed to load critical header data:', error);
@@ -109,6 +121,7 @@ async function loadCriticalData({context}) {
         },
         menu: null,
       },
+      featuredProduct: null,
     };
   }
 }
@@ -219,3 +232,49 @@ export function ErrorBoundary() {
 /** @typedef {import('react-router').ShouldRevalidateFunction} ShouldRevalidateFunction */
 /** @typedef {import('./+types/root').Route} Route */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+
+const FEATURED_PRODUCT_QUERY = `#graphql
+  query FeaturedProduct($handle: String!, $country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    product(handle: $handle) {
+      id
+      title
+      handle
+      variants(first: 1) {
+        nodes {
+          id
+          title
+          availableForSale
+          price {
+            amount
+            currencyCode
+          }
+        }
+      }
+    }
+  }
+`;
+
+const FALLBACK_PRODUCTS_QUERY = `#graphql
+  query FallbackProducts($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    products(first: 1) {
+      nodes {
+        id
+        title
+        handle
+        variants(first: 1) {
+          nodes {
+            id
+            title
+            availableForSale
+            price {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+`;

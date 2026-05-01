@@ -1,32 +1,33 @@
-import {useLoaderData} from 'react-router';
+import { useLoaderData } from 'react-router';
 import Hero from '~/components/Hero';
 import Facts from '~/components/Facts';
 import Ingredients from '~/components/Ingredients';
 import Product from '~/components/Product';
 import Reviews from '~/components/Reviews';
 import Faq from '~/components/Faq';
+import UsVsThem from '~/components/UsVsThem';
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{title: 'Daily Goli | MB-360'}];
+  return [{ title: 'Daily Goli | MB-360' }];
 };
 
 export async function loader(args) {
-  const {storefront} = args.context;
-  
+  const { storefront } = args.context;
+
   // Try to fetch the specific product
-  const {product} = await storefront.query(PRODUCT_QUERY, {
+  const { product } = await storefront.query(PRODUCT_QUERY, {
     variables: {
-      handle: 'daily-goli-mb-360', 
+      handle: 'daily-goli-mb-360',
     },
   });
 
   // FALLBACK: If not found, fetch the first available product in the catalog
   let finalProduct = product;
   if (!finalProduct) {
-    const {products} = await storefront.query(FALLBACK_PRODUCTS_QUERY);
+    const { products } = await storefront.query(FALLBACK_PRODUCTS_QUERY);
     if (products?.nodes?.length > 0) {
       finalProduct = products.nodes[0];
       console.log('DEBUG: Specific handle not found. Available products:', products.nodes.map(p => p.handle));
@@ -40,7 +41,7 @@ export async function loader(args) {
 }
 
 export default function Homepage() {
-  const {product} = useLoaderData();
+  const { product } = useLoaderData();
 
   return (
     <div className="home">
@@ -51,6 +52,8 @@ export default function Homepage() {
       <Ingredients />
       <img src="/images/ribbon2.png" className="w-full relative z-50" alt="ribbon divider" />
       <Product product={product} />
+      {/* Us vs Them section */}
+      <UsVsThem />
       <Reviews />
       <Faq />
     </div>

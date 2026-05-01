@@ -16,7 +16,7 @@ const faqData = [
   },
   {
     q: "How many capsules should I take daily?",
-    a: "Follow the dosage mentioned on the product label or consult your healthcare professional."
+    a: "Recommended is 2 Capsules, and Follow the dosage mentioned on the product label or consult your healthcare professional."
   },
   {
     q: "Does it help with sugar cravings?",

@@ -57,7 +57,7 @@ const Reviews = () => {
     <div id='reviews' className='min-h-fit flex flex-col items-center gap-10 justify-center font-lex-reg bg-(--white) py-12 md:py-24 px-4 md:px-25 overflow-hidden' >
         <div className='flex flex-col items-center justify-center' > 
             <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center">Reviews</div>
-            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4 font-lex-med leading-[108%] section-heading' >Join 1000+ Happy Customers</h1>
+            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4 font-lex-med leading-[108%] section-heading' >Join Our Happy Customers</h1>
         </div>
 
         <div className="flex flex-col md:flex-row items-start justify-start w-full gap-6 md:gap-8 relative px-2 md:px-0" >
@@ -73,7 +73,7 @@ const Reviews = () => {
               </div>
             </div>
 
-            <p className="text-base md:text-xl mb-6 md:mb-8 opacity-90">Based on 100+ verified customer reviews</p>
+            <p className="text-base md:text-xl mb-6 md:mb-8 opacity-90">Based on 50+ verified customer reviews</p>
 
             <div className="flex flex-col gap-4">
               {[

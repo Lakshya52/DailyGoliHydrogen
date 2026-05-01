@@ -1,7 +1,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useNavigate } from "react-router";
 import { Link, Await } from "react-router";
-import { ArrowUpRight, ShoppingCart, Menu, X } from "lucide-react";
+import { ArrowUpRight, ShoppingCart, Menu, X, Facebook } from "lucide-react";
 
 
 const InstagramIcon = () => (
@@ -57,9 +57,9 @@ const LinkedinIcon = () => (
 );
 
 const socialLinks = [
-  { icon: <InstagramIcon />, href: "#" },
-  { icon: <LinkedinIcon />, href: "#" },
-  { icon: <TwitterIcon />, href: "#" },
+  { icon: <Facebook />, href: "https://www.facebook.com/share/1DzCcfkn2h/" },
+  { icon: <InstagramIcon />, href: "https://www.instagram.com/dailygoli.official/" },
+  { icon: <LinkedinIcon />, href: "https://www.linkedin.com/company/daily-goli" },
 ];
 
 const navLinks = [
@@ -123,7 +123,7 @@ const Navbar = ({ cart }) => {
   return (
     <>
       <div
-        className={`fixed w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[15dvh] bg-(--color-primary)/20" : "h-[15dvh]"
+        className={`fixed top-8 w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[10dvh]"
           }  px-7 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
           }`}
       >
@@ -135,6 +135,7 @@ const Navbar = ({ cart }) => {
             {socialLinks.map((item, index) => (
               <a
                 key={index}
+                target="_blank"
                 href={item.href}
                 className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group"
               >
@@ -185,7 +186,7 @@ const Navbar = ({ cart }) => {
               <ArrowUpRight />
             </div>
             <span className="h-10 w-fit flex items-center justify-center px-4 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) font-lex-reg transition-all duration-400 group-hover:-translate-x-12.5 group-hover:-rotate-6">
-              Buy Now
+              Product
             </span>
           </Link>
 

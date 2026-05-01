@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone } from 'lucide-react'
 
 const Footer = () => {
@@ -17,7 +18,7 @@ const Footer = () => {
                         {/* details */}
                         <ul className='leading-relaxed md:leading-[200%] text-sm md:text-base' >
                             K Dee Ventures, Shop No-106, MC Complex, <br />
-                            Sector-15, Noida, UP–201301 <br />
+                            Sector-15, Noida, UP – 201301 <br />
                             <a href="mailto:kdeeventures9@gmail.com" className='flex items-center gap-2 hover:opacity-80 transition text-(--accent) mt-2'>
                                 <Mail size={16} className='text-(--accent) shrink-0' />
                                 <span className='text-(--accent) break-all'>kdeeventures9@gmail.com</span>
@@ -27,7 +28,7 @@ const Footer = () => {
                                 <span className='text-(--accent)'>+91 - 98189 74293</span>
                             </a>
                             FSSAI License No.: 12724999000202  <br />
-                            Mfg. FSSAI: 10019051003293
+                            {/* Mfg. FSSAI: 10019051003293 */}
                         </ul>
 
                         {/* links wrapper to put them side by side on mobile */}
@@ -37,13 +38,13 @@ const Footer = () => {
                                 <a href="/blogs" className="block">
                                     <li className='cursor-pointer hover:underline text-(--accent)' >Blogs</li>
                                 </a>
-                                <a href="" className="block">
+                                {/* <a href="" className="block">
                                     <li className='cursor-pointer hover:underline text-(--accent)' >On Blinkit</li>
-                                </a>
-                                <a href="" className="block">
+                                </a> */}
+                                <a target='_blank' href="https://www.flipkart.com/daily-goli-mb-360-support-glp-1-weight-fat-loss-capsules-women-men-60-capsule/p/itmc2fd4ef388f1d?pid=VSLHKZFGFFNUZMPB&lid=LSTVSLHKZFGFFNUZMPBN9HIRK&marketplace=FLIPKART&q=glp1&store=search.flipkart.com&srno=s_1_4&otracker=search&otracker1=search&fm=Search&iid=34af4032-2166-4aec-b05b-33f72163960b.VSLHKZFGFFNUZMPB.SEARCH&ppt=sp&ppn=sp&ssid=irt20nsye80000001777639329840&qH=d9551c57f803981b&ov_redirect=true&ov_redirect=true" className="block">
                                     <li className='cursor-pointer hover:underline text-(--accent)' >On Flipkart</li>
                                 </a>
-                                <a href="" className="block">
+                                <a target='_blank' href="https://www.amazon.in/Daily-Goli-Metabolism-Plant-Based-Suppressant/dp/B0GS2TL1K8/ref=sr_1_19?crid=1UZE3YVPTIKDE&dib=eyJ2IjoiMSJ9.SzpewVEuZ4i0nswXovDVvULN49EVn9HTDonw27RfXjtdCQwAE7jVh6SNod4civ5_r0EwDcGLqqN2U9kX8vMNzTzFEKOmvekkxSrHZyhg4OEZdqWoDj4N6rQ9kKdA4JcBaas5ZulYRfE51VCphUCfGjarrm6OAVAYtc43-ZBCyl7Dou2Hqu2GmdnUIa76h3_ezb4d_SQN3Ss1EOvFI2D0i33GflCeYJQtRTcO9mxDmYXhjFmPX0yHmEi5qPWvAd17ZusMf3mP2s_7u0cZFI7YLVHHL3GIXXrOt7MU7ZwBAfA.nPJ75gs9XftKMHr9r6t31__pmNQVb31kma2niaVy3PM&dib_tag=se&keywords=glp+1&qid=1777639226&sprefix=glp+%2Caps%2C408&sr=8-19" className="block">
                                     <li className='cursor-pointer hover:underline text-(--accent)' >On Amazon</li>
                                 </a>
                                 <a href="/contact" className="block">
@@ -64,16 +65,28 @@ const Footer = () => {
                                 <a href="#faqs" className="block">
                                     <li className='cursor-pointer hover:underline text-(--accent)' >FAQs</li>
                                 </a>
-                                <a href="#product" className="block">
-                                    <li className='cursor-pointer hover:underline text-(--accent)' >Buy Now</li>
-                                </a>
+
                             </ul>
                         </div>
                     </div>
                 </div>
                 {/* bottom line */}
-                <div className='text-xs md:text-sm leading-relaxed border-t border-(--accent) border-opacity-30 pt-6 mt-4 opacity-80'>
-                    © 2026 Daily Goli All rights reserved | Science-backed, plant-based health supplements Inspired by GLP-1 pathway science. Made in India, for the world. This is a food supplement, not for medicinal use. Keep out of reach of children.
+                <div className='text-md leading-relaxed border-t border-(--accent) pt-6 mt-4  flex flex-col md:flex-row md:items-center justify-between gap-2 '>
+                    © 2026 Daily Goli All rights reserved
+                    <ul className='flex items-center gap-5'>
+                        <Link to="/policies/privacy-policy" className="block">
+                            <li className='cursor-pointer hover:underline text-(--accent)' >Privacy Policy</li>
+                        </Link>
+                        <Link to="/policies/terms-of-service" className="block">
+                            <li className='cursor-pointer hover:underline text-(--accent)' >
+                                Terms of Service
+                            </li>
+                        </Link>
+                        <Link to="/policies/refund-policy" className="block">
+                            <li className='cursor-pointer hover:underline text-(--accent)' >Refund Policy</li>
+                        </Link>
+                    </ul>
+                    {/* Science-backed, plant-based health supplements Inspired by GLP-1 pathway science. Made in India, for the world. This is a food supplement, not for medicinal use. Keep out of reach of children. */}
                 </div>
             </div>
         </>

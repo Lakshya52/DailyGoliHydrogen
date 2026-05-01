@@ -2,6 +2,8 @@ import {Await, Link} from 'react-router';
 import {Suspense, useId} from 'react';
 import {Aside} from '~/components/Aside';
 import Navbar from '~/components/Navbar';
+import PromoBar from '~/components/PromoBar';
+import BottomBar from '~/components/BottomBar';
 import Footer from '~/components/Footer';
 import {HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
@@ -17,6 +19,7 @@ import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
 export function PageLayout({
   cart,
   children = null,
+  featuredProduct,
   footer,
   header,
   isLoggedIn,
@@ -27,8 +30,10 @@ export function PageLayout({
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
+      <PromoBar />
       <Navbar cart={cart} />
-      <main className="">{children}</main>
+      <main>{children}</main>
+      <BottomBar product={featuredProduct} />
       <Footer />
     </Aside.Provider>
   );
@@ -158,6 +163,7 @@ function MobileMenuAside({header, publicStoreDomain}) {
 /**
  * @typedef {Object} PageLayoutProps
  * @property {Promise<CartApiQueryFragment|null>} cart
+ * @property {any} featuredProduct
  * @property {Promise<FooterQuery|null>} footer
  * @property {HeaderQuery} header
  * @property {Promise<boolean>} isLoggedIn

@@ -58,33 +58,33 @@ const Facts = () => {
   };
 
   return (
-    <div id="benefits" className="px-6 md:px-25 relative min-h-[70dvh] bg-(--white) flex flex-col md:flex-row items-center justify-between pb-20 pt-20 overflow-hidden">
+    <div id="benefits" className="p-4 md:p-0 min-h-[70dvh] bg-(--white) flex flex-col sm:flex-row items-center justify-between py-20 gap-10 overflow-hidden">
       <img
         src="/images/bottleWithPills.png"
         alt="MB-360 bottle with pills"
-        className="hidden md:block absolute w-[35%] h-auto left-0 hover:scale-80 transition-transform duration-700 pointer-events-none z-10"
+        className="block md:pl-10 w-[60%] md:w-[35%] h-auto hover:scale-80 transition-transform duration-700 pointer-events-none z-10"
       />
-      
-      <div className="md:ml-[35%] w-full md:w-[65%] flex flex-col items-start justify-center gap-6">
+
+      <div className="w-full md:w-[65%] flex flex-col items-start justify-center gap-6">
         <div className="flex flex-col gap-2">
-            <div className="font-lex-reg rounded-full text-sm w-fit h-10 px-6 bg-(--color-primary)  text-(--white) flex items-center justify-center">
-              Facts & Benefits
-            </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-(--color-primary) mt-2 font-lex-med leading-[108%] section-heading">Built for Performance</h2>
+          <div className="font-lex-reg rounded-full text-sm w-fit h-10 px-6 bg-(--color-primary)  text-(--white) flex items-center justify-center">
+            Facts & Benefits
+          </div>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-(--color-primary) mt-2 font-lex-med leading-[108%] section-heading">Built for Performance</h2>
         </div>
 
-        <div 
+        <div
           ref={scrollRef}
           onMouseDown={handleMouseDown}
           onMouseLeave={handleMouseLeave}
           onMouseUp={handleMouseUp}
           onMouseMove={handleMouseMove}
           className={`flex gap-6 w-full overflow-x-auto pb-10 no-scrollbar snap-x snap-mandatory ${isDragging ? 'cursor-grabbing select-none' : 'cursor-grab'}`}
-          style={{ scrollBehavior: isDragging ? 'auto' : 'smooth' }}
+          style={{ scrollBehavior: isDragging ? 'auto' : 'smooth', marginRight: "10px" }}
         >
           {factsData.map((fact, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="h-80 min-w-70 md:min-w-[320px] bg-(--bg-light) rounded-3xl flex flex-col items-center justify-center gap-4 text-center p-8 snap-start border border-(--color-primary)/5 hover:border-(--color-primary)/20 transition-all duration-300 pointer-events-none"
             >
               <div className="p-4 bg-white rounded-2xl shadow-sm">

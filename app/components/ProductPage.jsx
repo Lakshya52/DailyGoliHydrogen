@@ -4,6 +4,7 @@ import Reviews from './Reviews'
 import Ingredients from './Ingredients'
 import Facts from './Facts'
 import Faq from './Faq'
+import UsVsThem from './UsVsThem'
 
 const ProductPage = ({ product }) => {
   return (
@@ -24,7 +25,6 @@ const ProductPage = ({ product }) => {
           alt="Daily Goli product ingredients in details"
         />
       </div>
-      <Reviews />
       <Ingredients />
       <div className='flex items-center justify-center w-dvw bg-[#fbfbf8]' >
         {/* Desktop Image */}
@@ -42,6 +42,9 @@ const ProductPage = ({ product }) => {
         />
 
       </div>
+      {/* Us vs Them section */}
+      <UsVsThem />
+      <Reviews />
       {/* <Facts /> */}
       <Faq />
     </>

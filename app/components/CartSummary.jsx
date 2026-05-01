@@ -166,7 +166,7 @@ function CartDiscounts({
           <button
             type="submit"
             aria-label="Apply discount code"
-            className="h-11 min-w-[80px] bg-(--color-primary) hover:opacity-80 text-(--accent) font-lex-med px-5 rounded-xl text-sm transition shrink-0"
+            className="h-11 min-w-[80px] bg-none text-(--color-primary) border border-(--color-primary) hover:opacity-80 font-lex-med px-5 rounded-xl text-sm transition shrink-0"
           >
             Apply
           </button>
@@ -294,7 +294,7 @@ function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
             id={giftCardInputId}
             type="text"
             name="giftCardCode"
-            placeholder="Gift card code"
+            placeholder="Gift card code (optional)"
             ref={giftCardCodeInput}
             className="flex-1 min-w-0 px-3 py-2 border border-(--color-primary) border-opacity-30 rounded-lg text-sm text-(--color-primary) focus:outline-none focus:ring-2 focus:ring-(--accent) placeholder:text-(--color-primary) placeholder:opacity-50"
           />
@@ -302,9 +302,9 @@ function CartGiftCard({ giftCardCodes, giftCardHeadingId, giftCardInputId }) {
             type="submit"
             disabled={giftCardAddFetcher.state !== 'idle'}
             aria-label="Apply gift card code"
-            className="h-11 min-w-[80px] bg-(--color-primary) hover:opacity-80 text-(--accent) font-lex-med px-5 rounded-xl text-sm transition disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+            className="h-11 min-w-[80px] text-(--color-primary) border border-(--color-primary) hover:opacity-80 font-lex-med px-5 rounded-xl text-sm transition disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
           >
-            Add
+            Apply
           </button>
         </div>
       </AddGiftCardForm>

@@ -7,6 +7,7 @@ import BottomBar from '~/components/BottomBar';
 import Footer from '~/components/Footer';
 import {HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
+import WhatsAppButton from '~/components/WhatsAppButton';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
@@ -34,6 +35,7 @@ export function PageLayout({
       <Navbar cart={cart} />
       <main>{children}</main>
       <BottomBar product={featuredProduct} />
+      <WhatsAppButton />
       <Footer />
     </Aside.Provider>
   );

@@ -6,14 +6,14 @@ export function getLocaleFromRequest(request) {
   const firstPathPart = url.pathname.split('/')[1]?.toUpperCase() ?? '';
 
   let pathPrefix = '';
-  let [language, country] = ['EN', 'US'];
+  let [language, country] = ['EN', 'IN'];
 
   if (/^[A-Z]{2}-[A-Z]{2}$/i.test(firstPathPart)) {
     pathPrefix = '/' + firstPathPart;
     [language, country] = firstPathPart.split('-');
   }
 
-  return {language, country, pathPrefix};
+  return { language, country, pathPrefix };
 }
 
 /**

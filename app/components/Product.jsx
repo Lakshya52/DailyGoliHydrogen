@@ -67,7 +67,7 @@ const Product = ({ product }) => {
             Hurry Up
           </div> */}
           <h1 className=" section-heading  text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
-            Limited Time Offer! <br /> Save Up To 22% on Your First Order!
+            Limited Time Offer! <br /> Save Up To 13% on Your First Order!
           </h1>
           <p className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
             "Inspired by Science. Powered by Plants."
@@ -76,7 +76,7 @@ const Product = ({ product }) => {
             4.8 stars | 85k Reviews | <b>&nbsp;1K+ Monthly Subscribers</b>
           </span> */}
           <span className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
-            Use code <b>DAILYGOLI22</b> at checkout to claim your discount.
+            Use code <b>DAILYGOLI13</b> at checkout to claim your discount.
           </span>
         </div>
 
@@ -178,8 +178,7 @@ const Product = ({ product }) => {
               </p>
               <div className="flex items-baseline gap-2 mb-2">
                 <span className="text-3xl md:text-5xl font-lex-reg text-(--color-primary)">
-                  {firstVariant?.price?.currencyCode === 'INR' ? '₹' : firstVariant?.price?.currencyCode || '₹'}
-                  {pricing[selectedPurchase].price}
+                  ₹{pricing[selectedPurchase].price}
                 </span>
                 <span className="text-sm md:text-base text-(--color-primary) opacity-50 line-through">
                   ₹1499
@@ -325,7 +324,7 @@ const Product = ({ product }) => {
           </div>
         </div>
 
-        
+
       </div>
     </>
   );

@@ -7,11 +7,11 @@ const PromoBar = () => {
         <div className="flex items-center gap-12">
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>
-            Free Shipping on orders over $50!
+            Free Shipping!
           </span>
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>
-            Use code <span className="text-accent">WELCOME10</span> for 10% off
+            Use code <span className="text-accent">DAILYGOLI13</span> for 13% off
           </span>
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>
@@ -22,11 +22,11 @@ const PromoBar = () => {
         <div className="flex items-center gap-12">
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>
-            Free Shipping on orders over $50!
+            Free Shipping!
           </span>
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>
-            Use code <span className="text-accent">WELCOME10</span> for 10% off
+            Use code <span className="text-accent">DAILYGOLI13</span> for 13% off
           </span>
           <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-2">
             <span className="w-1 h-1 bg-accent rounded-full animate-pulse"></span>

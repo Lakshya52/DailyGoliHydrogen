@@ -3,7 +3,7 @@ import React from 'react';
 const UsVsThem = () => {
   return (
     <>
-<div className='flex items-center justify-center w-full pb-20' >
+<div className='flex items-center justify-center w-full pb-20' id='comparison' >
 
     <div className="w-full md:w-[80%] mt-20 flex flex-col gap-8 px-6 md:px-0">
       <div className="flex flex-col items-center justify-center gap-3">

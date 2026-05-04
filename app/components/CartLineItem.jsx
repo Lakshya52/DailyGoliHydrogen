@@ -1,8 +1,8 @@
-import {CartForm, Image} from '@shopify/hydrogen';
-import {useVariantUrl} from '~/lib/variants';
-import {Link} from 'react-router';
-import {ProductPrice} from './ProductPrice';
-import {useAside} from './Aside';
+import { CartForm, Image } from '@shopify/hydrogen';
+import { useVariantUrl } from '~/lib/variants';
+import { Link } from 'react-router';
+import { ProductPrice } from './ProductPrice';
+import { useAside } from './Aside';
 
 /**
  * A single line item in the cart. It displays the product image, title, price.
@@ -15,17 +15,17 @@ import {useAside} from './Aside';
  *   childrenMap: LineItemChildrenMap;
  * }}
  */
-export function CartLineItem({layout, line, childrenMap}) {
-  const {id, merchandise} = line;
-  const {product, title, image, selectedOptions} = merchandise;
+export function CartLineItem({ layout, line, childrenMap }) {
+  const { id, merchandise } = line;
+  const { product, title, image, selectedOptions } = merchandise;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
-  const {close} = useAside();
+  const { close } = useAside();
   const lineItemChildren = childrenMap[id];
   const childrenLabelId = `cart-line-children-${id}`;
 
   const liClass = layout === 'page' ? 'p-6' : 'cart-line';
-  const containerClass = layout === 'page' 
-    ? 'flex gap-4 md:gap-6' 
+  const containerClass = layout === 'page'
+    ? 'flex gap-4 md:gap-6'
     : 'cart-line-inner';
 
   return (
@@ -81,14 +81,10 @@ export function CartLineItem({layout, line, childrenMap}) {
             ))}
           </ul>
 
-          {layout === 'page' && (
-            <div className="flex flex-wrap items-center gap-3 md:gap-4 mt-3">
-              <CartLineQuantity line={line} />
-              <CartLineRemoveButton lineIds={[id]} disabled={line.isOptimistic} />
-            </div>
-          )}
-          
-          {layout !== 'page' && <CartLineQuantity line={line} />}
+          <div className="flex flex-wrap items-center gap-3 md:gap-4 mt-3">
+            <CartLineQuantity line={line} />
+            <CartLineRemoveButton lineIds={[id]} disabled={line.isOptimistic} />
+          </div>
         </div>
       </div>
 
@@ -119,15 +115,15 @@ export function CartLineItem({layout, line, childrenMap}) {
  * hasn't yet responded that it was successfully added to the cart.
  * @param {{line: CartLine}}
  */
-function CartLineQuantity({line}) {
+function CartLineQuantity({ line }) {
   if (!line || typeof line?.quantity === 'undefined') return null;
-  const {id: lineId, quantity, isOptimistic} = line;
+  const { id: lineId, quantity, isOptimistic } = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
 
   return (
     <div className={`flex items-center gap-2 border border-(--color-primary) border-opacity-30 rounded-lg p-1 ${isOptimistic ? 'opacity-50 grayscale' : ''}`}>
-      <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
+      <CartLineUpdateButton lines={[{ id: lineId, quantity: prevQuantity }]}>
         <button
           aria-label="Decrease quantity"
           disabled={quantity <= 1 || !!isOptimistic}
@@ -138,7 +134,7 @@ function CartLineQuantity({line}) {
           <span>−</span>
         </button>
       </CartLineUpdateButton>
-      
+
       <div className="w-8 flex items-center justify-center relative">
         <span className={`font-medium text-(--color-primary) ${isOptimistic ? 'opacity-0' : 'opacity-100'}`}>{quantity}</span>
         {isOptimistic && (
@@ -147,8 +143,8 @@ function CartLineQuantity({line}) {
           </div>
         )}
       </div>
-      
-      <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
+
+      <CartLineUpdateButton lines={[{ id: lineId, quantity: nextQuantity }]}>
         <button
           aria-label="Increase quantity"
           name="increase-quantity"
@@ -172,22 +168,64 @@ function CartLineQuantity({line}) {
  *   disabled: boolean;
  * }}
  */
-function CartLineRemoveButton({lineIds, disabled}) {
+function CartLineRemoveButton({ lineIds, disabled }) {
   return (
     <CartForm
       fetcherKey={getUpdateKey(lineIds)}
       route="/cart"
       action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
+      inputs={{ lineIds }}
     >
-      <button 
-        disabled={disabled} 
+      <button
+        disabled={disabled}
         type="submit"
-        className="text-(--accent) hover:text-(--color-primary) font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed transition"
+        className="flex items-center justify-center text-(--color-primary) opacity-50 hover:opacity-100 hover:text-red-600 transition-all p-1.5 rounded-lg hover:bg-red-50 disabled:opacity-30 disabled:cursor-not-allowed"
+        aria-label="Remove item"
       >
-        Remove
+        <IconRemove />
       </button>
     </CartForm>
+  );
+}
+
+function IconRemove() {
+  return (
+    <svg
+      fill="none"
+      height="20"
+      viewBox="0 0 24 24"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3 6H5H21"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M10 11V17"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M14 11V17"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
   );
 }
 
@@ -197,7 +235,7 @@ function CartLineRemoveButton({lineIds, disabled}) {
  *   lines: CartLineUpdateInput[];
  * }}
  */
-function CartLineUpdateButton({children, lines}) {
+function CartLineUpdateButton({ children, lines }) {
   const lineIds = lines.map((line) => line.id);
 
   return (
@@ -205,7 +243,7 @@ function CartLineUpdateButton({children, lines}) {
       fetcherKey={getUpdateKey(lineIds)}
       route="/cart"
       action={CartForm.ACTIONS.LinesUpdate}
-      inputs={{lines}}
+      inputs={{ lines }}
     >
       {children}
     </CartForm>

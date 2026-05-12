@@ -16,9 +16,29 @@ const Product = ({ product }) => {
     );
   }
 
-  const { title, descriptionHtml, variants, images } = product;
+  const { title, descriptionHtml, variants, images, sellingPlanGroups } = product;
   const firstVariant = variants.nodes[0];
   const variantId = firstVariant?.id;
+
+  // Extract first selling plan (from Shopify Subscriptions app)
+  const firstSellingPlan = sellingPlanGroups?.nodes?.[0]?.sellingPlans?.nodes?.[0] ?? null;
+  const monthlySellingPlanId = firstSellingPlan?.id ?? null;
+
+  // Compute subscription price from selling plan's priceAdjustments
+  const basePrice = parseFloat(firstVariant?.price?.amount || 1299);
+  let subPrice = Math.round(basePrice * 0.87); // fallback: 13% off
+  let savingsLabel = '13% off';
+  if (firstSellingPlan) {
+    const adj = firstSellingPlan.priceAdjustments?.[0]?.adjustmentValue;
+    if (adj?.adjustmentPercentage != null) {
+      const pct = adj.adjustmentPercentage;
+      subPrice = Math.round(basePrice * (1 - pct / 100));
+      savingsLabel = `${pct}% off`;
+    } else if (adj?.adjustmentAmount?.amount != null) {
+      subPrice = Math.round(basePrice - parseFloat(adj.adjustmentAmount.amount));
+      savingsLabel = `Save ₹${Math.round(parseFloat(adj.adjustmentAmount.amount))}`;
+    }
+  }
 
   const productImages = images.nodes.length > 0
     ? images.nodes.map(img => img.url)
@@ -32,14 +52,15 @@ const Product = ({ product }) => {
 
   const pricing = {
     oneTime: {
-      price: firstVariant?.price?.amount || 1299,
+      price: Math.round(basePrice),
       label: 'One Time Purchase',
       savings: null
     },
     monthly: {
-      price: firstVariant?.price?.amount ? (parseFloat(firstVariant.price.amount) * 0.87).toFixed(0) : 1130,
-      label: 'Monthly Subscription',
-      savings: '13% off'
+      price: subPrice,
+      label: firstSellingPlan?.name ?? 'Monthly Subscription',
+      savings: savingsLabel,
+      planId: monthlySellingPlanId,
     }
   };
 
@@ -223,19 +244,12 @@ const Product = ({ product }) => {
                     merchandiseId: variantId,
                     quantity: quantity,
                     selectedVariant: firstVariant,
+                    ...(selectedPurchase === 'monthly' && monthlySellingPlanId ? { sellingPlanId: monthlySellingPlanId } : {}),
                   }],
                 }}
               >
                 {(fetcher) => (
                   <>
-                    <input type="hidden" name="action" value={CartForm.ACTIONS.LinesAdd} />
-                    <input type="hidden" name="inputs" value={JSON.stringify({
-                      lines: [{
-                        merchandiseId: variantId,
-                        quantity: quantity,
-                        selectedVariant: firstVariant
-                      }]
-                    })} />
                     <button
                       type="submit"
                       disabled={fetcher.state === 'submitting'}
@@ -257,17 +271,10 @@ const Product = ({ product }) => {
                     merchandiseId: variantId,
                     quantity: quantity,
                     selectedVariant: firstVariant,
+                    ...(selectedPurchase === 'monthly' && monthlySellingPlanId ? { sellingPlanId: monthlySellingPlanId } : {}),
                   }],
                 }}
               >
-                <input type="hidden" name="action" value={CartForm.ACTIONS.LinesAdd} />
-                <input type="hidden" name="inputs" value={JSON.stringify({
-                  lines: [{
-                    merchandiseId: variantId,
-                    quantity: quantity,
-                    selectedVariant: firstVariant
-                  }]
-                })} />
                 <button
                   type="submit"
                   name="checkout"

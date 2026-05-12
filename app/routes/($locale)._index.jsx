@@ -113,6 +113,35 @@ const PRODUCT_QUERY = `#graphql
           height
         }
       }
+      sellingPlanGroups(first: 10) {
+        nodes {
+          name
+          sellingPlans(first: 10) {
+            nodes {
+              id
+              name
+              description
+              options {
+                name
+                value
+              }
+              priceAdjustments {
+                adjustmentValue {
+                  ... on SellingPlanPercentagePriceAdjustment {
+                    adjustmentPercentage
+                  }
+                  ... on SellingPlanFixedAmountPriceAdjustment {
+                    adjustmentAmount {
+                      amount
+                      currencyCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -227,6 +256,35 @@ const FALLBACK_PRODUCTS_QUERY = `#graphql
             altText
             width
             height
+          }
+        }
+        sellingPlanGroups(first: 10) {
+          nodes {
+            name
+            sellingPlans(first: 10) {
+              nodes {
+                id
+                name
+                description
+                options {
+                  name
+                  value
+                }
+                priceAdjustments {
+                  adjustmentValue {
+                    ... on SellingPlanPercentagePriceAdjustment {
+                      adjustmentPercentage
+                    }
+                    ... on SellingPlanFixedAmountPriceAdjustment {
+                      adjustmentAmount {
+                        amount
+                        currencyCode
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

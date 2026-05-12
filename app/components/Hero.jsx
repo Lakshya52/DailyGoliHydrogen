@@ -10,12 +10,12 @@ const Hero = () => {
                 {/* left text section */}
                 <div className="w-full lg:w-1/2 flex flex-col justify-end items-start text-left gap-7">
                     <img src="/images/LogoGreen.webp" className='h-auto w-[40vw] sm:w-[30vw] lg:w-[17.57vw] mb-[1.464vw] md:w-[23.426vw]' alt="Daily Goli Logo Green" width="300" height="150" sizes="(min-width: 1024px) 18vw, (min-width: 768px) 23vw, 40vw" />
-                    <h1 className='font-lex-reg text-(--color-primary) lg:max-w-[45ch] text-[1.171vw] md:text-[1.464vw] mt-[1.464vw]' >
+                    <h2 className='font-lex-reg text-(--color-primary) lg:max-w-[45ch] text-[1.171vw] md:text-[1.464vw] mt-[1.464vw]' >
                         A plant-based supplement with CQR-300,
                         Berberine & Chromium - designed to support
                         your metabolism, manage cravings, and take
                         control of your wellness journey
-                    </h1>
+                    </h2>
                 </div>
 
                 {/* right images section  */}

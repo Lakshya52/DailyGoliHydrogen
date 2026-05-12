@@ -105,7 +105,9 @@ const BottomBar = ({ product }) => {
           <>
             <div className="flex flex-col md:hidden">
               <span className="text-[10px] font-bold text-(--color-primary) uppercase truncate max-w-[150px]">{product.title}</span>
-              <span className="text-lg font-bold">₹{selectedVariant?.price?.amount} + Taxes</span>
+              <span className="text-lg font-bold">₹{selectedVariant?.price?.amount} &nbsp;
+                <span className='text-[10px]'>(Inclusive of all taxes)</span>
+              </span>
             </div>
 
             <div className="flex gap-2">

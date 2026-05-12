@@ -1,4 +1,4 @@
-import {CartForm} from '@shopify/hydrogen';
+import { CartForm } from '@shopify/hydrogen';
 
 /**
  * @param {{
@@ -17,7 +17,7 @@ export function AddToCartButton({
   onClick,
 }) {
   return (
-    <CartForm route="/cart" inputs={{lines}} action={CartForm.ACTIONS.LinesAdd}>
+    <CartForm route="/cart" inputs={{ lines }} action={CartForm.ACTIONS.LinesAdd}>
       {(fetcher) => (
         <>
           <input

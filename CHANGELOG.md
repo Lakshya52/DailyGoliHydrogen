@@ -86,7 +86,7 @@
   import {CartForm} from '@shopify/hydrogen';
 
   <CartForm action={CartForm.ACTIONS.GiftCardCodesAdd} inputs={{giftCardCodes: ['CODE1', 'CODE2']}}>
-    <button>Add Gift Cards</button>
+    <button aria-label="add gift card">Add Gift Cards</button>
   </CartForm>
   ```
 

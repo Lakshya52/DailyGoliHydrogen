@@ -57,7 +57,7 @@ const Reviews = () => {
     <div id='reviews' className='min-h-fit flex flex-col items-center gap-10 justify-center font-lex-reg bg-(--white) py-12 md:py-24 px-4 md:px-25 overflow-hidden' >
         <div className='flex flex-col items-center justify-center' > 
             <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center">Reviews</div>
-            <h1 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4 font-lex-med leading-[108%] section-heading' >Join Our Happy Customers</h1>
+            <h2 className='text-2xl md:text-[65px] text-(--color-primary) font-lex-reg text-center leading-tight mt-4 font-lex-med leading-[108%] section-heading' >Join Our Happy Customers</h2>
         </div>
 
         <div className="flex flex-col md:flex-row items-start justify-start w-full gap-6 md:gap-8 relative px-2 md:px-0" >
@@ -65,7 +65,7 @@ const Reviews = () => {
           {/* STICKY RATING SUMMARY */}
           <div className="w-full md:w-95 md:sticky md:top-24 flex flex-col justify-between bg-(--color-primary) text-(--accent) rounded-3xl p-6 md:p-10 h-fit z-10" >
             <div className="flex items-end justify-between mb-6 md:mb-8" >
-              <h1 className="text-4xl md:text-6xl font-lex-reg leading-0" style={{margin:0, fontSize: '4rem'}}>4.8</h1>
+              <div className="text-4xl md:text-6xl font-lex-reg leading-0" style={{margin:0, fontSize: '4rem'}}>4.8</div>
               <div className="flex gap-1 mb-2">
                 {[...Array(5)].map((_,i)=>(
                   <Star key={i} fill="currentColor" size={20} className="md:w-6 md:h-6"/>

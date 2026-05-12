@@ -108,8 +108,9 @@ function HeaderMenuMobileToggle() {
     <button
       className="header-menu-mobile-toggle reset"
       onClick={() => open('mobile')}
+      aria-label="Open mobile menu"
     >
-      <h3>☰</h3>
+      <span className="text-2xl font-bold">☰</span>
     </button>
   );
 }

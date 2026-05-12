@@ -1,24 +1,38 @@
 import { useLoaderData } from 'react-router';
+import { lazy, Suspense } from 'react';
 import Hero from '~/components/Hero';
-import Facts from '~/components/Facts';
-import Ingredients from '~/components/Ingredients';
-import Product from '~/components/Product';
-import Reviews from '~/components/Reviews';
-import Faq from '~/components/Faq';
-import UsVsThem from '~/components/UsVsThem';
+
+// Lazy-load below-fold components to reduce initial JS bundle
+const Facts = lazy(() => import('~/components/Facts'));
+const Ingredients = lazy(() => import('~/components/Ingredients'));
+const Product = lazy(() => import('~/components/Product'));
+const Reviews = lazy(() => import('~/components/Reviews'));
+const Faq = lazy(() => import('~/components/Faq'));
+const UsVsThem = lazy(() => import('~/components/UsVsThem'));
 
 /**
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{ title: 'Daily Goli | MB-360' }];
+  return [
+    { title: 'Daily Goli | MB-360' },
+    { name: 'description', content: 'A plant-based supplement with CQR-300, Berberine & Chromium - designed to support your metabolism, manage cravings, and take control of your wellness journey.' }
+  ];
 };
+
+/**
+ * Set cache-control headers on the document response to reduce TTFB on repeat visits
+ */
+export const headers = () => ({
+  'Cache-Control': 'public, max-age=60, s-maxage=600, stale-while-revalidate=3600',
+});
 
 export async function loader(args) {
   const { storefront } = args.context;
 
-  // Try to fetch the specific product
+  // Try to fetch the specific product (cached to reduce TTFB)
   const { product } = await storefront.query(PRODUCT_QUERY, {
+    cache: storefront.CacheLong(),
     variables: {
       handle: 'daily-goli-mb-360',
     },
@@ -47,15 +61,16 @@ export default function Homepage() {
     <div className="home">
       <div className="min-h-25 max-h-[20dvh] px-4 md:px-25" ></div>
       <Hero />
-      <img id="benefits" src="/images/ribbon1.png" className="w-full mt-15" alt="ribbon divider" />
-      <Facts />
-      <Ingredients />
-      <img src="/images/ribbon2.png" className="w-full relative z-50" alt="ribbon divider" />
-      <Product product={product} />
-      {/* Us vs Them section */}
-      <UsVsThem />
-      <Reviews />
-      <Faq />
+      <img id="benefits" src="/images/ribbon1.png" width="1920" height="100" loading="lazy" className="w-full mt-15" alt="ribbon divider" />
+      <Suspense fallback={null}>
+        <Facts />
+        <Ingredients />
+        <img src="/images/ribbon2.png" width="1920" height="100" loading="lazy" className="w-full relative z-50" alt="ribbon divider" />
+        <Product product={product} />
+        <UsVsThem />
+        <Reviews />
+        <Faq />
+      </Suspense>
     </div>
   );
 }

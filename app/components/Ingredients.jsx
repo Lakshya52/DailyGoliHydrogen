@@ -97,7 +97,7 @@ const Ingredients = () => {
           ))}
         </div>
 
-        <img src="/pill.webp" alt="DailyGoli Capsule" className="w-1/3 sm:w-1/5" />
+        <img src="/pill.webp" alt="DailyGoli Capsule" className="w-1/3 sm:w-1/5" width="526" height="1371" loading="lazy" sizes="(min-width: 640px) 20vw, 33vw" />
 
         <div className="flex flex-col gap-10 w-full sm:w-1/3" >
           {ingredientsData2.map((item, index) => (

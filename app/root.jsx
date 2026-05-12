@@ -1,4 +1,4 @@
-import {Analytics, getShopAnalytics, useNonce} from '@shopify/hydrogen';
+import { Analytics, getShopAnalytics, useNonce } from '@shopify/hydrogen';
 import {
   Outlet,
   useRouteError,
@@ -10,17 +10,20 @@ import {
   useRouteLoaderData,
 } from 'react-router';
 import favicon from '~/assets/favicon.svg';
-import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
+import { FOOTER_QUERY, HEADER_QUERY } from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import tailwindCss from './styles/tailwind.css?url';
-import {PageLayout} from './components/PageLayout';
+import { PageLayout } from './components/PageLayout';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
  */
 export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
+  // Only re-fetch root data on form submissions (e.g. cart updates) or cross-origin navigations
+  if (formMethod && formMethod !== 'GET') return true;
+  if (currentUrl.pathname === nextUrl.pathname) return false;
   return true;
 };
 
@@ -42,7 +45,28 @@ export function links() {
     },
     {
       rel: 'preconnect',
-      href: 'https://shop.app',
+      href: 'https://fonts.googleapis.com',
+    },
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'preconnect',
+      href: 'https://monorail-edge.shopifysvc.com',
+    },
+    // Load all Lexend weights in a single request (was 3 separate render-blocking @imports)
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Lexend:wght@200;400;700&display=swap',
+    },
+    // Preload LCP image so the browser discovers it immediately from the HTML
+    {
+      rel: 'preload',
+      href: '/images/productMain.webp',
+      as: 'image',
+      type: 'image/webp',
     },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
@@ -58,7 +82,7 @@ export async function loader(args) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  const {storefront, env} = args.context;
+  const { storefront, env } = args.context;
 
   return {
     ...deferredData,
@@ -84,8 +108,8 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {Route.LoaderArgs}
  */
-async function loadCriticalData({context}) {
-  const {storefront} = context;
+async function loadCriticalData({ context }) {
+  const { storefront } = context;
 
   try {
     const [header, featuredProduct] = await Promise.all([
@@ -103,14 +127,14 @@ async function loadCriticalData({context}) {
     ]);
 
     let product = featuredProduct?.product;
-    
+
     // Fallback if the specific handle is not found
     if (!product) {
-        const {products} = await storefront.query(FALLBACK_PRODUCTS_QUERY);
-        product = products?.nodes?.[0];
+      const { products } = await storefront.query(FALLBACK_PRODUCTS_QUERY);
+      product = products?.nodes?.[0];
     }
 
-    return {header, featuredProduct: product};
+    return { header, featuredProduct: product };
   } catch (error) {
     // Console error for debugging but don't throw to prevent 500
     console.error('[Root Loader] Failed to load critical header data:', error);
@@ -132,8 +156,8 @@ async function loadCriticalData({context}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {Route.LoaderArgs}
  */
-function loadDeferredData({context}) {
-  const {storefront, customerAccount, cart} = context;
+function loadDeferredData({ context }) {
+  const { storefront, customerAccount, cart } = context;
 
   // defer the footer query (below the fold)
   const footer = storefront
@@ -158,7 +182,7 @@ function loadDeferredData({context}) {
 /**
  * @param {{children?: React.ReactNode}}
  */
-export function Layout({children}) {
+export function Layout({ children }) {
   const nonce = useNonce();
 
   return (

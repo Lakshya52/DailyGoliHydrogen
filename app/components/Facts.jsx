@@ -62,6 +62,10 @@ const Facts = () => {
       <img
         src="/images/bottleWithPills.png"
         alt="MB-360 bottle with pills"
+        width="447"
+        height="573"
+        loading="lazy"
+        sizes="(min-width: 768px) 35vw, 60vw"
         className="block md:pl-10 w-[60%] md:w-[35%] h-auto hover:scale-80 transition-transform duration-700 pointer-events-none z-10"
       />
 

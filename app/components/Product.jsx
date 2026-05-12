@@ -40,7 +40,14 @@ const Product = ({ product }) => {
     }
   }
 
-  const productImages = images.nodes.length > 0
+  // Helper: append Shopify CDN width transform for responsive images
+  const resizeImage = (url, width) => {
+    if (!url || !url.includes('cdn.shopify.com')) return url;
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}width=${width}`;
+  };
+
+  const productImageUrls = images.nodes.length > 0
     ? images.nodes.map(img => img.url)
     : [
       '/productImages/product-1.png',
@@ -87,9 +94,9 @@ const Product = ({ product }) => {
           {/* <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">
             Hurry Up
           </div> */}
-          <h1 className=" section-heading  text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
+          <h2 className=" section-heading  text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
             Limited Time Offer! <br /> Save Up To 13% on Your First Order!
-          </h1>
+          </h2>
           <p className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
             "Inspired by Science. Powered by Plants."
           </p>
@@ -110,17 +117,21 @@ const Product = ({ product }) => {
               {/* Main Image */}
               <div className="w-full aspect-square bg-(--bg-light) rounded-2xl overflow-hidden flex items-center justify-center border-2 border-(--color-primary)">
                 <img
-                  src={productImages[selectedImage]}
+                  src={resizeImage(productImageUrls[selectedImage], 600)}
                   alt={images.nodes[selectedImage]?.altText || "Product Image"}
                   loading="eager"
                   decoding="async"
+                  fetchPriority="high"
+                  width="600"
+                  height="600"
+                  sizes="(min-width: 768px) 35vw, 90vw"
                   className="w-full h-full object-cover"
                 />
               </div>
 
               {/* Thumbnail Gallery */}
               <div className="flex gap-3 overflow-x-auto pb-4">
-                {productImages.map((image, index) => (
+                {productImageUrls.map((image, index) => (
                   <div
                     key={index}
                     onClick={() => setSelectedImage(index)}
@@ -130,8 +141,12 @@ const Product = ({ product }) => {
                       }`}
                   >
                     <img
-                      src={image}
-                      alt={`Product ${index + 1}`}
+                      src={resizeImage(image, 100)}
+                      alt={`Product thumbnail ${index + 1}`}
+                      width="100"
+                      height="100"
+                      loading="lazy"
+                      sizes="80px"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -145,10 +160,10 @@ const Product = ({ product }) => {
 
             {/* Product Title */}
             <div>
-              <h2 className="text-3xl md:text-5xl font-lex-reg text-(--color-primary) mb-2">
+              <h3 className="text-3xl md:text-5xl font-lex-reg text-(--color-primary) mb-2">
                 {title}
-              </h2>
-              <p className="text-sm md:text-lg text-(--color-primary) opacity-70">
+              </h3>
+              <p className="text-sm md:text-lg text-(--color-primary) opacity-90">
                 Premium Metabolic Balance Formula
               </p>
             </div>
@@ -194,18 +209,18 @@ const Product = ({ product }) => {
 
             {/* Pricing */}
             <div className="bg-(--bg-light) rounded-2xl p-4 md:p-6">
-              <p className="text-(--color-primary) opacity-60 text-sm mb-2">
+              <p className="text-(--color-primary) opacity-90 text-sm mb-2">
                 {pricing[selectedPurchase].label}
               </p>
               <div className="flex items-baseline gap-2 mb-2">
                 <span className="text-3xl md:text-5xl font-lex-reg text-(--color-primary)">
                   ₹{pricing[selectedPurchase].price}
                 </span>
-                <span className="text-sm md:text-base text-(--color-primary) opacity-50 line-through">
+                <span className="text-sm md:text-base text-(--color-primary) opacity-80 line-through">
                   ₹1499
                 </span>
               </div>
-              <p className="text-xs md:text-sm text-(--color-primary) opacity-50">
+              <p className="text-xs md:text-sm text-(--color-primary) opacity-80">
                 {selectedPurchase === 'monthly'
                   ? 'Cancel anytime, no hidden charges'
                   : 'One-time payment, free shipping'}
@@ -323,7 +338,7 @@ const Product = ({ product }) => {
             </div>
 
             {/* Trust Badges */}
-            <div className="pt-4 border-t border-(--bg-light) flex items-center justify-center gap-4 text-xs text-(--color-primary) opacity-60">
+            <div className="pt-4 border-t border-(--bg-light) flex items-center justify-center gap-4 text-xs text-(--color-primary) opacity-80">
               <span>🔒 Secure Checkout</span>
               <span>🚚 Ships in 24 Hours</span>
               <span>✓ Verified Sellers</span>

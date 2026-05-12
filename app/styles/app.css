@@ -1,7 +1,4 @@
-/* Lexend fonts from frontend */
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lexend&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@700&display=swap');
+/* Lexend fonts loaded via <link> tags in root.jsx for non-render-blocking delivery */
 
 
 * {

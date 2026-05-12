@@ -1,25 +1,25 @@
-import {redirect, useLoaderData} from 'react-router';
-import {Money, Image} from '@shopify/hydrogen';
-import {CUSTOMER_ORDER_QUERY} from '~/graphql/customer-account/CustomerOrderQuery';
+import { redirect, useLoaderData } from 'react-router';
+import { Money, Image } from '@shopify/hydrogen';
+import { CUSTOMER_ORDER_QUERY } from '~/graphql/customer-account/CustomerOrderQuery';
 
 /**
  * @type {Route.MetaFunction}
  */
-export const meta = ({data}) => {
-  return [{title: `Order ${data?.order?.name}`}];
+export const meta = ({ data }) => {
+  return [{ title: `Order ${data?.order?.name}` }];
 };
 
 /**
  * @param {Route.LoaderArgs}
  */
-export async function loader({params, context}) {
-  const {customerAccount} = context;
+export async function loader({ params, context }) {
+  const { customerAccount } = context;
   if (!params.id) {
     return redirect('/account/orders');
   }
 
   const orderId = atob(params.id);
-  const {data, errors} = await customerAccount.query(CUSTOMER_ORDER_QUERY, {
+  const { data, errors } = await customerAccount.query(CUSTOMER_ORDER_QUERY, {
     variables: {
       orderId,
       language: customerAccount.i18n.language,
@@ -30,7 +30,7 @@ export async function loader({params, context}) {
     throw new Error('Order not found');
   }
 
-  const {order} = data;
+  const { order } = data;
 
   // Extract line items directly from nodes array
   const lineItems = order.lineItems.nodes;
@@ -99,22 +99,22 @@ export default function OrderRoute() {
           <tfoot>
             {((discountValue && discountValue.amount) ||
               discountPercentage) && (
-              <tr>
-                <th scope="row" colSpan={3}>
-                  <p>Discounts</p>
-                </th>
-                <th scope="row">
-                  <p>Discounts</p>
-                </th>
-                <td>
-                  {discountPercentage ? (
-                    <span>-{discountPercentage}% OFF</span>
-                  ) : (
-                    discountValue && <Money data={discountValue} />
-                  )}
-                </td>
-              </tr>
-            )}
+                <tr>
+                  <th scope="row" colSpan={3}>
+                    <p>Discounts</p>
+                  </th>
+                  <th scope="row">
+                    <p>Discounts</p>
+                  </th>
+                  <td>
+                    {discountPercentage ? (
+                      <span>-{discountPercentage}% OFF</span>
+                    ) : (
+                      discountValue && <Money data={discountValue} />
+                    )}
+                  </td>
+                </tr>
+              )}
             <tr>
               <th scope="row" colSpan={3}>
                 <p>Subtotal</p>
@@ -188,14 +188,14 @@ export default function OrderRoute() {
 /**
  * @param {{lineItem: OrderLineItemFullFragment}}
  */
-function OrderLineRow({lineItem}) {
+function OrderLineRow({ lineItem }) {
   return (
     <tr key={lineItem.id}>
       <td>
         <div>
           {lineItem?.image && (
             <div>
-              <Image data={lineItem.image} width={96} height={96} />
+              <Image data={lineItem.image} width={96} height={96} alt={lineItem.title || 'Order Item'} />
             </div>
           )}
           <div>

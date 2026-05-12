@@ -107,7 +107,7 @@ function ArticleItem({ article, loading }) {
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center gap-3 bg-(--color-primary)/5 group-hover:bg-(--color-primary)/10 transition-colors">
-              <img src="/images/LogoGold.webp" alt="Daily Goli" className="h-16 w-auto opacity-40" />
+              <img alt='daily goli logo' src="/images/LogoGold.webp" alt="Daily Goli" className="h-16 w-auto opacity-40" />
               <span className="text-xs font-lex-med text-(--color-primary) opacity-40 uppercase tracking-widest">Daily Goli Blog</span>
             </div>
           )}

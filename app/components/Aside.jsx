@@ -1,5 +1,5 @@
-import {createContext, useContext, useEffect, useState} from 'react';
-import {useId} from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useId } from 'react';
 
 /**
  * A side bar component with Overlay
@@ -16,8 +16,8 @@ import {useId} from 'react';
  *   heading: React.ReactNode;
  * }}
  */
-export function Aside({children, heading, type}) {
-  const {type: activeType, close} = useAside();
+export function Aside({ children, heading, type }) {
+  const { type: activeType, close } = useAside();
   const expanded = type === activeType;
   const id = useId();
   useEffect(() => {
@@ -31,7 +31,7 @@ export function Aside({children, heading, type}) {
             close();
           }
         },
-        {signal: abortController.signal},
+        { signal: abortController.signal },
       );
     }
     return () => abortController.abort();
@@ -44,10 +44,10 @@ export function Aside({children, heading, type}) {
       role="dialog"
       aria-labelledby={id}
     >
-      <button className="close-outside" onClick={close} />
+      <button className="close-outside" onClick={close} aria-label="Close aside" />
       <aside>
         <header>
-          <h3 id={id}>{heading}</h3>
+          <h2 id={id}>{heading}</h2>
           <button className="close reset" onClick={close} aria-label="Close">
             &times;
           </button>
@@ -60,7 +60,7 @@ export function Aside({children, heading, type}) {
 
 const AsideContext = createContext(null);
 
-Aside.Provider = function AsideProvider({children}) {
+Aside.Provider = function AsideProvider({ children }) {
   const [type, setType] = useState('closed');
 
   return (

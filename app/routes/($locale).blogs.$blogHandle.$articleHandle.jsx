@@ -95,6 +95,7 @@ export default function Article() {
               data={image}
               sizes="100vw"
               loading="eager"
+              alt='background image hero'
               className="w-full h-full object-cover"
             />
             {/* Dark gradient overlay */}

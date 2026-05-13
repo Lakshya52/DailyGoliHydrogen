@@ -77,8 +77,33 @@ const Footer = () => {
 
                     </div>
                 </div>
+                {/* top bar */}
+                {/* <div className="border-t border-(--accent)"></div> */}
+                {/* logos */}
+                <div className='w-full min-h-20 bg-[#e0f3d1] p-4 flex items-center flex-wrap justify-center gap-4 rounded-2xl mt-2' >
+                    <img src="/paymentLogos/amazon-pay.svg" alt="Amazon Pay" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/amex.svg" alt="American Express" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/diners-club.svg" alt="Diners Club" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/fpx.png" alt="FPX" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/grab-pay.png" alt="Grab Pay" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/hsbc.svg" alt="HSBC" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/maestro.svg" alt="Maestro" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/mastercard.svg" alt="Mastercard" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/paytm.png" alt="Paytm" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/rupay.png" alt="Rupay" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/tng.svg" alt="TNG" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/upi.svg" alt="UPI" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/visa.svg" alt="Visa" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/airtel-money.webp" alt="Airtel Money" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/boost.webp" alt="Boost" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/freecharge.svg" alt="Freecharge" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/mcash.png" alt="MCash" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/mobikwik.svg" alt="Mobikwik" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/payzapp.png" alt="Payzapp" className="h-5 sm:h-8 w-auto" />
+                    <img src="/paymentLogos/other-pay.png" alt="Payment Method" className="h-5 sm:h-8 w-auto" />
+                </div>
                 {/* bottom line */}
-                <div className='text-md leading-relaxed border-t border-(--accent) pt-6 mt-4  flex flex-col md:flex-row md:items-center justify-between gap-2 '>
+                <div className='text-md leading-relaxed border-t border-(--accent) pt-6 mt-3  flex flex-col md:flex-row md:items-center justify-between gap-2 '>
                     © 2026 Daily Goli All rights reserved
                     <ul className='flex items-center gap-5'>
                         <li className='cursor-pointer hover:underline text-(--accent)' >

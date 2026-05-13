@@ -130,13 +130,13 @@ const Product = ({ product }) => {
               </div>
 
               {/* Thumbnail Gallery */}
-              <div className="flex gap-3 overflow-x-auto pb-4">
+              <div className="flex gap-3 overflow-x-auto py-4">
                 {productImageUrls.map((image, index) => (
                   <div
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`w-20 h-20 min-w-20 rounded-lg cursor-pointer overflow-hidden border-2 transition-all duration-300 ${selectedImage === index
-                      ? 'border-(--color-primary) scale-110'
+                      ? 'border-(--color-primary)'
                       : 'border-(--bg-light) hover:border-(--color-primary)'
                       }`}
                   >

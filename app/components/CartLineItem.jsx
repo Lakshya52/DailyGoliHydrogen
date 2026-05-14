@@ -62,6 +62,11 @@ export function CartLineItem({ layout, line, childrenMap }) {
                 <strong>{product.title}</strong>
               </p>
             </Link>
+            {line?.sellingPlanAllocation && (
+              <p className="text-xs md:text-sm text-(--color-primary) opacity-60 font-lex-reg">
+                {line.sellingPlanAllocation.sellingPlan.name}
+              </p>
+            )}
             {layout === 'page' && (
               <div className="shrink-0 font-lex-med text-(--color-primary) text-base md:text-lg">
                 <ProductPrice price={line?.cost?.totalAmount} />

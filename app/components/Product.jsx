@@ -4,7 +4,11 @@ import { CartForm } from '@shopify/hydrogen';
 import UsVsThem from "./UsVsThem";
 
 const Product = ({ product }) => {
-  const [selectedPurchase, setSelectedPurchase] = useState('monthly');
+  // Extract first selling plan (from Shopify Subscriptions app)
+  const firstSellingPlan = product?.sellingPlanGroups?.nodes?.[0]?.sellingPlans?.nodes?.[0] ?? null;
+  const monthlySellingPlanId = firstSellingPlan?.id ?? null;
+
+  const [selectedPurchase, setSelectedPurchase] = useState(monthlySellingPlanId ? 'monthly' : 'oneTime');
   const [selectedImage, setSelectedImage] = useState(0);
 
   // If no product data is passed, provide empty fallback or handle error
@@ -20,9 +24,7 @@ const Product = ({ product }) => {
   const firstVariant = variants.nodes[0];
   const variantId = firstVariant?.id;
 
-  // Extract first selling plan (from Shopify Subscriptions app)
-  const firstSellingPlan = sellingPlanGroups?.nodes?.[0]?.sellingPlans?.nodes?.[0] ?? null;
-  const monthlySellingPlanId = firstSellingPlan?.id ?? null;
+
 
   // Compute subscription price from selling plan's priceAdjustments
   const basePrice = parseFloat(firstVariant?.price?.amount || 1299);
@@ -181,31 +183,33 @@ const Product = ({ product }) => {
             </div>
 
             {/* Purchase Type Toggle (Keeping original design but can be mapped to Selling Plans later) */}
-            <div className="flex gap-3 bg-(--bg-light) p-1 rounded-full w-fit">
-              <button
-                onClick={() => setSelectedPurchase('monthly')}
-                className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 relative cursor-pointer border border-(--color-primary) ${selectedPurchase === 'monthly'
-                  ? 'bg-(--color-primary) text-(--white)'
-                  : 'text-(--color-primary) hover:bg-(--white)'
-                  }`}
-              >
-                Monthly Subscription
-                {selectedPurchase === 'monthly' && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-(--white) text-xs px-2 py-1 rounded-full">
-                    {pricing.monthly.savings}
-                  </span>
-                )}
-              </button>
-              <button
-                onClick={() => setSelectedPurchase('oneTime')}
-                className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 border border-(--color-primary) cursor-pointer ${selectedPurchase === 'oneTime'
-                  ? 'bg-(--color-primary) text-(--white)'
-                  : 'text-(--color-primary) hover:bg-(--white)'
-                  }`}
-              >
-                One Time
-              </button>
-            </div>
+            {monthlySellingPlanId && (
+              <div className="flex gap-3 bg-(--bg-light) p-1 rounded-full w-fit">
+                <button
+                  onClick={() => setSelectedPurchase('monthly')}
+                  className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 relative cursor-pointer border border-(--color-primary) ${selectedPurchase === 'monthly'
+                    ? 'bg-(--color-primary) text-(--white)'
+                    : 'text-(--color-primary) hover:bg-(--white)'
+                    }`}
+                >
+                  {firstSellingPlan?.name || 'Monthly Subscription'}
+                  {selectedPurchase === 'monthly' && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-(--white) text-xs px-2 py-1 rounded-full">
+                      {pricing.monthly.savings}
+                    </span>
+                  )}
+                </button>
+                <button
+                  onClick={() => setSelectedPurchase('oneTime')}
+                  className={`px-6 py-3 rounded-full font-lex-reg transition-all duration-300 border border-(--color-primary) cursor-pointer ${selectedPurchase === 'oneTime'
+                    ? 'bg-(--color-primary) text-(--white)'
+                    : 'text-(--color-primary) hover:bg-(--white)'
+                    }`}
+                >
+                  One Time
+                </button>
+              </div>
+            )}
 
             {/* Pricing */}
             <div className="bg-(--bg-light) rounded-2xl p-4 md:p-6">

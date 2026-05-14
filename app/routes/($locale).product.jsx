@@ -27,12 +27,12 @@ export async function loader({ context }) {
   return { product: finalProduct };
 }
 
-export default function BuyNow() {
+export default function ProductRoute() {
   const { product } = useLoaderData();
 
   return (
     <div className="min-h-screen  mt-[15dvh] pb-20 ">
-        <ProductPage  product={product}  />
+      <ProductPage product={product} />
       {/* <Product/> */}
     </div>
   );
@@ -91,6 +91,35 @@ const PRODUCT_QUERY = `#graphql
           height
         }
       }
+      sellingPlanGroups(first: 10) {
+        nodes {
+          name
+          sellingPlans(first: 10) {
+            nodes {
+              id
+              name
+              description
+              options {
+                name
+                value
+              }
+              priceAdjustments {
+                adjustmentValue {
+                  ... on SellingPlanPercentagePriceAdjustment {
+                    adjustmentPercentage
+                  }
+                  ... on SellingPlanFixedAmountPriceAdjustment {
+                    adjustmentAmount {
+                      amount
+                      currencyCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -147,6 +176,35 @@ const FALLBACK_PRODUCTS_QUERY = `#graphql
             altText
             width
             height
+          }
+        }
+        sellingPlanGroups(first: 10) {
+          nodes {
+            name
+            sellingPlans(first: 10) {
+              nodes {
+                id
+                name
+                description
+                options {
+                  name
+                  value
+                }
+                priceAdjustments {
+                  adjustmentValue {
+                    ... on SellingPlanPercentagePriceAdjustment {
+                      adjustmentPercentage
+                    }
+                    ... on SellingPlanFixedAmountPriceAdjustment {
+                      adjustmentAmount {
+                        amount
+                        currencyCode
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

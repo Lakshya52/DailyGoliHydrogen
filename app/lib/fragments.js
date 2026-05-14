@@ -59,6 +59,11 @@ export const CART_QUERY_FRAGMENT = `#graphql
         id
       }
     }
+    sellingPlanAllocation {
+      sellingPlan {
+        name
+      }
+    }
   }
   fragment CartLineComponent on ComponentizableCartLine {
     id

@@ -1,9 +1,9 @@
 /**
  * @param {Route.LoaderArgs}
  */
-export function loader({request}) {
+export function loader({ request }) {
   const url = new URL(request.url);
-  const body = robotsTxtData({url: url.origin});
+  const body = robotsTxtData({ url: url.origin });
 
   return new Response(body, {
     status: 200,
@@ -18,12 +18,12 @@ export function loader({request}) {
 /**
  * @param {{url?: string}}
  */
-function robotsTxtData({url}) {
+function robotsTxtData({ url }) {
   const sitemapUrl = url ? `${url}/sitemap.xml` : undefined;
 
   return `
 User-agent: *
-${generalDisallowRules({sitemapUrl})}
+${generalDisallowRules({ sitemapUrl })}
 
 # Google adsbot ignores robots.txt unless specifically named!
 User-agent: adsbot-google
@@ -38,11 +38,11 @@ Disallow: /
 
 User-agent: AhrefsBot
 Crawl-delay: 10
-${generalDisallowRules({sitemapUrl})}
+${generalDisallowRules({ sitemapUrl })}
 
 User-agent: AhrefsSiteAudit
 Crawl-delay: 10
-${generalDisallowRules({sitemapUrl})}
+${generalDisallowRules({ sitemapUrl })}
 
 User-agent: MJ12bot
 Crawl-Delay: 10
@@ -57,25 +57,10 @@ Crawl-delay: 1
  * Online Store has as defaults for their robots.txt
  * @param {{sitemapUrl?: string}}
  */
-function generalDisallowRules({sitemapUrl}) {
+function generalDisallowRules({ sitemapUrl }) {
   return `Disallow: /cart
 Disallow: /account
-Disallow: /collections/*sort_by*
-Disallow: /*/collections/*sort_by*
-Disallow: /collections/*+*
-Disallow: /collections/*%2B*
-Disallow: /collections/*%2b*
-Disallow: /*/collections/*+*
-Disallow: /*/collections/*%2B*
-Disallow: /*/collections/*%2b*
-Disallow: /*/collections/*filter*&*filter*
-Disallow: /blogs/*+*
-Disallow: /blogs/*%2B*
-Disallow: /blogs/*%2b*
-Disallow: /*/blogs/*+*
-Disallow: /*/blogs/*%2B*
-Disallow: /*/blogs/*%2b*
-Disallow: /policies/
+Allow: /policies/
 Disallow: /search
 Allow: /search/
 Disallow: /search/?*

@@ -74,6 +74,10 @@ const BottomBar = ({ product }) => {
 
   const isCartPage = location.pathname.endsWith('/cart');
   if (isCartPage) return null;
+  const imagesUrl = {
+    "fssai": "https://cdn.shopify.com/videos/c/o/v/cov_c3642aa21119f975c2520ef4b72f3864.mp4",
+    "fda": ""
+  }
 
   return (
     <div className={`fixed bottom-0 left-0 w-full h-16 bg-(--white) z-[10001] flex items-center justify-between px-4 md:px-10 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transition-all duration-500 ${isOverlaying || isAtBottom ? 'translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
@@ -103,8 +107,11 @@ const BottomBar = ({ product }) => {
       <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
         {product ? (
           <>
-            <div className="flex flex-col md:hidden">
-              <span className="text-[10px] font-bold text-(--color-primary) uppercase truncate max-w-[150px]">{product.title}</span>
+            <div>
+              {imagesUrl.map}
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[10px] font-bold text-(--color-primary) uppercase truncate max-w-[150px] md:max-w-xs">{product.title}</span>
               <span className="text-lg font-bold">₹{selectedVariant?.price?.amount} &nbsp;
                 <span className='text-[10px]'>(Inclusive of all taxes)</span>
               </span>

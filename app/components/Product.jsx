@@ -162,9 +162,9 @@ const Product = ({ product }) => {
 
             {/* Product Title */}
             <div>
-              <h3 className="text-3xl md:text-5xl font-lex-reg text-(--color-primary) mb-2">
+              <h2 className="text-2xl md:text-4xl font-lex-reg text-(--color-primary) mb-2">
                 {title}
-              </h3>
+              </h2>
               <p className="text-sm md:text-lg text-(--color-primary) opacity-90">
                 Premium Metabolic Balance Formula
               </p>
@@ -172,7 +172,7 @@ const Product = ({ product }) => {
 
             {/* Ratings */}
             <div className="flex items-center gap-3">
-              <div className="flex gap-1 text-(--color-primary)">
+              <div className="flex gap-1 text-(--accent)">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} className="md:w-4.5 md:h-4.5" fill="currentColor" />
                 ))}
@@ -212,7 +212,7 @@ const Product = ({ product }) => {
             )}
 
             {/* Pricing */}
-            <div className="bg-(--bg-light) rounded-2xl p-4 md:p-6">
+            <div className="bg-(--bg-light) rounded-2xl py-4 md:py-6 ">
               <p className="text-(--color-primary) opacity-90 text-sm mb-2">
                 {pricing[selectedPurchase].label}
               </p>
@@ -220,6 +220,7 @@ const Product = ({ product }) => {
                 <span className="text-3xl md:text-5xl font-lex-reg text-(--color-primary)">
                   ₹{pricing[selectedPurchase].price}
                 </span>
+                {/* strik through price */}
                 <span className="text-sm md:text-base text-(--color-primary) opacity-80 line-through">
                   ₹1499
                 </span>
@@ -253,36 +254,10 @@ const Product = ({ product }) => {
               </div>
             </div>
 
-            <div id="product-actions" className="flex gap-4">
-              {/* Add to Cart Component Integration */}
-              <CartForm
-                route="/cart"
-                action={CartForm.ACTIONS.LinesAdd}
-                inputs={{
-                  lines: [{
-                    merchandiseId: variantId,
-                    quantity: quantity,
-                    selectedVariant: firstVariant,
-                    ...(selectedPurchase === 'monthly' && monthlySellingPlanId ? { sellingPlanId: monthlySellingPlanId } : {}),
-                  }],
-                }}
-              >
-                {(fetcher) => (
-                  <>
-                    <button
-                      type="submit"
-                      disabled={fetcher.state === 'submitting'}
-                      className="w-full h-12 md:h-16 px-6 md:px-8 bg-(--white) text-(--color-primary) rounded-xl font-lex-reg text-sm md:text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
-                    >
-                      <ShoppingCart size={18} className="md:w-5 md:h-5 group-hover:scale-110 transition-transform" />
-                      {fetcher.state === 'submitting' ? 'Adding...' : 'Add to Cart'}
-                    </button>
-                  </>
-                )}
-              </CartForm>
-
+            <div id="product-actions" className="w-full">
               {/* Buy Now Button - Direct to checkout redirected handled by cart action */}
               <CartForm
+                className="w-full"
                 route="/cart"
                 action={CartForm.ACTIONS.LinesAdd}
                 inputs={{
@@ -315,6 +290,16 @@ const Product = ({ product }) => {
                   <span className="text-sm font-lex-reg">{benefit}</span>
                 </div>
               ))}
+            </div>
+            {/* hello */}
+            {/* images of trust icons */}
+            <div className="flex items-center justify-between w-full bg-white border-(--color-primary) p-4 rounded">
+              <img className="h-10" src="/trustLogos/fda.svg" alt="fssai logo" />
+              <img className="h-10" src="/trustLogos/fssai.png" alt="fda logo" />
+              <img className="h-10" src="/trustLogos/iso.webp" alt="ISO logo" />
+              <img className="h-10" src="/trustLogos/gmp.webp" alt="WHO-GMP logo" />
+              {/* <img className="h-10" src="/trustLogos/ayush.svg" alt="ayush" /> */}
+              <img className="h-10" src="/trustLogos/haccp.webp" alt="hcapp" />
             </div>
 
             {/* Product Features */}

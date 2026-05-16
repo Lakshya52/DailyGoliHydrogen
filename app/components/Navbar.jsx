@@ -114,126 +114,126 @@ const Navbar = ({ cart }) => {
   }, []);
 
   return (
-  <>
-    <div
-      className={`fixed top-8 w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[10dvh]"
-        }  px-7 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-        }`}
-    >
-      <div className="flex items-center gap-2 md:gap-4 lg:gap-1">
-        <img onClick={handleLogoClick} src="/Logo.svg" alt="Daily Goli Logo" className="cursor-pointer h-10  lg:mr-2 " />
+    <>
+      <div
+        className={`fixed top-8 w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[10dvh]"
+          }  px-7 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+          }`}
+      >
+        <div className="flex items-center gap-2 md:gap-4 lg:gap-1">
+          <img onClick={handleLogoClick} src="/Logo.svg" alt="Daily Goli Logo" className="cursor-pointer h-10  lg:mr-2 " />
 
-        {/* Social Media Links - hidden before lg */}
-        <div className="hidden lg:flex items-center justify-center w-fit gap-1">
+          {/* Social Media Links - hidden before lg */}
+          <div className="hidden lg:flex items-center justify-center w-fit gap-1">
+            {socialLinks.map((item, index) => (
+              <a
+                key={index}
+                target="_blank"
+                href={item.href}
+                aria-label={item.name}
+                className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group"
+              >
+                <div className="text-(--color-primary) transition-colors group-hover:text-(--white)">
+                  {item.icon}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Links - hidden before lg */}
+        <ul className="hidden lg:flex gap-1 items-end">
+          {navLinks.map((item, index) => (
+            <li key={index}>
+              <Link
+                to={item.href}
+                className={`flex hover:-translate-y-4 ${item.rotate} transition-all duration-400 cursor-pointer group`}
+              >
+                <span className="h-10 w-fit px-4 text-(--white) rounded-full bg-(--color-primary) flex items-center justify-center font-lex-reg group-hover:text-(--color-primary) group-hover:bg-(--white) group-hover:border border-(--color-primary) transition-all duration-400 text-sm md:text-base">
+                  {item.text}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        {/* Action Buttons: Cart & Buy Now */}
+        <div className="flex items-center gap-2 md:gap-4">
+          <Link to="/cart" aria-label="Cart" className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group relative">
+            <ShoppingCart size={20} className="text-(--color-primary) transition-colors group-hover:text-(--white)" />
+            <Suspense fallback={null}>
+              <Await resolve={cart}>
+                {(cart) => {
+                  if (!cart || cart.totalQuantity === 0) return null;
+                  return (
+                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] h-5 w-5 rounded-full flex items-center justify-center group-hover:text-(--color-primary) animate-bounce">
+                      {cart.totalQuantity}
+                    </span>
+                  );
+                }}
+              </Await>
+            </Suspense>
+          </Link>
+
+          <Link to="/product" className="flex items-center justify-center w-fit group cursor-pointer no-underline">
+            <div className="h-10 w-10 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) flex items-center justify-center transition-transform duration-400 group-hover:translate-x-22.5">
+              <ArrowUpRight />
+            </div>
+            <span className="h-10 w-fit flex items-center justify-center px-4 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) font-lex-reg transition-all duration-400 group-hover:-translate-x-10 group-hover:-rotate-6">
+              Product
+            </span>
+          </Link>
+
+          {/* Mobile Menu Button - visible only before lg */}
+          <button
+            className="lg:hidden h-10 w-10 min-w-10 flex items-center justify-center bg-(--color-primary) text-(--white) rounded-full"
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Open mobile menu"
+          >
+            <Menu size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`fixed inset-0 bg-(--white) z-[10000] flex flex-col items-center justify-center transition-all duration-500 origin-top transform ${isMobileMenuOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"}`}>
+        <button
+          className="absolute top-6 right-6 h-12 w-12 flex items-center justify-center bg-(--color-primary) text-(--white) rounded-full"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-label="Close mobile menu"
+        >
+          <X size={24} />
+        </button>
+
+        <ul className="flex flex-col items-center gap-8 mt-10">
+          {navLinks.map((item, index) => (
+            <li key={index}>
+              <Link
+                to={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-(--color-primary) text-3xl font-lex-reg hover:opacity-80 transition-opacity"
+              >
+                {item.text}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex gap-4 mt-16">
           {socialLinks.map((item, index) => (
             <a
               key={index}
-              target="_blank"
               href={item.href}
               aria-label={item.name}
-              className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group"
+              className="h-14 w-14 rounded-full bg-(--color-primary) text-(--white) flex items-center justify-center hover:opacity-80 transition-opacity"
             >
-              <div className="text-(--color-primary) transition-colors group-hover:text-(--white)">
-                {item.icon}
-              </div>
+              {item.icon}
             </a>
           ))}
         </div>
       </div>
-
-      {/* Navigation Links - hidden before lg */}
-      <ul className="hidden lg:flex gap-1 items-end">
-        {navLinks.map((item, index) => (
-          <li key={index}>
-            <Link
-              to={item.href}
-              className={`flex hover:-translate-y-4 ${item.rotate} transition-all duration-400 cursor-pointer group`}
-            >
-              <span className="h-10 w-fit px-4 text-(--white) rounded-full bg-(--color-primary) flex items-center justify-center font-lex-reg group-hover:text-(--color-primary) group-hover:bg-(--white) group-hover:border border-(--color-primary) transition-all duration-400 text-sm md:text-base">
-                {item.text}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      {/* Action Buttons: Cart & Buy Now */}
-      <div className="flex items-center gap-2 md:gap-4">
-        <Link to="/cart" aria-label="Cart" className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group relative">
-          <ShoppingCart size={20} className="text-(--color-primary) transition-colors group-hover:text-(--white)" />
-          <Suspense fallback={null}>
-            <Await resolve={cart}>
-              {(cart) => {
-                if (!cart || cart.totalQuantity === 0) return null;
-                return (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] h-5 w-5 rounded-full flex items-center justify-center group-hover:text-(--color-primary) animate-bounce">
-                    {cart.totalQuantity}
-                  </span>
-                );
-              }}
-            </Await>
-          </Suspense>
-        </Link>
-
-        <Link to="/product" className="flex items-center justify-center w-fit group cursor-pointer no-underline">
-          <div className="h-10 w-10 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) flex items-center justify-center transition-transform duration-400 group-hover:translate-x-22.5">
-            <ArrowUpRight />
-          </div>
-          <span className="h-10 w-fit flex items-center justify-center px-4 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) font-lex-reg transition-all duration-400 group-hover:-translate-x-12.5 group-hover:-rotate-6">
-            Product
-          </span>
-        </Link>
-
-        {/* Mobile Menu Button - visible only before lg */}
-        <button
-          className="lg:hidden h-10 w-10 min-w-10 flex items-center justify-center bg-(--color-primary) text-(--white) rounded-full"
-          onClick={() => setIsMobileMenuOpen(true)}
-          aria-label="Open mobile menu"
-        >
-          <Menu size={20} />
-        </button>
-      </div>
-    </div>
-
-    {/* Mobile Menu Overlay */}
-    <div className={`fixed inset-0 bg-(--white) z-[10000] flex flex-col items-center justify-center transition-all duration-500 origin-top transform ${isMobileMenuOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"}`}>
-      <button
-        className="absolute top-6 right-6 h-12 w-12 flex items-center justify-center bg-(--color-primary) text-(--white) rounded-full"
-        onClick={() => setIsMobileMenuOpen(false)}
-        aria-label="Close mobile menu"
-      >
-        <X size={24} />
-      </button>
-
-      <ul className="flex flex-col items-center gap-8 mt-10">
-        {navLinks.map((item, index) => (
-          <li key={index}>
-            <Link
-              to={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-(--color-primary) text-3xl font-lex-reg hover:opacity-80 transition-opacity"
-            >
-              {item.text}
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <div className="flex gap-4 mt-16">
-        {socialLinks.map((item, index) => (
-          <a
-            key={index}
-            href={item.href}
-            aria-label={item.name}
-            className="h-14 w-14 rounded-full bg-(--color-primary) text-(--white) flex items-center justify-center hover:opacity-80 transition-opacity"
-          >
-            {item.icon}
-          </a>
-        ))}
-      </div>
-    </div>
-  </>
-);
+    </>
+  );
 };
 
 export default Navbar;

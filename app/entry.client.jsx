@@ -14,7 +14,7 @@ if (!window.location.origin.includes('webcache.googleusercontent.com')) {
         <NonceProvider value={existingNonce}>
           <HydratedRouter />
         </NonceProvider>
-      </StrictMode>,
+      </StrictMode>
     );
   });
 }

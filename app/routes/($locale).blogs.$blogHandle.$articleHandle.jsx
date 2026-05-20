@@ -86,63 +86,56 @@ export default function Article() {
   return (
     <div className="min-h-screen bg-(--bg-light) text-(--color-primary) font-lex-reg">
 
-      {/* Hero Section */}
-      <div className="relative w-full" style={{ minHeight: '60dvh' }}>
-        {/* Background image or gradient */}
-        {image ? (
-          <div className="absolute inset-0 overflow-hidden">
-            <Image
-              data={image}
-              sizes="100vw"
-              loading="eager"
-              alt='background image hero'
-              className="w-full h-full object-cover"
-            />
-            {/* Dark gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
-          </div>
-        ) : (
-          <div className="absolute inset-0 bg-(--color-primary)" />
-        )}
-
-        {/* Hero Content */}
-        <div className="relative z-10 flex flex-col justify-end px-6 md:px-25 pb-16 pt-[15dvh]" style={{ minHeight: '60dvh' }}>
-          {/* Back link */}
+      {/* Blog Header */}
+      <div className="mx-auto w-[85dvw] pt-[15dvh]">
+        <div className="max-w-6xl mx-auto  md:px-0">
           <Link
-            to="/blogs"
-            className="inline-flex items-center gap-2 text-(--white) opacity-80 hover:opacity-100 font-lex-med text-sm mb-10 w-fit hover:-translate-x-1 transition-all duration-300"
+            to={`/blogs`}
+            className="inline-flex items-center gap-2 text-(--color-primary) opacity-80 hover:opacity-100 font-lex-med text-sm mb-10 w-fit hover:-translate-x-1 transition-all duration-300"
           >
             ← Back to Blogs
           </Link>
 
+          <div className="grid gap-10 lg:grid-cols-2 items-center justify-between w-full">
+            <div>
+              <div className="flex items-center gap-3 mb-5"> 
+                <span className="h-8 px-4 rounded-full bg-(--accent) text-(--color-primary) text-xs font-lex-med flex items-center justify-center uppercase tracking-wider">
+                  Blog
+                </span>
+                <span className="opacity-80 text-sm font-lex-med">
+                  <time dateTime={article.publishedAt}>{publishedDate}</time>
+                </span>
+                {author?.name && (
+                  <>
+                    <span className="opacity-40">·</span>
+                    <address className="not-italic opacity-80 text-sm font-lex-med">{author.name}</address>
+                  </>
+                )}
+              </div>
 
+              <h1 className="font-lex-med text-(--color-primary) leading-[105%] mb-6 pr-5" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', paddingRight: 'clamp(0px, 1vw, 40px)' }}>
+                {title}
+              </h1>
+              
+            </div>
+
+            {image && (
+              <div className="overflow-hidden rounded-[2rem] border border-(--color-primary)/10 shadow-lg min-h-90">
+                <Image
+                  data={image}
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  loading="eager"
+                  alt={image.altText || title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Article Body */}
-      <div className=" mx-auto w-[85dvw] py-16 md:py-24">
-
-
-        {/* Meta */}
-        <div className="flex items-center gap-3 mb-5">
-          <span className="h-8 px-4 rounded-full bg-(--accent) text-(--color-primary) text-xs font-lex-med flex items-center justify-center uppercase tracking-wider">
-            Blog
-          </span>
-          <span className=" opacity-70 text-sm font-lex-med">
-            <time dateTime={article.publishedAt}>{publishedDate}</time>
-          </span>
-          {author?.name && (
-            <>
-              <span className=" opacity-40">·</span>
-              <address className="not-italic opacity-70 text-sm font-lex-med">{author.name}</address>
-            </>
-          )}
-        </div>
-
-        {/* Title */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-lex-med text-(--white) leading-[115%] ">
-          {title}
-        </h1>
+      <div className="mx-auto w-[85dvw] pt-5 pb-16 md:pb-24">
         {/* Decorative divider */}
         <div className="flex items-center gap-4 my-12">
           <div className="flex-1 h-px bg-(--color-primary)/15" />
@@ -173,7 +166,7 @@ export default function Article() {
         {/* Bottom nav */}
         <div className="mt-16 pt-10 border-t border-(--color-primary)/10 flex items-center justify-between">
           <Link
-            to="/blogs"
+            to={`/blogs/${blogHandle}`}
             className="inline-flex items-center gap-2 h-11 px-6 rounded-full bg-(--color-primary) text-(--white) font-lex-med text-sm hover:bg-opacity-90 transition-all hover:-translate-x-1"
           >
             ← All Articles

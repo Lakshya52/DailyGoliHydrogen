@@ -18,7 +18,7 @@ const Footer = () => {
                         {/* links wrapper to put them side by side on mobile */}
                         <div className="flex gap-16 sm:gap-24 md:gap-16 lg:gap-20">
                             {/* links 1 */}
-                            <ul className='leading-relaxed md:leading-[188%] text-sm md:text-base flex flex-col gap-1' >
+                            <ul style={{marginLeft : "0px"}} className='leading-relaxed md:leading-[188%] text-sm md:text-base flex flex-col gap-1' >
                                 <li className='cursor-pointer hover:underline text-(--accent)' >
                                     <a href="/blogs" className="block">Blogs</a>
                                 </li>
@@ -36,7 +36,7 @@ const Footer = () => {
                                 </li>
                             </ul>
                             {/* links 2 */}
-                            <ul className='leading-relaxed md:leading-[188%] text-sm md:text-base flex flex-col gap-1' >
+                            <ul style={{marginLeft : "0px"}} className='leading-relaxed md:leading-[188%] text-sm md:text-base flex flex-col gap-1' >
                                 <li className='cursor-pointer hover:underline text-(--accent)' >
                                     <a href="#benefits" className="block">Benefits</a>
                                 </li>

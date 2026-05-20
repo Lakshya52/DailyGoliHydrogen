@@ -6,7 +6,14 @@ import { PaginatedResourceSection } from '~/components/PaginatedResourceSection'
  * @type {Route.MetaFunction}
  */
 export const meta = () => {
-  return [{ title: `DailyGoli | Blogs` }];
+  return [
+    { title: `DailyGoli | Blogs` },
+    {
+      name: 'description',
+      content:
+        'Explore DailyGoli blog articles for health tips, wellness insights, and the latest on metabolic support and natural supplements.',
+    },
+  ];
 };
 
 /**

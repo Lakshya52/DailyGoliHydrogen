@@ -19,6 +19,13 @@ export const meta = ({ data }) => {
   return [
     { title: `DailyGoli | ${data?.product.title ?? ''}` },
     {
+      name: 'description',
+      content:
+        data?.product.seo?.description ||
+        data?.product.description ||
+        `Buy ${data?.product.title ?? 'this product'} from DailyGoli for natural metabolic support and wellness.`,
+    },
+    {
       rel: 'canonical',
       href: `/products/${data?.product.handle}`,
     },

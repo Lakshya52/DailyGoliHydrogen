@@ -7,7 +7,15 @@ import { redirectIfHandleIsLocalized } from '~/lib/redirect';
  * @type {Route.MetaFunction}
  */
 export const meta = ({ data }) => {
-  return [{ title: `DailyGoli | ${data?.blog.title ?? ''} blog` }];
+  return [
+    { title: `DailyGoli | ${data?.blog.title ?? ''} blog` },
+    {
+      name: 'description',
+      content:
+        data?.blog.seo?.description ||
+        `Read ${data?.blog.title ?? 'our blog'} for wellness tips, product guides, and healthy living insights.`,
+    },
+  ];
 };
 
 /**

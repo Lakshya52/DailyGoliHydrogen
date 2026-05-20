@@ -2,6 +2,18 @@ import { useLoaderData } from "react-router";
 import Product from "~/components/Product";
 import ProductPage from "~/components/ProductPage";
 
+export const meta = ({ data }) => {
+  return [
+    { title: `DailyGoli | ${data?.product.title ?? 'Product'}` },
+    {
+      name: 'description',
+      content:
+        data?.product.description ||
+        'Discover DailyGoli metabolic support products crafted with natural, science-backed ingredients for your wellness journey.',
+    },
+  ];
+};
+
 export async function loader({ context }) {
   const { storefront } = context;
 

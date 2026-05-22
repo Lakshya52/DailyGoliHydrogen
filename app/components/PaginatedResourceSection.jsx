@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Pagination} from '@shopify/hydrogen';
+import { Pagination } from '@shopify/hydrogen';
 
 /**
  * <PaginatedResourceSection> encapsulates the previous and next pagination behaviors throughout your application.
@@ -13,20 +13,26 @@ export function PaginatedResourceSection({
 }) {
   return (
     <Pagination connection={connection}>
-      {({nodes, isLoading, PreviousLink, NextLink}) => {
+      {({ nodes, isLoading, PreviousLink, NextLink }) => {
         const resourcesMarkup = nodes.map((node, index) =>
-          children({node, index}),
+          children({ node, index }),
         );
 
         return (
           <div>
             <PreviousLink>
               {isLoading ? (
-                'Loading...'
+                <div className="flex items-center justify-center mt-10 group">
+                  <span className="flex items-center gap-2 bg-(--color-primary) text-(--white) px-4 py-2 rounded-full group-hover:translate-y-[-1]">
+                    Loading...
+                  </span>
+                </div>
               ) : (
-                <span>
-                  <span aria-hidden="true">↑</span> Load previous
-                </span>
+                <div className="flex items-center justify-center mt-10 group">
+                  <span className="flex items-center gap-2 bg-(--color-primary) text-(--white) px-4 py-2 rounded-full group-hover:translate-y-[-1]">
+                    <span aria-hidden="true">↑</span> Load previous
+                  </span>
+                </div>
               )}
             </PreviousLink>
             {resourcesClassName ? (
@@ -42,11 +48,17 @@ export function PaginatedResourceSection({
             )}
             <NextLink>
               {isLoading ? (
-                'Loading...'
+                <div className="flex items-center justify-center mt-10 group">
+                  <span className="flex items-center gap-2 bg-(--color-primary) text-(--white) px-4 py-2 rounded-full group-hover:translate-y-[-1]">
+                    Loading...
+                  </span>
+                </div>
               ) : (
-                <span>
-                  Load more <span aria-hidden="true">↓</span>
-                </span>
+                <div className="flex items-center justify-center mt-10 group">
+                  <span className="flex items-center gap-2 bg-(--color-primary) text-(--white) px-4 py-2 rounded-full group-hover:translate-y-[-1]">
+                    Load More Blogs <span aria-hidden="true">↓</span>
+                  </span>
+                </div>
               )}
             </NextLink>
           </div>

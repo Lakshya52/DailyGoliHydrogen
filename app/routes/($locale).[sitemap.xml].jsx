@@ -9,6 +9,7 @@ export async function loader({request, context: {storefront}}) {
     request,
   });
 
+  response.headers.set('Content-Type', 'application/xml');
   response.headers.set('Cache-Control', `max-age=${60 * 60 * 24}`);
 
   return response;

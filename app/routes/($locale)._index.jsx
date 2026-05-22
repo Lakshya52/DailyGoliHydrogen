@@ -15,7 +15,7 @@ const UsVsThem = lazy(() => import('~/components/UsVsThem'));
  */
 export const meta = () => {
   return [
-    { title: 'Daily Goli | MB-360' },
+    { title: 'Daily Goli MB-360 | Natural GLP-1 Metabolism Supplement | Weight Loss Capsules' },
     { name: 'description', content: 'A plant-based supplement with CQR-300, Berberine & Chromium - designed to support your metabolism, manage cravings, and take control of your wellness journey.' }
   ];
 };

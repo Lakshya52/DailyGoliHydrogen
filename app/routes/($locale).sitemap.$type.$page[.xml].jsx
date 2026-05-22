@@ -8,13 +8,12 @@ export async function loader({request, params, context: {storefront}}) {
     storefront,
     request,
     params,
-    locales: ['EN-US', 'EN-CA', 'FR-CA'],
-    getLink: ({type, baseUrl, handle, locale}) => {
-      if (!locale) return `${baseUrl}/${type}/${handle}`;
-      return `${baseUrl}/${locale}/${type}/${handle}`;
+    getLink: ({type, baseUrl, handle}) => {
+      return `${baseUrl}/${type}/${handle}`;
     },
   });
 
+  response.headers.set('Content-Type', 'application/xml');
   response.headers.set('Cache-Control', `max-age=${60 * 60 * 24}`);
 
   return response;

@@ -28,8 +28,8 @@ const Product = ({ product }) => {
 
   // Compute subscription price from selling plan's priceAdjustments
   const basePrice = parseFloat(firstVariant?.price?.amount || 1299);
-  let subPrice = Math.round(basePrice * 0.87); // fallback: 13% off
-  let savingsLabel = '13% off';
+  let subPrice = Math.round(basePrice * 0.88); // fallback: 12% off
+  let savingsLabel = '12% off';
   if (firstSellingPlan) {
     const adj = firstSellingPlan.priceAdjustments?.[0]?.adjustmentValue;
     if (adj?.adjustmentPercentage != null) {
@@ -97,7 +97,7 @@ const Product = ({ product }) => {
             Hurry Up
           </div> */}
           <h2 className=" section-heading  text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
-            Limited Time Offer! <br /> Save Up To 13% on Your First Order!
+            Limited Time Offer! <br /> Save Up To 12% on Your First Order!
           </h2>
           <p className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
             "Inspired by Science. Powered by Plants."
@@ -106,7 +106,7 @@ const Product = ({ product }) => {
             4.8 stars | 85k Reviews | <b>&nbsp;1K+ Monthly Subscribers</b>
           </span> */}
           <span className="font-lex-reg text-(--color-primary) text-sm md:text-xl text-center">
-            Use code <b>DAILYGOLI13</b> at checkout to claim your discount.
+            Use code <b>DAILYGOLI12</b> at checkout to claim your discount.
           </span>
         </div>
 

@@ -49,6 +49,8 @@ export async function createHydrogenRouterContext(
       i18n: getLocaleFromRequest(request),
       cart: {
         queryFragment: CART_QUERY_FRAGMENT,
+        checkoutDomain: 'checkout.dailygoli.in',
+        storefrontToken: env.PUBLIC_STOREFRONT_API_TOKEN,
       },
     },
     additionalContext,

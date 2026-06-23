@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { AddToCartButton } from './AddToCartButton';
 import { CartForm } from '@shopify/hydrogen';
 import { useAside } from './Aside';
+import { useCartUI } from '~/context/CartUIContext';
 
 const BottomBar = ({ product }) => {
   const { open } = useAside();
@@ -10,6 +11,9 @@ const BottomBar = ({ product }) => {
   const [isOverlaying, setIsOverlaying] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
   const selectedVariant = product?.variants?.nodes?.[0];
+
+  const { isCartOpen, closeCart } = useCartUI();
+  
 
   useEffect(() => {
     let observer;
@@ -74,13 +78,14 @@ const BottomBar = ({ product }) => {
 
   const isCartPage = location.pathname.endsWith('/cart');
   if (isCartPage) return null;
+
   const imagesUrl = {
     "fssai": "https://cdn.shopify.com/videos/c/o/v/cov_c3642aa21119f975c2520ef4b72f3864.mp4",
     "fda": ""
   }
 
   return (
-    <div className={`fixed bottom-0 left-0 w-full h-16 bg-(--white) z-[10001] flex items-center justify-between px-4 md:px-10 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transition-all duration-500 ${isOverlaying || isAtBottom ? 'translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
+    <div className={`fixed bottom-0 left-0 w-full h-16 bg-(--white) z-[10001] flex items-center justify-between px-4 md:px-10 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] transition-all duration-500 ${isOverlaying || isAtBottom || isCartOpen ? 'translate-y-full opacity-0 pointer-events-none' : 'translate-y-0 opacity-100'}`}>
       {/* Left side marquee - only if product exists */}
       <div className="flex-1 overflow-hidden mr-4 hidden md:block">
         {/* <div className="flex items-center gap-12 animate-marquee whitespace-nowrap text-(--color-primary)">

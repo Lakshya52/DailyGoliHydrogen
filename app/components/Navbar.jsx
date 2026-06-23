@@ -1,8 +1,8 @@
-import { useState, useEffect, Suspense } from "react";
-import { useNavigate } from "react-router";
-import { Link, Await } from "react-router";
-import { ArrowUpRight, ShoppingCart, Menu, X, Facebook } from "lucide-react";
-
+import {useState, useEffect, Suspense} from 'react';
+import {useNavigate} from 'react-router';
+import {Link, Await} from 'react-router';
+import {ArrowUpRight, ShoppingCart, Menu, X, Facebook} from 'lucide-react';
+import { useCartUI } from '../context/CartUIContext';
 
 const InstagramIcon = () => (
   <svg
@@ -57,20 +57,33 @@ const LinkedinIcon = () => (
 );
 
 const socialLinks = [
-  { name: "Facebook", icon: <Facebook />, href: "https://www.facebook.com/share/1DzCcfkn2h/" },
-  { name: "Instagram", icon: <InstagramIcon />, href: "https://www.instagram.com/dailygoli.official/" },
-  { name: "LinkedIn", icon: <LinkedinIcon />, href: "https://www.linkedin.com/company/daily-goli" },
+  {
+    name: 'Facebook',
+    icon: <Facebook />,
+    href: 'https://www.facebook.com/share/1DzCcfkn2h/',
+  },
+  {
+    name: 'Instagram',
+    icon: <InstagramIcon />,
+    href: 'https://www.instagram.com/dailygoli.official/',
+  },
+  {
+    name: 'LinkedIn',
+    icon: <LinkedinIcon />,
+    href: 'https://www.linkedin.com/company/daily-goli',
+  },
 ];
 
 const navLinks = [
-  { text: "Ingredients", href: "/#ingredients", rotate: "hover:-rotate-3" },
-  { text: "Benefits", href: "/#benefits", rotate: "hover:-rotate-3" },
-  { text: "Blogs", href: "/blogs", rotate: "hover:-rotate-3" },
-  { text: "Reviews", href: "/#reviews", rotate: "hover:rotate-3" },
-  { text: "FAQs", href: "/#faqs", rotate: "hover:rotate-3" },
+  {text: 'Ingredients', href: '/#ingredients', rotate: 'hover:-rotate-3'},
+  {text: 'Benefits', href: '/#benefits', rotate: 'hover:-rotate-3'},
+  {text: 'Blogs', href: '/blogs', rotate: 'hover:-rotate-3'},
+  {text: 'Reviews', href: '/#reviews', rotate: 'hover:rotate-3'},
+  {text: 'FAQs', href: '/#faqs', rotate: 'hover:rotate-3'},
 ];
 
-const Navbar = ({ cart }) => {
+const Navbar = ({cart}) => {
+  const {toggleCart} = useCartUI();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolledPastHero, setScrolledPastHero] = useState(false);
@@ -79,13 +92,13 @@ const Navbar = ({ cart }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
-    navigate("/");
+    navigate('/');
 
     // ensure scroll happens after navigation
     setTimeout(() => {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }, 0);
   };
@@ -107,22 +120,30 @@ const Navbar = ({ cart }) => {
       lastScroll = currentScroll;
       setLastScrollY(currentScroll);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, {passive: true});
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
     <>
       <div
-        className={`fixed top-8 w-full z-9999 flex items-center justify-between ${scrolledPastHero ? "h-[10dvh] bg-(--color-primary)/20" : "h-[10dvh]"
-          }  px-7 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
-          }`}
+        className={`fixed top-8 w-full z-9999 flex items-center justify-between ${
+          scrolledPastHero ? 'h-[10dvh] bg-(--color-primary)/20' : 'h-[10dvh]'
+        }  px-7 md:px-25 backdrop-blur-2xl  transition-all duration-400 ${
+          isVisible
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0'
+        }`}
       >
         <div className="flex items-center gap-2 md:gap-4 lg:gap-1">
-          <img onClick={handleLogoClick} src="/Logo.svg" alt="Daily Goli Logo" className="cursor-pointer h-10  lg:mr-2 " />
-
+          <img
+            onClick={handleLogoClick}
+            src="/Logo.svg"
+            alt="Daily Goli Logo"
+            className="cursor-pointer h-10  lg:mr-2 "
+          />
           {/* Social Media Links - hidden before lg */}
           <div className="hidden lg:flex items-center justify-center w-fit gap-1">
             {socialLinks.map((item, index) => (
@@ -159,8 +180,19 @@ const Navbar = ({ cart }) => {
 
         {/* Action Buttons: Cart & Buy Now */}
         <div className="flex items-center gap-2 md:gap-4">
-          <Link to="/cart" aria-label="Cart" className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group relative">
-            <ShoppingCart size={20} className="text-(--color-primary) transition-colors group-hover:text-(--white)" />
+          <Link
+            to="/cart"
+            onClick={(e) => {
+              e.preventDefault(); // prevent navigation, open side cart instead
+              toggleCart();
+            }}
+            aria-label="Cart"
+            className="h-10 w-10 rounded-full bg-(--white) flex items-center justify-center hover:-translate-y-4 hover:-rotate-3 transition-all duration-400 cursor-pointer hover:bg-(--color-primary) group relative"
+          >
+            <ShoppingCart
+              size={20}
+              className="text-(--color-primary) transition-colors group-hover:text-(--white)"
+            />
             <Suspense fallback={null}>
               <Await resolve={cart}>
                 {(cart) => {
@@ -175,7 +207,10 @@ const Navbar = ({ cart }) => {
             </Suspense>
           </Link>
 
-          <Link to="/product" className="flex items-center justify-center w-fit group cursor-pointer no-underline">
+          <Link
+            to="/product"
+            className="flex items-center justify-center w-fit group cursor-pointer no-underline"
+          >
             <div className="h-10 w-10 rounded-full bg-(--white) group-hover:bg-(--color-primary) group-hover:text-(--white) text-(--color-primary) flex items-center justify-center transition-transform duration-400 group-hover:translate-x-22.5">
               <ArrowUpRight />
             </div>
@@ -196,7 +231,9 @@ const Navbar = ({ cart }) => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 bg-(--white) z-[10000] flex flex-col items-center justify-center transition-all duration-500 origin-top transform ${isMobileMenuOpen ? "scale-y-100 opacity-100" : "scale-y-0 opacity-0 pointer-events-none"}`}>
+      <div
+        className={`fixed inset-0 bg-(--white) z-[10000] flex flex-col items-center justify-center transition-all duration-500 origin-top transform ${isMobileMenuOpen ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0 pointer-events-none'}`}
+      >
         <button
           className="absolute top-6 right-6 h-12 w-12 flex items-center justify-center bg-(--color-primary) text-(--white) rounded-full"
           onClick={() => setIsMobileMenuOpen(false)}

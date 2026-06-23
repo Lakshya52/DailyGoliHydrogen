@@ -59,7 +59,12 @@ export async function loader({request, context, params}) {
 
   // redirect to checkout
   if (cartResult.checkoutUrl) {
-    return redirect(cartResult.checkoutUrl, {headers});
+    const brandedCheckoutUrl = cartResult.checkoutUrl
+      .replace(
+        /https?:\/\/[^/]*myshopify\.com/,
+        'https://checkout.dailygoli.in'
+      )
+    return redirect(brandedCheckoutUrl, {headers});
   } else {
     throw new Error('No checkout URL found');
   }

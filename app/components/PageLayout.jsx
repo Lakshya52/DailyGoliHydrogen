@@ -10,6 +10,7 @@ import {
   SearchFormPredictive,
 } from '~/components/SearchFormPredictive';
 import { SearchResultsPredictive } from '~/components/SearchResultsPredictive';
+import SideCart from './SideCart';
 
 // Lazy-load below-fold components to reduce initial JS bundle
 const BottomBar = lazy(() => import('~/components/BottomBar'));
@@ -30,7 +31,8 @@ export function PageLayout({
 }) {
   return (
     <Aside.Provider>
-      <CartAside cart={cart} />
+      {/* <CartAside cart={cart} /> */}
+      <SideCart cart={cart} /> 
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       <PromoBar />

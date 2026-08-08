@@ -15,6 +15,7 @@ import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import tailwindCss from './styles/tailwind.css?url';
 import { PageLayout } from './components/PageLayout';
+import { CartUIProvider } from './context/CartUIContext';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -214,15 +215,17 @@ export default function App() {
   }
 
   return (
-    <Analytics.Provider
-      cart={data.cart}
-      shop={data.shop}
-      consent={data.consent}
-    >
-      <PageLayout {...data}>
-        <Outlet />
-      </PageLayout>
-    </Analytics.Provider>
+    <CartUIProvider>  
+      <Analytics.Provider
+        cart={data.cart}
+        shop={data.shop}
+        consent={data.consent}
+      >
+        <PageLayout {...data}>
+          <Outlet />
+        </PageLayout>
+      </Analytics.Provider>
+    </CartUIProvider>  
   );
 }
 

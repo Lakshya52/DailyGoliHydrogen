@@ -82,10 +82,16 @@ export function CartSummary({ cart, layout }) {
 function CartCheckoutActions({ checkoutUrl }) {
   if (!checkoutUrl) return null;
 
+   const brandedCheckoutUrl = checkoutUrl
+    .replace(
+      /https?:\/\/[^/]*myshopify\.com/,
+      'https://checkout.dailygoli.in'
+    )
+
   return (
     <div className="space-y-3">
       <a
-        href={checkoutUrl}
+        href={brandedCheckoutUrl}
         target="_self"
         className="block w-full bg-(--color-primary) hover:opacity-80 text-(--white) font-lex-med py-3 px-4 rounded-xl text-center transition duration-200"
       >

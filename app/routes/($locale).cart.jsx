@@ -89,7 +89,13 @@ export async function action({ request, context }) {
   const checkout = formData.get('checkout') === 'true';
   if (checkout && result?.cart?.checkoutUrl) {
     status = 303;
-    headers.set('Location', result.cart.checkoutUrl);
+    const brandedCheckoutUrl = result.cart.checkoutUrl
+      .replace(
+        /https?:\/\/[^/]*myshopify\.com/,
+        'https://checkout.dailygoli.in'
+      )
+      
+    headers.set('Location', brandedCheckoutUrl);
   }
 
   return data(

@@ -46,7 +46,7 @@ export function CartMain({ layout, cart: originalCart }) {
 
   return (
     <section
-      className={`${layout === 'page' ? 'w-full flex flex-col items-center justify-center ' : className} bg-(--bg-light)  `}
+      className={`${layout === 'page' ? 'w-full flex flex-col items-center justify-center ' : className} bg-(--bg-light) min-h-dvh  `}
       style={{
         paddingBottom: 0,
         paddingTop: 0,

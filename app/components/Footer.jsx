@@ -51,8 +51,8 @@ const Footer = () => {
                                 </li>
                                 <li>
                                     <div className="flex gap-5 mt-2">
-                                        <a href="https://www.instagram.com/dailygoli.official/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="Instagram"><Instagram /></a>
                                         <a href="https://www.facebook.com/share/1DzCcfkn2h/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="Facebook"><Facebook /></a>
+                                        <a href="https://www.instagram.com/dailygoli.official/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="Instagram"><Instagram /></a>
                                         <a href="https://www.linkedin.com/company/daily-goli/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="LinkedIn"><Linkedin /></a>
                                     </div>
                                 </li>
@@ -80,7 +80,7 @@ const Footer = () => {
                 {/* top bar */}
                 {/* <div className="border-t border-(--accent)"></div> */}
                 {/* logos */}
-                <div className='w-full min-h-20 bg-[#e0f3d1] p-4 flex items-center flex-wrap justify-center gap-4 rounded-2xl mt-2' >
+                <div className='w-full min-h-20 bg-[#e0f3d1]/70 p-4 flex items-center flex-wrap justify-center gap-4 rounded-2xl mt-2' >
                     <img src="/paymentLogos/amazon-pay.svg" alt="Amazon Pay" className="h-5 sm:h-8 w-auto" />
                     <img src="/paymentLogos/amex.svg" alt="American Express" className="h-5 sm:h-8 w-auto" />
                     <img src="/paymentLogos/diners-club.svg" alt="Diners Club" className="h-5 sm:h-8 w-auto" />

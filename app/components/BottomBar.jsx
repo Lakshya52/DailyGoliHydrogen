@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router';
-import { AddToCartButton } from './AddToCartButton';
-import { CartForm } from '@shopify/hydrogen';
-import { useAside } from './Aside';
+import React, {useState, useEffect} from 'react';
+import {Link, useLocation} from 'react-router';
+// Commented out for now — direct checkout logic kept for later reuse
+// import {useNavigate} from 'react-router';
+// import {AddToCartButton} from './AddToCartButton';
+// import {CartForm} from '@shopify/hydrogen';
+// import {useAside} from './Aside';
 
-const BottomBar = ({ product }) => {
-  const { open } = useAside();
+const BottomBar = ({product}) => {
+  // const {open} = useAside();
   const location = useLocation();
   const [isOverlaying, setIsOverlaying] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
@@ -118,6 +120,7 @@ const BottomBar = ({ product }) => {
             </div>
 
             <div className="flex gap-2">
+              {/* Direct checkout — commented out, now redirects to /product instead
               {selectedVariant && (
                 <CartForm
                   route="/cart"
@@ -160,6 +163,13 @@ const BottomBar = ({ product }) => {
                   )}
                 </CartForm>
               )}
+              */}
+              <Link
+                to="/product"
+                className="px-6 h-10 flex items-center justify-center bg-(--color-primary) text-white rounded-full text-xs font-bold uppercase hover:opacity-90 transition-all cursor-pointer whitespace-nowrap no-underline"
+              >
+                Buy Now
+              </Link>
             </div>
           </>
         ) : (

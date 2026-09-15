@@ -64,6 +64,10 @@ const Product = ({product}) => {
           '/productImages/product-5.png',
         ];
 
+  const compareAtPriceAmount = firstVariant?.compareAtPrice?.amount
+    ? Math.round(parseFloat(firstVariant.compareAtPrice.amount))
+    : null;
+
   const pricing = {
     oneTime: {
       price: Math.round(basePrice),
@@ -230,10 +234,13 @@ const Product = ({product}) => {
                 <span className="text-3xl md:text-5xl font-lex-reg text-(--color-primary)">
                   ₹{pricing[selectedPurchase].price}
                 </span>
-                {/* strik through price */}
-                <span className="text-sm md:text-base text-(--color-primary) opacity-80 line-through">
-                  ₹1499
-                </span>
+                {/* strikethrough price — from Shopify compareAtPrice */}
+                {compareAtPriceAmount &&
+                  compareAtPriceAmount > pricing[selectedPurchase].price && (
+                    <span className="text-sm md:text-base text-(--color-primary) opacity-80 line-through">
+                      ₹{compareAtPriceAmount}
+                    </span>
+                  )}
               </div>
               <p className="text-xs md:text-sm text-(--color-primary) opacity-80">
                 {selectedPurchase === 'monthly'

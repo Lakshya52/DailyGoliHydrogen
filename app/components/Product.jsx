@@ -1,8 +1,15 @@
 import React, {useState, useRef} from 'react';
-import {Star, ShoppingCart, Check, CheckCheck} from 'lucide-react';
+import {
+  Star,
+  ShoppingCart,
+  Check,
+  CheckCheck,
+  ShoppingBag,
+  Copy,
+} from 'lucide-react';
 import {CartForm} from '@shopify/hydrogen';
 import UsVsThem from './UsVsThem';
-import { Link } from "react-router-dom";
+import {Link} from 'react-router-dom';
 const Product = ({product}) => {
   // Extract first selling plan (from Shopify Subscriptions app)
   const firstSellingPlan =
@@ -14,10 +21,28 @@ const Product = ({product}) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedPackIndex, setSelectedPackIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const discountCode = 'DAILYGOLI';
+  const discountPercent = 25;
+  const [codeCopied, setCodeCopied] = useState(false);
+
+  const copyDiscountCode = async () => {
+    try {
+      await navigator.clipboard.writeText(discountCode);
+      setCodeCopied(true);
+      setTimeout(() => setCodeCopied(false), 2000);
+    } catch {
+      setCodeCopied(false);
+    }
+  };
 
   // Drag-to-scroll for thumbnail gallery (mouse only; touch uses native swipe)
   const thumbRowRef = useRef(null);
-  const thumbDrag = useRef({isDown: false, startX: 0, startScroll: 0, moved: false});
+  const thumbDrag = useRef({
+    isDown: false,
+    startX: 0,
+    startScroll: 0,
+    moved: false,
+  });
 
   const onThumbPointerDown = (e) => {
     if (e.pointerType !== 'mouse') return;
@@ -79,7 +104,12 @@ const Product = ({product}) => {
     const optValue = variant?.selectedOptions?.find(
       (o) => o.name === 'Pack Selection',
     )?.value;
-    return optValue || variant?.selectedOptions?.[0]?.value || variant?.title || 'Pack';
+    return (
+      optValue ||
+      variant?.selectedOptions?.[0]?.value ||
+      variant?.title ||
+      'Pack'
+    );
   };
 
   // Compute subscription price from selling plan's priceAdjustments
@@ -108,7 +138,7 @@ const Product = ({product}) => {
   };
 
   const productImageUrls =
-    images.nodes.length > 0
+    images?.nodes?.length > 0
       ? images.nodes.map((img) => img.url)
       : [
           '/productImages/product-1.png',
@@ -117,6 +147,19 @@ const Product = ({product}) => {
           '/productImages/product-4.png',
           '/productImages/product-5.png',
         ];
+
+  // Debug: check what Shopify actually returns for variant images
+  if (typeof window !== 'undefined') {
+    console.log(
+      '[DailyGoli] variant images:',
+      variantNodes.map((v) => ({
+        label: getPackLabel(v),
+        variantImage: v?.image?.url ?? null,
+      })),
+      'productImages:',
+      productImageUrls,
+    );
+  }
 
   const selectedBasePrice = parseFloat(
     selectedVariant?.price?.amount || basePrice || 1299,
@@ -162,32 +205,36 @@ const Product = ({product}) => {
           {/* // old comment <div className="font-lex-reg rounded-full h-10 px-4 bg-(--color-primary) text-(--white) flex items-center justify-center text-sm md:text-base">
             Hurry Up
           </div> // old comment*/}
-          <div className="text-center w-full md:w-[70%] flex flex-col gap-4" >
+          {/* =============================================== */}
+          {/* <div className="text-center w-full md:w-[70%] flex flex-col gap-4">
             <span className="text-2xl md:text-4xl font-lex-reg text-(--color-primary) mb-2">
               {title}
             </span>
             <p className="text-sm md:text-lg text-(--color-primary) opacity-90">
               Premium Metabolic Balance Formula
             </p>
-          </div>
-          {/* Ratings */}
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1 text-(--accent)">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={16}
-                    className="md:w-4.5 md:h-4.5"
-                    fill="currentColor"
-                  />
-                ))}
-              </div>
-              <span className="text-(--color-primary) font-lex-reg">
-                4.8 • <Link to="/reviews" className="hover:underline">
-                  50+ Reviews
-                </Link>
-              </span>
+          </div> */}
+          {/* Ratings
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1 text-(--accent)">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={16}
+                  className="md:w-4.5 md:h-4.5"
+                  fill="currentColor"
+                />
+              ))}
             </div>
+            <span className="text-(--color-primary) font-lex-reg">
+              4.8 •{' '}
+              <Link to="/reviews" className="hover:underline">
+                50+ Reviews
+              </Link>
+            </span>
+          </div> */}
+          {/* =============================================== */}
+
           {/* <h2 className=" section-heading  text-(--color-primary) text-center  md:leading-18 mb-5 font-lex-med leading-[108%]">
             Limited Time Offer! <br /> Save Up To 12% on Your First Order!
           </h2>
@@ -203,7 +250,7 @@ const Product = ({product}) => {
         </div>
 
         {/* product purchasing section */}
-        <div className="w-full md:w-[70%] mt-8 md:mt-15 flex flex-col md:flex-row gap-8 md:gap-12 items-start justify-between relative px-4 md:px-0">
+        <div className="w-full md:w-[85%] flex flex-col md:flex-row gap-8 md:gap-12 items-start justify-between relative px-4 md:px-0">
           {/* Image Gallery - Left Side */}
           <div className="w-full md:w-1/2 md:min-w-[50%] flex flex-col gap-6">
             <div className=" flex flex-col gap-4 will-change-transform">
@@ -258,7 +305,7 @@ const Product = ({product}) => {
             </div>
 
             {/* Product Features — below image carousel, left side */}
-            <div className="bg-(--bg-light) rounded-2xl space-y-3">
+            <div className="bg-(--bg-light) rounded-2xl space-y-3 hidden md:block">
               <div className="flex gap-3 items-start justify-start">
                 <CheckCheck
                   size={20}
@@ -369,12 +416,36 @@ const Product = ({product}) => {
             )} */}
 
             {/* Pricing */}
-            <div className="bg-(--bg-light) rounded-2xl py-4 md:py-6 ">
-              <p className="text-(--color-primary) opacity-90 text-sm mb-2">
+            <div className="bg-(--bg-light) rounded-2xl ">
+              <div className="text-2xl md:text-3xl font-lex-reg text-(--color-primary) mb-2">
+                {/* {title} */}
+                Daily Goli Metabolic Balance 360
+              </div>
+              {/* Ratings */}
+              <div className="flex items-center gap-3">
+                <div className="flex gap-1 text-(--accent)">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className="md:w-4.5 md:h-4.5"
+                      fill="currentColor"
+                    />
+                  ))}
+                </div>
+                <span className="text-(--color-primary) font-lex-reg">
+                  4.8 •{' '}
+                  <Link to="/reviews" className="hover:underline">
+                    50+ Reviews
+                  </Link>
+                </span>
+              </div>
+              <br />
+              {/* <p className="text-(--color-primary) opacity-90 text-sm mb-2">
                 {pricing[selectedPurchase].label}
-              </p>
+              </p> */}
               <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-3xl md:text-5xl font-lex-reg text-(--color-primary)">
+                <span className="text-2xl md:text-3xl font-lex-reg text-(--color-primary)">
                   ₹{pricing[selectedPurchase].price}
                 </span>
                 {/* strikethrough price — from Shopify compareAtPrice */}
@@ -385,11 +456,11 @@ const Product = ({product}) => {
                     </span>
                   )}
               </div>
-              <p className="text-xs md:text-sm text-(--color-primary) opacity-80">
+              {/* <p className="text-xs md:text-sm text-(--color-primary) opacity-80">
                 {selectedPurchase === 'monthly'
                   ? 'Cancel anytime, no hidden charges'
                   : 'One-time payment, free shipping'}
-              </p>
+              </p> */}
             </div>
 
             {/* Quantity Selector — commented out, packs cover quantity now */}
@@ -416,13 +487,51 @@ const Product = ({product}) => {
               </div>
             </div> */}
 
+            <div className="w-full p-3 md:p-4 rounded-xl border-2 border-dashed border-(--color-primary) bg-(--accent) text-(--color-primary)">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-1.5 text-2xl font-lex-reg">
+                  <ShoppingBag size={20} className="shrink-0" />
+                  <span>
+                    Get it for {' '}
+                    <span className="font-bold text-2xl bg-(--color-primary) text-(--white) px-2 py-1 ">
+                      ₹{' '}
+                      {Math.round(
+                        pricing[selectedPurchase].price *
+                          (1 - discountPercent / 100),
+                      )}
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div className="mt-2 flex items-center justify-between gap-3">
+                <div>
+                  <div className="font-lex-reg text-2xl">
+                    Use Code:{' '}
+                    <span className="font-lex-med tracking-wide">
+                      {discountCode}
+                    </span>
+                  </div>
+                  Paste this on the checkout page.
+                </div>
+
+                <button
+                  type="button"
+                  onClick={copyDiscountCode}
+                  className="shrink-0 h-9 px-4 rounded-lg bg-(--color-primary) text-(--white) font-lex-med text-xs md:text-sm hover:opacity-90 transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  {codeCopied ? <Check size={15} /> : <Copy size={15} />}
+                  {codeCopied ? 'COPIED' : 'COPY'}
+                </button>
+              </div>
+            </div>
+
             {/* Pack Selection — from Shopify variants */}
             {variantNodes.length > 1 && (
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 w-full">
                 <p className="font-lex-reg text-sm md:text-base text-(--color-primary)">
-                  Select Pack:
+                  Pick Your Pack:
                 </p>
-                <div className="flex flex-col gap-3">
+                <div className="flex gap-2 md:gap-3 w-full">
                   {variantNodes.map((variant, index) => {
                     const label = getPackLabel(variant);
                     const price = Math.round(
@@ -437,7 +546,9 @@ const Product = ({product}) => {
                       compareAt && compareAt > price
                         ? Math.round(((compareAt - price) / compareAt) * 100)
                         : null;
-                    const badge =
+                    const savingsAmount =
+                      compareAt && compareAt > price ? compareAt - price : null;
+                    const fallbackBadge =
                       label.toLowerCase().includes('pack of 3') ||
                       (variantNodes.length === 3 && index === 2)
                         ? 'BEST VALUE'
@@ -445,56 +556,96 @@ const Product = ({product}) => {
                             (variantNodes.length === 3 && index === 1)
                           ? 'MOST POPULAR'
                           : null;
+                    const topBadge =
+                      variantNodes.length === 3
+                        ? index === 0
+                          ? 'Most Popular'
+                          : index === 1
+                            ? 'Most Popular 🔥'
+                            : 'Best Value 💰'
+                        : fallbackBadge;
+                    const shopifyVariantUrl = variant?.image?.url ?? null;
+                    const fallbackUrl =
+                      productImageUrls[index % productImageUrls.length] ??
+                      productImageUrls[0] ??
+                      null;
+                    const variantImageSrc = resizeImage(
+                      shopifyVariantUrl ?? fallbackUrl,
+                      600,
+                    );
                     return (
                       <button
                         key={variant.id}
                         type="button"
                         disabled={isSoldOut}
                         onClick={() => setSelectedPackIndex(index)}
-                        className={`relative w-full text-left rounded-2xl border-2 p-4 transition-all duration-300 cursor-pointer ${
+                        className={`relative flex-1 min-w-0 flex flex-col items-stretch rounded-2xl border-2 px-2 pb-2 pt-7 md:px-3 md:pb-3 md:pt-8 text-center transition-all duration-300 cursor-pointer ${
                           isSelected
                             ? 'border-(--color-primary) bg-(--bg-light)'
-                            : 'border-(--bg-light) bg-white hover:border-(--color-primary)'
+                            : 'border-gray-200 bg-[#f1f1f1] hover:border-(--color-primary)'
                         } ${isSoldOut ? 'opacity-50 cursor-not-allowed' : ''}`}
                       >
-                        {badge && (
-                          <span className="absolute -top-3 right-4 bg-(--color-primary) text-(--white) text-[11px] md:text-xs font-lex-med px-3 py-1 rounded-full">
-                            {badge}
+                        {topBadge && (
+                          <span
+                            className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] md:text-xs font-lex-med px-3 py-1 rounded-full text-white ${
+                              index === 0 ? 'bg-black' : 'bg-(--color-primary)'
+                            }`}
+                          >
+                            {topBadge}
                           </span>
                         )}
-                        <span className="flex items-center justify-between gap-3">
-                          <span className="flex items-center gap-3">
-                            <span
-                              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                isSelected
-                                  ? 'border-(--color-primary)'
-                                  : 'border-(--color-primary)/40'
-                              }`}
-                            >
-                              {isSelected && (
-                                <span className="w-2.5 h-2.5 rounded-full bg-(--color-primary)" />
-                              )}
-                            </span>
-                            <span className="flex flex-col">
-                              <span className="font-lex-med text-base md:text-lg text-(--color-primary)">
-                                {label}
-                                {isSoldOut ? ' — Sold Out' : ''}
+                        <span className="flex flex-col items-center gap-1.5 md:gap-2 flex-1">
+                          <span className="w-full aspect-square rounded-xl overflow-hidden bg-white flex items-center justify-center">
+                            {variantImageSrc ? (
+                              <img
+                                key={variantImageSrc}
+                                src={variantImageSrc}
+                                alt={
+                                  variant?.image?.altText || `${label} image`
+                                }
+                                width="400"
+                                height="400"
+                                loading="lazy"
+                                sizes="(min-width: 768px) 200px, 30vw"
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  const fallback =
+                                    productImageUrls[0] ??
+                                    '/productImages/product-1.png';
+                                  if (
+                                    e.currentTarget.src !==
+                                    window.location.origin + fallback
+                                  ) {
+                                    e.currentTarget.src = fallback;
+                                  }
+                                }}
+                              />
+                            ) : (
+                              <span className="text-xs text-(--color-primary) opacity-60 px-2">
+                                No image for {label}
                               </span>
-                              {discountPct && (
-                                <span className="text-xs md:text-sm text-(--color-primary) opacity-80">
-                                  Save {discountPct}%
-                                </span>
-                              )}
-                            </span>
+                            )}
                           </span>
-                          <span className="flex flex-col items-end">
-                            <span className="font-lex-med text-lg md:text-xl text-(--color-primary)">
-                              ₹{price}
+                          {/* <span className="bg-white rounded-full px-2.5 py-0.5 text-[11px] md:text-xs font-lex-med text-(--color-primary) shadow-sm max-w-full truncate">
+                            {label}
+                          </span> */}
+                          <span className="flex flex-col leading-tight">
+                            <span className="font-lex-med text-[13px] md:text-base text-(--color-primary)  ">
+                              {label}
+                              {isSoldOut ? ' — Sold Out' : ''}
                             </span>
-                            {compareAt && compareAt > price && (
-                              <span className="text-xs md:text-sm text-(--color-primary) opacity-70 line-through">
-                                ₹{compareAt}
+                            {discountPct && (
+                              <span className="text-[11px] md:text-xs text-(--color-primary) opacity-70">
+                                Save {discountPct}%
                               </span>
+                            )}
+                          </span>
+
+                          <span className="font-lex-med text-sm md:text-lg text-(--color-primary)">
+                            After Discount ₹{' '}
+                            {Math.round(
+                              price *
+                                (1 - discountPercent / 100),
                             )}
                           </span>
                         </span>
@@ -505,11 +656,9 @@ const Product = ({product}) => {
               </div>
             )}
 
-            <div id="product-actions" className="w-full block self-stretch">
+            <div id="product-actions" className="w-full max-w-full block">
               {/* Buy Now Button - Direct to checkout redirected handled by cart action */}
               <CartForm
-                className="block w-full"
-                style={{display: 'block', width: '100%'}}
                 route="/cart"
                 action={CartForm.ACTIONS.LinesAdd}
                 inputs={{
@@ -529,19 +678,18 @@ const Product = ({product}) => {
                   type="submit"
                   name="checkout"
                   value="true"
-                  style={{width: '100%'}}
-                  className="w-full min-w-full h-12 md:h-16 px-6 md:px-8 bg-(--color-primary) text-(--white) rounded-xl font-lex-reg text-sm md:text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
+                  style={{
+                    width: '100%',
+                    maxWidth: '100%',
+                    margin: 0,
+                    boxSizing: 'border-box',
+                  }}
+                  className="w-full h-12 md:h-16 px-6 md:px-8 bg-(--color-primary) text-(--white) rounded-xl font-lex-reg text-sm md:text-lg hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer hover:bg-(--accent) hover:text-(--color-primary) border border-(--color-primary)"
                 >
                   Buy Now — {getPackLabel(selectedVariant)}
                 </button>
               </CartForm>
             </div>
-            
-              <div className=' p-4 border-2 border-(--color-primary) rounded-2xl border-dashed text-(--color-primary) font-lex-med bg-(--accent)' >  
-                <h3 className="font-bold text-xl">12% OFF</h3>
-                <h3 className="font-bold text-xl">USE CODE</h3>
-                <h3 className="text-3xl">DAILYGOLI12</h3 >
-              </div>
 
             {/* Benefits */}
             <div className="flex flex-wrap gap-3">
@@ -585,6 +733,59 @@ const Product = ({product}) => {
               <span>🔒 Secure Checkout</span>
               <span>🚚 Ships in 24 Hours</span>
               <span>✓ Verified Sellers</span>
+            </div>
+
+            
+            {/* Product Features — below image carousel, left side */}
+            <div className="bg-(--bg-light) rounded-2xl space-y-3 md:hidden block">
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck
+                  size={20}
+                  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) "
+                />
+                <p className="text-(--color-primary) text-xl font-lex-reg">
+                  GLP-1 Pathway Science Inspired — 6 clinically studied
+                  botanical ingredients
+                </p>
+              </div>
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck
+                  size={20}
+                  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) "
+                />
+                <p className="text-(--color-primary) text-xl font-lex-reg">
+                  Supports and control your appetite & reduces sugar cravings
+                  naturally in your body
+                </p>
+              </div>
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck
+                  size={20}
+                  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) "
+                />
+                <p className="text-(--color-primary) text-xl font-lex-reg">
+                  Berberine + Chromium for healthy blood sugar and metabolism
+                  support
+                </p>
+              </div>
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck
+                  size={20}
+                  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) "
+                />
+                <p className="text-(--color-primary) text-xl font-lex-reg">
+                  Inulin prebiotic for gut health and sustained energy
+                </p>
+              </div>
+              <div className="flex gap-3 items-start justify-start">
+                <CheckCheck
+                  size={20}
+                  className="min-h-5 h-5 w-5 min-w-5 max-w-5 max-h-5 text-(--color-primary) "
+                />
+                <p className="text-(--color-primary) text-xl font-lex-reg">
+                  100% Veg Capsules | No artificial additives | FSSAI approved
+                </p>
+              </div>
             </div>
           </div>
         </div>

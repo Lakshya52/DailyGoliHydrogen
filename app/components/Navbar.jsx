@@ -58,7 +58,8 @@ const LinkedinIcon = () => (
 
 const socialLinks = [
   { name: "Facebook", icon: <Facebook />, href: "https://www.facebook.com/share/1DzCcfkn2h/" },
-  { name: "Instagram", icon: <InstagramIcon />, href: "https://www.instagram.com/dailygoli.official/" },
+  // { name: "Instagram", icon: <InstagramIcon />, href: "https://www.instagram.com/dailygoli.official/" },
+  { name: "Instagram", icon: <InstagramIcon />, href: "https://www.instagram.com/dailygoli.in/" },
   { name: "LinkedIn", icon: <LinkedinIcon />, href: "https://www.linkedin.com/company/daily-goli" },
 ];
 

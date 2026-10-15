@@ -20,7 +20,7 @@ const Hero = () => {
 
                 {/* right images section  */}
                 <div className="w-full lg:w-1/2 flex items-center justify-center">
-                    <img src="/images/productMain.webp" alt="Daily goli MB-360 main product image" className="w-full" width="600" height="600" loading="eager" fetchPriority="high" sizes="(min-width: 1024px) 50vw, 100vw" />
+                    <img src="/images/productMainNew.webp" alt="Daily goli MB-360 main product image" className="w-full" width="600" height="600" loading="eager" fetchPriority="high" sizes="(min-width: 1024px) 50vw, 100vw" />
                 </div>
             </div>
         </div>

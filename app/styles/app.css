@@ -685,7 +685,8 @@ button.reset:hover:not(:has(> *)) {
 * --------------------------------------------------
 */
 :root {
-  --color-primary: #0b602b;
+  /* --color-primary: #0b602b; */
+  --color-primary: #04361a;
   --bg-light: #e0f3d1;
   --text: var(--color-primary);
   --accent: #fed054;

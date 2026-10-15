@@ -189,7 +189,7 @@ function CartEmpty({ hidden = false, layout }) {
 
             {/* CTA Button */}
             <Link
-              to="/#product"
+              to="/product"
               onClick={close}
               prefetch="viewport"
               className="relative overflow-hidden group h-14 w-full max-w-[260px] bg-(--color-primary) text-(--accent) font-lex-bold rounded-full transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1"

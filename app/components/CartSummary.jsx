@@ -14,6 +14,12 @@ export function CartSummary({ cart, layout }) {
     ? 'bg-(--white) rounded-2xl border border-(--color-primary)/20 p-6 md:p-8 lg:sticky lg:top-[18dvh]'
     : 'cart-summary-aside';
 
+  const subtotal = parseFloat(cart?.cost?.subtotalAmount?.amount ?? 0);
+  const total = parseFloat(cart?.cost?.totalAmount?.amount ?? 0);
+  const tax = parseFloat(cart?.cost?.totalTaxAmount?.amount ?? 0);
+  const discountTotal =
+    Math.round((subtotal + tax - total) * 100) / 100;
+
   return (
     <div aria-labelledby={summaryId} className={containerClass}>
       <div>
@@ -45,6 +51,23 @@ export function CartSummary({ cart, layout }) {
               )}
             </dd>
           </div>
+          {discountTotal > 0 && (
+            <div className="flex justify-between items-center">
+              <dt className="text-(--color-primary) opacity-70">
+                Discount Savings
+              </dt>
+              <dd className="font-semibold text-green-700 flex items-center gap-0.5 whitespace-nowrap">
+                <span>−</span>
+                <Money
+                  data={{
+                    amount: discountTotal.toFixed(2),
+                    currencyCode:
+                      cart?.cost?.subtotalAmount?.currencyCode ?? 'INR',
+                  }}
+                />
+              </dd>
+            </div>
+          )}
         </dl>
       </div>
 
@@ -118,6 +141,15 @@ function CartDiscounts({
       ?.filter((discount) => discount.applicable)
       ?.map(({ code }) => code) || [];
 
+  // CartForm submits via fetcher, so action errors live on the fetcher data
+  const discountFetcher = useFetcher({key: 'cart-discount'});
+  const fetcherErrors = discountFetcher.data?.errors;
+  const errorMessages = Array.isArray(fetcherErrors)
+    ? fetcherErrors
+        .map((error) => error?.message)
+        .filter(Boolean)
+    : [];
+
   return (
     <section aria-label="Discounts" className="">
       {/* Show applied discount codes */}
@@ -137,7 +169,7 @@ function CartDiscounts({
             <button
               type="submit"
               aria-label="Remove discount"
-              className="text-(--accent) hover:text-(--color-primary) text-sm font-medium"
+              className="text-(--color-primary) underline underline-offset-2 hover:opacity-70 text-sm font-lex-med shrink-0"
             >
               Remove
             </button>
@@ -167,6 +199,26 @@ function CartDiscounts({
           </button>
         </div>
       </UpdateDiscountForm>
+
+      {/* One-click apply for the advertised promo code */}
+      {codes.length === 0 && (
+        <UpdateDiscountForm discountCodes={codes}>
+          <input type="hidden" name="discountCode" value="DAILYGOLI" />
+          <button
+            type="submit"
+            className="mt-2 w-full bg-(--accent) text-(--color-primary) font-lex-med px-4 py-2.5 rounded-xl text-sm transition hover:opacity-90"
+          >
+            Apply DAILYGOLI · get 25% off
+          </button>
+        </UpdateDiscountForm>
+      )}
+
+      {/* Surface invalid-code errors from the discount update */}
+      {errorMessages.length > 0 && (
+        <p role="alert" className="mt-2 text-sm text-red-700">
+          {errorMessages.join(' ')}
+        </p>
+      )}
     </section>
   );
 }
@@ -182,6 +234,7 @@ function UpdateDiscountForm({ discountCodes, children }) {
     <CartForm
       route="/cart"
       action={CartForm.ACTIONS.DiscountCodesUpdate}
+      fetcherKey="cart-discount"
       inputs={{
         discountCodes: discountCodes || [],
       }}

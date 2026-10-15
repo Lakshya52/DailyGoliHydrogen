@@ -52,7 +52,8 @@ const Footer = () => {
                                 <li>
                                     <div className="flex gap-5 mt-2">
                                         <a href="https://www.facebook.com/share/1DzCcfkn2h/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="Facebook"><Facebook /></a>
-                                        <a href="https://www.instagram.com/dailygoli.official/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="Instagram"><Instagram /></a>
+                                        {/* <a href="https://www.instagram.com/dailygoli.official/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="Instagram"><Instagram /></a> */}
+                                        <a href="https://www.instagram.com/dailygoli.in/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="Instagram"><Instagram /></a>
                                         <a href="https://www.linkedin.com/company/daily-goli/" target="_blank" rel="noopener noreferrer" className='cursor-pointer hover:underline text-(--accent)' aria-label="LinkedIn"><Linkedin /></a>
                                     </div>
                                 </li>

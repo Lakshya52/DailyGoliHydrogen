@@ -559,7 +559,7 @@ const Product = ({product}) => {
                     const topBadge =
                       variantNodes.length === 3
                         ? index === 0
-                          ? 'Most Popular'
+                          ? 'Regular Pack'
                           : index === 1
                             ? 'Most Popular 🔥'
                             : 'Best Value 💰'
